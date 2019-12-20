@@ -1,0 +1,18 @@
+baseURL = "https://gpanders.com/"
+languageCode = "en-us"
+author = "Greg Anders"
+title = "g.p. anders"
+theme = "hugo-flex"
+
+[params]
+summaries = false
+
+[[menu.nav]]
+name = "About"
+url = "/about"
+weight = 1
+
+[[menu.nav]]
+name = "RSS"
+url = "/index.xml"
+weight = 1
