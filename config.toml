@@ -6,7 +6,7 @@ theme = "hugo-flex"
 dateFormat = "January 6, 2006"
 
 [permalinks]
-  posts = "/:title/"
+  posts = "/:year/:month/:day/:title/"
 
 [params]
   summaries = true
@@ -24,4 +24,9 @@ dateFormat = "January 6, 2006"
 [[menu.nav]]
   name = "about"
   url = "/about"
+  weight = 2
+
+[[menu.nav]]
+  name = "posts"
+  url = "/posts"
   weight = 1
