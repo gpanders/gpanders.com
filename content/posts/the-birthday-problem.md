@@ -1,7 +1,7 @@
 ---
 title: The Birthday Problem
 date: 2015-12-07
-katex: true
+tags: [probability]
 ---
 
 The "Birthday Problem" is a classic in introductory probability theory, and it
@@ -12,6 +12,8 @@ never fails to impress the newly initiated. The problem goes like this:
 
 The answer may surprise you. Before we get to the answer though, let's go real
 briefly into the math behind it.
+
+<!--more-->
 
 The probability that two people in a group of $N$ people share a birthday is
 the inverse of the statement that everybody in the room has a unique birthday.
@@ -97,3 +99,6 @@ $$
 So, next time you're in a room with 23 or more people, test the math for
 yourself and see if anyone shares a birthday - and bonus points for you if you
 can casually drop the phrase "probability theory" into your conversation.
+
+{{< katex >}}
+

@@ -1,6 +1,7 @@
 ---
 title: Make Your Mac Clean Itself
 date: 2015-11-11
+tags: [macOS, pushbroom]
 ---
 
 **Update (6/18/2019):** Since writing this post I have released a tool called
@@ -11,6 +12,8 @@ easier. If you have [Homebrew](https://brew.sh) installed simply run
 
 from the Terminal. Follow the instructions on the screen to setup the
 configuration file and start the pushbroom service.
+
+<!--more-->
 
 The original solution in the post below is, frankly, a rather unsophisticated
 way of solving this problem. If you don't want to use pushbroom,

@@ -1,7 +1,13 @@
 ---
 title: "Tutorial: Booting Linux on the ZCU102"
 date: 2019-02-13
+tags: [linux, xilinx]
 ---
+
+This post contains a step-by-step walkthrough on booting Linux on Xilinx's
+ZCU102 MPSoC eval board.
+
+<!--more-->
 
 Installing Linux on the Zynq MPSoC board is fairly straightforward if you take
 Xilinx's advice and use their PetaLinux tool; however, I wanted to try my hand

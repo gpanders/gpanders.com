@@ -1,12 +1,15 @@
 ---
 title: Write Your Own Man Pages
 date: 2019-07-29
+tags: [shell]
 ---
 
 This post was inspired by the tool [um](https://github.com/sinclairtarget/um).
 I decided to try my hand at making my own lightweight implementation using just
 a shell function. I decided to name my tool `ual` as a nod to the fact that it
 complements `man`.
+
+<!--more-->
 
 I wanted to be able to write quick, simple notes in Markdown and be able to
 view them in a man-page style format from anywhere on the command line.

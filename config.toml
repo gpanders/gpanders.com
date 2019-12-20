@@ -3,16 +3,25 @@ languageCode = "en-us"
 author = "Greg Anders"
 title = "g.p. anders"
 theme = "hugo-flex"
+dateFormat = "January 6, 2006"
+
+[permalinks]
+  posts = "/:title/"
 
 [params]
-summaries = false
+  summaries = true
+  footer = ""
+  css = [
+      "assets/css/custom.css",
+      "assets/css/fa/fontawesome.css",
+      "assets/css/fa/all.css",
+  ]
+
+[markup]
+  [markup.highlight]
+    style = "friendly"
 
 [[menu.nav]]
-name = "About"
-url = "/about"
-weight = 1
-
-[[menu.nav]]
-name = "RSS"
-url = "/index.xml"
-weight = 1
+  name = "about"
+  url = "/about"
+  weight = 1

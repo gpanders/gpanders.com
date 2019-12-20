@@ -1,0 +1,39 @@
+p > code {
+  padding:2px 4px;
+  background: #eee;
+}
+
+code {
+  font-size: 0.9rem;
+}
+
+.u-background {
+  background: white;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.Banner-link {
+  color: black;
+  font-weight: normal;
+}
+
+.Banner-item--title .Banner-link {
+  font-weight: 700;
+}
+
+.Tags-link {
+  color: #0066cc;
+}
+
+.Tags-item.u-background {
+  background: #e6f2ff;
+}
+
+.Heading {
+  flex-direction: column;
+}
+
+.Footer a {
+    color: black;
+    margin: 0 10px;
+}
