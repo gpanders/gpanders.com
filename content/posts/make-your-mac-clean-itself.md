@@ -42,7 +42,7 @@ for more than 30 days.
 First, open the **TextEdit** app and create a new file. Click `Format` > `Make
 Plain Text`.
 
-![TextEdit](/assets/img/posts/text-edit-make-plain-text.png)
+![TextEdit](/img/text-edit-make-plain-text.png)
 
 Now copy the following to that file.
 
