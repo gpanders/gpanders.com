@@ -5,12 +5,27 @@ p > code {
 
 .u-background {
   background: white;
+}
+
+nav {
   border-bottom: 1px solid #dbdbdb;
 }
 
 .Banner-link {
   color: black;
   font-weight: normal;
+}
+
+.Divider {
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.Divider:after {
+  content: "";
+}
+
+.Divider:last-of-type {
+  border-bottom: none;
 }
 
 .Banner-item--title .Banner-link {
@@ -27,9 +42,4 @@ p > code {
 
 .Heading {
   flex-direction: column;
-}
-
-.Footer a {
-    color: black;
-    margin: 0 10px;
 }
