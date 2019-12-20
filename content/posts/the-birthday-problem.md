@@ -101,4 +101,3 @@ yourself and see if anyone shares a birthday - and bonus points for you if you
 can casually drop the phrase "probability theory" into your conversation.
 
 {{< katex >}}
-

@@ -1,14 +1,7 @@
-{{ resources.Get "katex/katex.css" | minify | fingerprint | .Page.Scratch.SetInMap "css" "katex" }}
-{{ slice (resources.Get "katex/katex.js") (resources.Get "katex/auto-render.js") | resources.Concat "js/katex.js" | minify | fingerprint | .Page.Scratch.SetInMap "js" "katex" }}
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-  renderMathInElement(document.body, {
-    delimiters: [
-      { left: "$$",  right: "$$",  display: true },
-      { left: "$",   right: "$",   display: false },
-      { left: "\\(", right: "\\)", display: false },
-      { left: "\\[", right: "\\]", display: true }
-    ]
-   });
-});
-</script>
+{{ with resources.Get "katex/katex.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ .Permalink }}" integrity="{{ .Data.Integrity }}">
+{{ end }}
+{{ with slice (resources.Get "katex/katex.js") (resources.Get "katex/auto-render.js") | resources.Concat "js/katex.js" | minify | fingerprint }}
+<script defer src="{{ .Permalink }}" integrity="{{ .Data.Integrity }}"></script>
+{{ end }}
+<script type="text/javascript">document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}]})})</script>
