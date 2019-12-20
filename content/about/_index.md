@@ -1,3 +1,7 @@
+---
+title: About
+---
+
 I am an electrical and computer engineer specializing in space-based systems. I
 love to build things and understand how things work.
 

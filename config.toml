@@ -3,7 +3,6 @@ languageCode = "en-us"
 author = "Greg Anders"
 title = "g.p. anders"
 theme = "hugo-flex"
-dateFormat = "January 6, 2006"
 
 [taxonomies]
   tag = "tags"
