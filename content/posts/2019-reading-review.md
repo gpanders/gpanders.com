@@ -32,7 +32,7 @@ excellent narrative spin.
 the famous Battle of Thermopylae (the same battle portrayed in the glaringly
 inaccurate _300_). Pressfield's novel is told through the eyes of one of the
 free Greeks living in Sparta who joins the 301 Spartiates (King Leonidas plus
-300 peers) to stymie the advance of Xerxes' Persion Army at the narrow pass of
+300 peers) to stymie the advance of Xerxes' Persian Army at the narrow pass of
 Thermopylae (Greek for "The Hot Gates"). Pressfield's telling is gripping and
 tragic. He paints a bleak picture of the violence and chaos that are the
 hallmarks of all warfare, but particularly the up-close clashes of ancient
@@ -45,11 +45,11 @@ recounts the twilight years of the Roman Republic, from around 120 BC to 20 BC.
 Holland's narrative storytelling is utterly compelling and one could be
 forgiven for forgetting that they are reading actual history. Rome's history is
 packed with intrigue, suspense, plots, twists and turns, and outrageous
-characters, and Holland does a remarkable job of brining this world to life. It
+characters, and Holland does a remarkable job of bringing this world to life. It
 is incredible to think that some of the world's most famous historical
 characters, such as Julius Caesar, Pompey, Cicero, Cato, Octavian, Mark Antony,
 Cleopatra, and others, all lived at the same time.  _Rubicon_ tells the story
-of the one of the most dramatic periods in human history and I highly recommend
+of one of the most dramatic periods in human history and I highly recommend
 it.
 
 Two books I read on recommendations from the same friend were **Einstein's
@@ -69,7 +69,7 @@ the current scientific and popular conception of nature as a complex,
 interrelated web-of-life.
 
 It is hard to believe, but prior to Humboldt the popular thinking in
-Englightenment circles was that nature was a mechanistic process, almost like a
+Enlightenment circles was that nature was a mechanistic process, almost like a
 clock. It was perfectly and rationally designed, with pieces that operated
 independently from each other. Descartes thought of animals as closer to
 machines or automata rather than creatures similar to humans. Humboldt, born in
@@ -98,7 +98,7 @@ perhaps my favorite book that I read this year and is certainly now one of my
 favorite works of fiction. _Lonesome Dove_ tells the tale of a cattle drive
 from South Texas to Montana set sometime in the 1870's. McMurtry's story
 telling ability is peerless and the characters he creates are funny, tragic,
-inspiritational, frustrating, and terrifying. McMurtry's knowledge of Western
+inspirational, frustrating, and terrifying. McMurtry's knowledge of Western
 geography and history is evident throughout the tale and no other work of
 fiction captures the gritty and unromantic aspects of this hard life quite so
 well. I recommend this book to anyone, but particularly to those who grew up in
@@ -138,7 +138,7 @@ and the violent terror of Texas' past.
 I enjoyed _Empire of the Summer Moon_ so much that I read Gwynne's newest book
 **Hymns of the Republic**, the narrative history of the final year of the
 American Civil War.  Gwynne is an exquisite author, and his ability to
-construct a compelling storyline from historical events is unmatched. _Hymns of
+construct a compelling story line from historical events is unmatched. _Hymns of
 the Republic_ draws into focus just how truly tragic the American Civil War was
 and also presents the stark realization that history is not nearly as clean as
 we would often like it to be. Both the Union and the Confederacy had their
@@ -168,7 +168,7 @@ write.
 I read Isaac Asimov's **Foundation** in a single sitting. I consider myself a
 fan of science fiction and yet had never read this seminal series. Needless to
 say, it did not disappoint. I love Asimov's writing style (the stylistic structure of
-_Foundation_ has echos of one of my favorite short stories, [The Last
+_Foundation_ has echoes of one of my favorite short stories, [The Last
 Question][question]) and was completely enraptured by the tale of the waning
 Galactic Empire and the nascent, underdog Foundation.
 
@@ -176,7 +176,7 @@ Galactic Empire and the nascent, underdog Foundation.
 Imperial Trans-Antarctic Expedition. In 1914, Ernest Shackleton and his crew
 set out to become the first to cross the Antarctic continent overland. However,
 on their way to the continent their ship became trapped in the pack ice and
-eventuallly sank. In _Endurance_, Lansing tells the incredible tale of how
+eventually sank. In _Endurance_, Lansing tells the incredible tale of how
 Shackleton led his men safely back to civilization.
 
 Finally, three of the most compelling books I read this year were Cal Newport's

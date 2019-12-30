@@ -4,8 +4,8 @@ date: 2019-02-13
 tags: [linux, xilinx]
 ---
 
-This post contains a step-by-step walkthrough on booting Linux on Xilinx's
-ZCU102 MPSoC eval board.
+This post contains a step-by-step walk through on booting Linux on Xilinx's
+ZCU102 MPSoC evaluation board.
 
 <!--more-->
 
@@ -35,7 +35,7 @@ solution from nothing to Linux.
 1.  A ZCU102 evaluation board
 2.  A USB-connection to the board's UART (the kit comes with this cable)
 3.  An SD card with 2 partitions: a FAT32 boot partition, and an ext4
-    filesystem partition
+    file system partition
 4.  Some kind of Linux installation (a virtual machine on Windows is fine)
 5.  A Vivado installation, including the Vivado SDK. You can run Vivado and the
     SDK on Windows if you like, but **you must have SDK installed on Linux**,
@@ -68,7 +68,7 @@ all of the files to initialize the processing system (PS) to the settings you
 gave it in the IP integrator. The HDF file also contains your bitstream and any
 drivers for custom IP you might have included.
 
-## Step 3: Create the First Stage Bootloader (FSBL)
+## Step 3: Create the First Stage Boot Loader (FSBL)
 
 In the Vivado SDK, go to `File` > `New` > `Application Project`. In the **New
 Project** dialog that appears, call the project `fsbl` and set the OS Platform
@@ -146,7 +146,7 @@ In my case, SDK produced both a `system-top.dts` and a `system.dts` file. This
 appears to be due to a bug in Xilinx's device tree generator (see
 [here](https://github.com/Xilinx/device-tree-xlnx/pull/8)). The `system.dts`
 file contains only a single entry that sets the local MAC address of the
-ethernet controller. You can either add the line
+Ethernet controller. You can either add the line
 
 ```dts
 /include/ "system.dts"
@@ -261,7 +261,7 @@ Copy the `Image` file to the FAT32 (boot) partition of your SD card.
 ## Step 10: Find or create a file system
 
 There are a thousand and one ways to procure a file system for Linux, so do
-whatever works for you. If you want just a minimal Debian or Ubuntu filesystem,
+whatever works for you. If you want just a minimal Debian or Ubuntu file system,
 you can download one from [eewiki](https://rcn-ee.com/rootfs/eewiki/minfs/).
 
 You can also use a tool like [buildroot](https://buildroot.org) or [Yocto
@@ -271,7 +271,7 @@ specific application.
 If your development machine is running a Debian-based distribution (such as
 Ubuntu) and you also want to use a Debian-based distribution on your board, you
 can use a tool called [debootstrap](https://wiki.debian.org/Debootstrap). To
-create a Debian-based root filesystem, use the process outlined
+create a Debian-based root file system, use the process outlined
 [here](https://wiki.debian.org/Arm64Port#Debootstrap_arm64).
 
 However you get it, install the file system to the ext4 partition of your
