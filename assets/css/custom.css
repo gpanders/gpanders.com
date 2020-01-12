@@ -1,5 +1,5 @@
 p > code {
-  padding:2px 4px;
+  padding: 2px 4px;
   background: #eee;
 }
 
@@ -11,9 +11,14 @@ nav {
   border-bottom: 1px solid #dbdbdb;
 }
 
+.Banner {
+  align-items: center;
+}
+
 .Banner-link {
-  color: black;
+  color: #000;
   font-weight: normal;
+  font-size: 1rem;
 }
 
 .Divider {
@@ -30,6 +35,7 @@ nav {
 
 .Banner-item--title .Banner-link {
   font-weight: 700;
+  font-size: 1.25rem;
 }
 
 .Tags-link {
@@ -42,4 +48,21 @@ nav {
 
 .Heading {
   flex-direction: column;
+}
+
+.Footer {
+  border-top: 1px solid #dbdbdb;
+}
+
+.Footer-links {
+  padding: 1rem 0 0 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Footer-link {
+  color: #666;
+  font-weight: normal;
 }
