@@ -17,6 +17,5 @@ fi
 
 cd public
 git add .
-git add -f tags  # tags is listed in .gitignore (for ctags) so use -f
 git commit -m "$msg"
 git push origin master
