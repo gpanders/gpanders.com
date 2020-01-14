@@ -1,7 +1,3 @@
 [submodule "themes/hugo-flex"]
 	path = themes/hugo-flex
 	url = https://github.com/de-souza/hugo-flex.git
-[submodule "public"]
-	path = public
-	url = git@github.com:gpanders/gpanders.github.io.git
-	branch = master

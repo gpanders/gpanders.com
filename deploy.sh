@@ -1,6 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 set -e
+
+if [ ! -d public ]; then
+	git clone -q git@github.com:gpanders/gpanders.github.io public
+fi
 
 printf "\033[0;32mDeploying updates to GitHub...\033[0m\n"
 
