@@ -11,7 +11,4 @@
     </div>
   </div>
 </footer>
-<script>(function(){window.counter='https://stats.gpanders.com/count'})();</script>
-{{ with resources.Get "js/count.js" | fingerprint }}
-<script async src="{{ .Permalink }}" integrity="{{ .Data.Integrity }}"></script>
-{{ end }}
+{{ partial "goatcounter.html" }}

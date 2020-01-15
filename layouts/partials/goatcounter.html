@@ -1,9 +1,11 @@
+<script>
+window.counter = 'https://gpanders.goatcounter.com/count'
 // Copyright © 2019 Martin Tournoij <martin@arp242.net>
 // This file is part of GoatCounter and published under the terms of the EUPL
 // v1.2, which can be found in the LICENSE file or at http://eupl12.zgo.at
 
 // See /bin/proxy on how to test this locally.
-(function() { 
+(function() {
 	'use strict';
 
 	var VARS = {};
@@ -107,11 +109,11 @@
 		setTimeout(function() {
 			if (!img.parentNode)
 				return;
-			img.src = ''; 
+			img.src = '';
 			document.body.removeChild(img)
 		}, 3000);
 
-		document.body.appendChild(img);  
+		document.body.appendChild(img);
 	};
 
 	// Expose public API.
@@ -126,3 +128,4 @@
 			count();
 	}
 })();
+</script>
