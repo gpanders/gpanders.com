@@ -11,14 +11,7 @@
     </div>
   </div>
 </footer>
-<script>
-	(function() {
-		var script = document.createElement('script');
-		window.counter = 'https://gpanders.goatcounter.com/count'
-		script.async = 1;
-		script.src = '//gc.zgo.at/count.js';
-
-		var ins = document.getElementsByTagName('script')[0];
-		ins.parentNode.insertBefore(script, ins)
-	})();
-</script>
+<script>(function(){window.counter='https://stats.gpanders.com/count'})();</script>
+{{ with resources.Get "js/count.js" | fingerprint }}
+<script async src="{{ .Permalink }}" integrity="{{ .Data.Integrity }}"></script>
+{{ end }}
