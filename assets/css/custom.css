@@ -3,6 +3,13 @@ p > code {
   background: #eee;
 }
 
+blockquote {
+  margin: 0;
+  padding: 5px 1em;
+  border-left: 0.25em solid #dbdbdb;
+  background: #f9f9f9;
+}
+
 .u-background {
   background: white;
 }
