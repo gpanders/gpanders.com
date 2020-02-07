@@ -9,7 +9,10 @@ theme = "hugo-flex"
 [params]
   summaries = true
   css = ["assets/css/custom.css"]
+  color = "white"
   footer = ""
+  divider = ""
+  width = "70ch"
 
 [markup]
   [markup.highlight]

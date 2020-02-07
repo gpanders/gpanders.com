@@ -10,10 +10,6 @@ blockquote {
   background: #f9f9f9;
 }
 
-.u-background {
-  background: white;
-}
-
 nav {
   border-bottom: 1px solid #dbdbdb;
 }
@@ -30,10 +26,6 @@ nav {
 
 .Divider {
   border-bottom: 1px solid #dbdbdb;
-}
-
-.Divider:after {
-  content: "";
 }
 
 .Divider:last-of-type {
