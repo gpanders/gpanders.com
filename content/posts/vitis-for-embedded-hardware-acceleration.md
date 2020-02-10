@@ -15,6 +15,10 @@ The guide is targeted toward the Zynq UltraScale+ MPSoC via the command line
 flow because that is what I use. However, where possible, I've aimed to keep
 things as device agnostic as possible.
 
+**NOTE**: Vitis is still a very new tool and is likely to change rapidly in the
+near-future. I will try to keep this guide as up-to-date as possible, but be
+warned that some pieces may be antiquated by the time you read it.
+
 You can find a "reference implementation" of the steps below [here]. This
 implementation uses a Makefile to automate all of the steps outlined below with
 a simple example design. You are welcome to copy the reference implementation
@@ -180,7 +184,7 @@ instructions [here][2] or you can simply run the following commands from `xsct`
 (assuming you're currently in your project directory):
 
 ```tcl
-platform create -name vitis_example -hw /path/to/vitis_example.xsa -proc psu_cortexa53 -os linux -no-boot-bsp -prebuilt -out ./build
+platform create -name vitis_example -hw /path/to/vitis_example.xsa -proc psu_cortexa53 -os linux -no-boot-bsp -prebuilt -out ./build/platform
 domain config -image ./build/boot
 domain config -sysroot ./build/sysroot
 domain config -boot ./build/boot
@@ -191,10 +195,11 @@ domain config -qemu-data ./build/boot
 platform generate
 ```
 
-This will create an `xpfm` file in `build/vitis_example/export/vitis_example`
-alongside two directories: `hw` and `sw`. If you copy or move the `xpfm` file,
-you must also move the `hw` and `sw` directories, as the `xpfm` file depends on
-these two directories and expects them to be adjacent to itself.
+This will create an `xpfm` file in
+`build/platform/vitis_example/export/vitis_example` alongside two directories:
+`hw` and `sw`. If you copy or move the `xpfm` file, you must also move the `hw`
+and `sw` directories, as the `xpfm` file depends on these two directories and
+expects them to be adjacent to itself:
 
 Write and Compile Your Kernels
 ------------------------------
@@ -203,21 +208,21 @@ This process is outlined in more detail [here][3].
 
 Writing kernels in OpenCL and/or HLS is beyond the scope of this guide because
 there are so many different ways to do it and they are so project dependent.
-For the sake of this guide, assume you have a simple vector addition kernel
-written at `~/Projects/vitis_example/kernels/kadd.c`. We compile the kernel
-using Xilinx's `v++` tool, which requires the `xpfm` file we created in the
-last step.
+For the sake of this guide, we'll assume you're using the `axpy` kernel from
+the reference implementation. We compile the kernel using Xilinx's `v++` tool,
+which requires the `xpfm` file we created in the last step.
 
 ```console
 cd ~/Projects/vitis_example
-v++ --platform ./build/vitis_example/export/vitis_example/vitis_example.xpfm -t sw_emu -g -o kadd.xo -c kernels/kadd.c
+mkdir -p build/sw_emu
+v++ --platform ./build/platform/vitis_example/export/vitis_example/vitis_example.xpfm -t sw_emu -g -o build/sw_emu/axpy.xo -c kernels/axpy/axpy.c
 ```
 
 Once you have one or more `.xo` files, you can link them together into an
 `.xclbin` file:
 
 ```console
-v++ --platform ./build/vitis_example/export/vitis_example/vitis_example.xpfm -t sw_emu -g -o kadd.xclbin -l kadd.xo
+v++ --platform ./build/platform/vitis_example/export/vitis_example/vitis_example.xpfm -t sw_emu -g -o build/sw_emu/axpy.xclbin -l build/sw_emu/axpy.xo
 ```
 
 Note that this flow closely mirrors that of using `gcc` or `clang` to compile
@@ -261,30 +266,41 @@ path. When you run `launch_emulator`, the script looks for files under the
 directory contains parameters used by the `launch_emulator` script to prepare
 and start the QEMU VM.
 
-The first thing this script does is prepare a pseudo SD card image which is
+The first thing this script does is prepare a virtual SD card image which is
 passed to QEMU. A file called `sd_card.manifest` tells the `launch_emulator`
 script what files should go on this SD card image. Unfortunately, by default
 this manifest file does not include all of files needed to run software
-emulation, in particular your host executable. Before running
-`launch_emulator`, you will need to modify the `sd_card.manifest` file to
-include the absolute path to your host executable as well as any other files
-you want to include in the QEMU VM (for example, if you use an `xrt.ini` file
-to set simulation parameters, you will need to add that as well).
+emulation. Before running `launch_emulator`, you will need to modify the
+`sd_card.manifest` file to include the absolute path to your host executable as
+well as any other files you want to include in the QEMU VM.
+
+You should also include a `xrt.ini` file with the following contents:
+
+```ini
+[Debug]
+profile=true
+timeline_trace=true
+data_transfer_trace=fine
+```
+
+This will generate useful output products when you run the emulation. Be sure
+to include the full path to this `xrt.ini` file in the `sd_card.manifest` file.
 
 Once the `sd_card.manifest` file is ready, run the following command to launch
 the emulator:
 
 ```console
-launch_emulator -no-reboot -runtime ocl -t sw_emu
+launch_emulator -no-reboot -runtime ocl -t sw_emu -forward-port 1440 1534
 ```
 
 The `-no-reboot` parameter is passed to QEMU and means that instead of
 rebooting, the VM will simply shutdown. The `-runtime` and `-t` flags are used
-by the `launch_emulator` script itself.
+by the `launch_emulator` script itself. The `-forward-port` flag creates a port
+forward to the guest VM allowing you to connect to it using `xsct`.
 
 If everything works correctly, you should see the VM booting up in your
 terminal console. Eventually, you will reach a login prompt. The username and
-password are both `root`. Once logged in, you can mount the pseudo SD card and
+password are both `root`. Once logged in, you can mount the virtual SD card and
 run your host executable:
 
 ```console
@@ -294,6 +310,47 @@ export XILINX_XRT=/usr
 export XCL_EMULATION_MODE=sw_emu
 ./host vitis_example.xclbin
 ```
+
+You can use `xsct` to transfer files between your development machine and the
+guest VM:
+
+```
+$ xsct
+xsct% connect -url tcp:localhost:1440
+xsct% tfile copy -from-host /path/on/host /path/on/target
+xsct% tfile copy -to-host /path/on/target /path/on/host
+```
+
+This allows you to make changes to your host program or `xclbin` file and
+quickly transfer them to the VM without needing to restart the emulator. This
+is also how you can transfer the run summaries off of the target VM onto your
+host:
+
+```
+$ xsct
+xsct% connect -url tcp:localhost:1440
+xsct% tfile copy -to-host /mnt/profile_summary.csv profile_summary.csv
+xsct% tfile copy -to-host /mnt/timeline_trace.csv timeline_trace.csv
+xsct% tfile copy -to-host /mnt/xclbin.run_summary xclbin.run_summary
+```
+
+The `xclbin.run_summary` file can be viewed using the `vitis_analyzer` tool:
+
+```console
+$ vitis_analyzer xclbin.run_summary
+```
+
+Conclusion
+----------
+
+There you have it. There are a lot of steps involved, but fortunately almost
+all of them are entirely scriptable (as you can see in the reference
+implementation). This means that once the process is done once, the time cost
+of repeating it is negligible.
+
+If you have any questions or feedback, please feel free to [contact
+me](mailto:contact@gpanders.com).
+
 
   [here]: https://github.com/gpanders/vitis_example
   [Vitis Tutorials]: https://github.com/Xilinx/Vitis-Tutorials
