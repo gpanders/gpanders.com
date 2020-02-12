@@ -1,8 +1,7 @@
 ---
 title: Using Xilinx Vitis for Embedded Hardware Acceleration
-date: 2020-02-06
+date: 2020-02-12
 tags: [xilinx, fpga]
-draft: true
 ---
 
 Xilinx recently released their new Vitis tool, which aims to ease the process
@@ -11,9 +10,9 @@ ambitious tool with a lot of potential. This guide will help you get started.
 
 <!--more-->
 
-The guide is targeted toward the Zynq UltraScale+ MPSoC via the command line
-flow because that is what I use. However, where possible, I've aimed to keep
-things as device agnostic as possible.
+The guide is targeted toward the Zynq UltraScale+ MPSoC using a command line
+(as opposed to a GUI) flow because that is what I use. However, where possible,
+I've aimed to keep things as device agnostic as possible.
 
 **NOTE**: Vitis is still a very new tool and is likely to change rapidly in the
 near-future. I will try to keep this guide as up-to-date as possible, but be
@@ -38,22 +37,40 @@ Outline
 
 The high-level outline of doing hardware acceleration in Vitis is
 
-1.  Create a hardware design (XSA file) in Vivado
-2.  Create Linux software components
-3.  Create a Xilinx platform file (XPFM)
-4.  Write and compile your kernels
-5.  Write and compile your host executable
-6.  Run software emulation
+1.  [Create a hardware design (XSA file) in Vivado]
+2.  [Create Linux software components]
+3.  [Create a Xilinx platform file (XPFM)]
+4.  [Write and compile your kernels]
+5.  [Write and compile your host executable]
+6.  [Run software emulation]
 
 Creating Your Hardware Design
 -----------------------------
 
-This step is outlined in [Xilinx's documentation] so I will not repeat it. You
-can find a scripted version of this step in the [reference implementation].
+This step is done using Vivado and is responsible for generating the Xilinx
+Shell Archive (`xsa`) file (formerly known as a Hardware Description File
+(`hdf`)). Your hardware design needs to include the Zynq processor IP as well
+as _at least_ one external clock. You can find a simple example in [Xilinx's documentation].
 
-Note that it does not appear that it is actually required to have 5 different
-clocks as in Xilinx's example above. This is an excerpt from their own
-[documentation][]:
+Each clock also must have an accompanying Processor System Reset IP and a
+`PFM.CLOCK` property that can be set either in the Vivado GUI (click
+`Window > Platform Interfaces`) or in the Tcl console:
+
+```tcl
+set_property PFM.CLOCK { \
+    <clk port> { \
+        id "0" \
+        is_default "true" \
+        proc_sys_reset <proc_sys_reset name> \
+        status "fixed" \
+    } \
+}
+```
+
+Every platform must specify one clock with `id=0`, `status="fixed"` and
+`is_default="true"`.
+
+The following is an excerpt from the Xilinx [documentation][]:
 
 > Multiple clocks are supported. Every platform must provide and declare one or
 > more clock nets sourced within the platform. The platform can have as many
@@ -70,16 +87,26 @@ clocks as in Xilinx's example above. This is an excerpt from their own
 >     consider device and timing constraints. Platforms can contain other
 >     clocks.
 
+In addition to the clocks, you must also specify the available memory ports in
+your design. Again, this can be done in the GUI in the
+`Window > Platform Interfaces` window or can be done directly in Tcl:
+
+```tcl
+set_property PFM.AXI_PORT { \
+    <port_name> {memport <type> sptag <ID> memory <value>} \
+}
+```
+
+The `sptag` and `memory` parameters are optional. For a full description of
+these properties, see the [Configuring Platform Interface Properties] page.
+
 The platform interfaces defined in this stage determine how Vitis will connect
 the memory interfaces of your kernels.
 
 Create Linux Software Components
 --------------------------------
 
-Again, this step is outlined in [Xilinx's documentation][1]. I will not go over
-all of the steps again, but I will provide some commentary.
-
-Vitis requires the following Linux software components:
+Vitis requires the following software components:
 
 -   First Stage Bootloader (`fsbl.elf`)
 -   PMU Firmware (`pmufw.elf`)
@@ -94,10 +121,12 @@ the Linux kernel image, the device tree blob, and a root file system together
 into a single file.
 
 The easiest way to generate all of these components in a way that will work
-basically out of the box with Vitis is to use PetaLinux. Note that it is NOT
-_required_ to use PetaLinux, and there are many very good reasons not to do so,
-but again for the sake of brevity and clarity this guide will assume the use of
-PetaLinux.
+basically out of the box with Vitis is to use Xilinx's [PetaLinux] tool. Note
+that it is NOT _required_ to use PetaLinux, and there are many very good
+reasons not to do so, but again for the sake of brevity and clarity this guide
+will assume the use of PetaLinux.
+
+If you choose to use PetaLinux, you can follow the instructions [here][1].
 
 The most important things to notice about the instructions listed above are the
 inclusion of userspace packages in the rootfs (`xrt`, `zocl`, `opencl-clhpp`,
@@ -116,6 +145,9 @@ _must_ have the following somewhere in your device tree source file:
 Without this addition, the `zocl` driver will not be loaded and the Xilinx
 Runtime will not be able to detect your hardware device.
 
+If you use plain YoctoLinux, the `xrt` and `zocl` applications can be found in
+Xilinx's [meta-petalinux] layer.
+
 One other important modification you must make that is not covered in the
 Xilinx documentation is to disable the `CONFIG_CPU_IDLE` kernel option. See
 [AR\# 69143] for more information. Without this modification, QEMU will hang
@@ -129,9 +161,8 @@ sysroot that will be installed onto your target. For example, if our project
 directory is located at `~/Projects/vitis_example/`:
 
 ```console
-mkdir -p ~/Projects/vitis_example/build/boot
+mkdir -p ~/Projects/vitis_example/build/{boot,sysroot}
 cp images/linux/{image.ub,zynqmp_fsbl.elf,pmufw.elf,u-boot.elf,bl31.elf} ~/Projects/vitis_example/build/boot
-mkdir -p ~/Projects/vitis_example/build/sysroot
 tar -C ~/Projects/vitis_example/build/sysroot -xf images/linux/rootfs.tar.gz
 ```
 
@@ -139,18 +170,16 @@ You will also need to include a BIF file, which is a file which tells Xilinx's
 `bootgen` tool how to generate the `BOOT.bin` file that is used by MPSoC's boot
 ROM to boot the device. The file should have the following contents:
 
-```
-/* linux */
-the_ROM_image:
-{
-       [fsbl_config] a53_x64
-       [bootloader] <zynqmp_fsbl.elf>
-       [pmufw_image] <pmufw.elf>
-       [destination_device=pl] <bitstream>
-       [destination_cpu=a53-0, exception_level=el-3, trustzone] <bl31.elf>
-       [destination_cpu=a53-0, exception_level=el-2] <u-boot.elf>
-}
-```
+    /* linux */
+    the_ROM_image:
+    {
+           [fsbl_config] a53_x64
+           [bootloader] <zynqmp_fsbl.elf>
+           [pmufw_image] <pmufw.elf>
+           [destination_device=pl] <bitstream>
+           [destination_cpu=a53-0, exception_level=el-3, trustzone] <bl31.elf>
+           [destination_cpu=a53-0, exception_level=el-2] <u-boot.elf>
+    }
 
 The file names within the `<>` brackets will be expanded automatically by
 Vitis, so there is no need to insert absolute paths in this file. Save the BIF
@@ -164,9 +193,6 @@ these two files _do_ matter: they should be named `qemu_args.txt` and
 
 Vitis uses these software components to run the software and hardware emulation
 targets, which we'll get to later.
-
-The reference implementation takes care of all of this automatically using
-PetaLinux and Makefile targets.
 
 Generate a Xilinx Platform File
 -------------------------------
@@ -196,27 +222,48 @@ platform generate
 ```
 
 This will create an `xpfm` file in
-`build/platform/vitis_example/export/vitis_example` alongside two directories:
+`build/platform/vitis_example/export/vitis_example/` alongside two directories:
 `hw` and `sw`. If you copy or move the `xpfm` file, you must also move the `hw`
 and `sw` directories, as the `xpfm` file depends on these two directories and
-expects them to be adjacent to itself:
+expects them to be adjacent to itself.
 
 Write and Compile Your Kernels
 ------------------------------
 
-This process is outlined in more detail [here][3].
+Writing OpenCL or Vivado HLS kernels is a huge topic that is beyond the scope
+of this gude. As a simple example, however, assume we have the following
+multiply-and-add kernel at `kernels/axpy/axpy.c`:
 
-Writing kernels in OpenCL and/or HLS is beyond the scope of this guide because
-there are so many different ways to do it and they are so project dependent.
-For the sake of this guide, we'll assume you're using the `axpy` kernel from
-the reference implementation. We compile the kernel using Xilinx's `v++` tool,
-which requires the `xpfm` file we created in the last step.
+```c
+void axpy(float const *a, float const *x, float const *y, float *out, int const len)
+{
+#pragma HLS INTERFACE m_axi port=a offset=slave
+#pragma HLS INTERFACE m_axi port=x offset=slave
+#pragma HLS INTERFACE m_axi port=y offset=slave
+#pragma HLS INTERFACE m_axi port=out offset=slave
+#pragma HLS INTERFACE s_axilite port=a bundle=control
+#pragma HLS INTERFACE s_axilite port=x bundle=control
+#pragma HLS INTERFACE s_axilite port=y bundle=control
+#pragma HLS INTERFACE s_axilite port=out bundle=control
+#pragma HLS INTERFACE s_axilite port=len bundle=control
+#pragma HLS INTERFACE s_axilite port=return bundle=control
+
+    for (int i = 0; i < len; i++) {
+#pragma HLS PIPELINE
+        out[i] = a[i]*x[i] + y[i];
+    }
+}
+```
+
+The first step is to compile our kernel into a Xilinx object file (`.xo`):
 
 ```console
-cd ~/Projects/vitis_example
 mkdir -p build/sw_emu
 v++ --platform ./build/platform/vitis_example/export/vitis_example/vitis_example.xpfm -t sw_emu -g -o build/sw_emu/axpy.xo -c kernels/axpy/axpy.c
 ```
+
+Note that the `xpfm` file created in the last step is a required argument to
+the `v++` compiler.
 
 Once you have one or more `.xo` files, you can link them together into an
 `.xclbin` file:
@@ -225,18 +272,17 @@ Once you have one or more `.xo` files, you can link them together into an
 v++ --platform ./build/platform/vitis_example/export/vitis_example/vitis_example.xpfm -t sw_emu -g -o build/sw_emu/axpy.xclbin -l build/sw_emu/axpy.xo
 ```
 
-Note that this flow closely mirrors that of using `gcc` or `clang` to compile
-and link C code.
-
 Also note that we passed the `-t sw_emu` option to `v++` in both the compile
 and link phases. The `-t` option is mandatory and determines what actually is
 produced in the `.xclbin` file. The available options are `sw_emu`, `hw_emu`,
 or `hw`. For now, we'll just use `sw_emu` (meaning "software emulation").
 
-You can find a list of `v++` options [here][4].
+You can find a full list of available `v++` options [here][3].
 
 We now have our platform file and our `xclbin` file. All that's left is to
 write and compile the host code and test our application in the emulator.
+
+For more information on using `v++` see the [official Xilinx documentation].
 
 Write and Compile the Host Code
 -------------------------------
@@ -247,7 +293,7 @@ dependent. The easiest way to get started on this step is to start from an
 
 Note that as of this writing (Feb 2020) Xilinx only supports OpenCL 1.2. This
 is in part because Xilinx depends on some APIs that were deprecated in OpenCL
-2.0. You can find the OpenCL 1.2 reference pages [here][5].
+2.0. You can find the OpenCL 1.2 reference pages [here][4].
 
 Run Software Emulation
 ----------------------
@@ -307,32 +353,27 @@ run your host executable:
 mount /dev/mmcblk0p1 /mnt
 cd /mnt
 export XILINX_XRT=/usr
-export XCL_EMULATION_MODE=sw_emu
-./host vitis_example.xclbin
+XCL_EMULATION_MODE=sw_emu ./host vitis_example.xclbin
 ```
 
 You can use `xsct` to transfer files between your development machine and the
 guest VM:
 
-```
-$ xsct
-xsct% connect -url tcp:localhost:1440
-xsct% tfile copy -from-host /path/on/host /path/on/target
-xsct% tfile copy -to-host /path/on/target /path/on/host
-```
+    $ xsct
+    xsct% connect -url tcp:localhost:1440
+    xsct% tfile copy -from-host /path/on/host /path/on/target
+    xsct% tfile copy -to-host /path/on/target /path/on/host
 
 This allows you to make changes to your host program or `xclbin` file and
 quickly transfer them to the VM without needing to restart the emulator. This
 is also how you can transfer the run summaries off of the target VM onto your
 host:
 
-```
-$ xsct
-xsct% connect -url tcp:localhost:1440
-xsct% tfile copy -to-host /mnt/profile_summary.csv profile_summary.csv
-xsct% tfile copy -to-host /mnt/timeline_trace.csv timeline_trace.csv
-xsct% tfile copy -to-host /mnt/xclbin.run_summary xclbin.run_summary
-```
+    $ xsct
+    xsct% connect -url tcp:localhost:1440
+    xsct% tfile copy -to-host /mnt/profile_summary.csv profile_summary.csv
+    xsct% tfile copy -to-host /mnt/timeline_trace.csv timeline_trace.csv
+    xsct% tfile copy -to-host /mnt/xclbin.run_summary xclbin.run_summary
 
 The `xclbin.run_summary` file can be viewed using the `vitis_analyzer` tool:
 
@@ -348,22 +389,29 @@ all of them are entirely scriptable (as you can see in the reference
 implementation). This means that once the process is done once, the time cost
 of repeating it is negligible.
 
-If you have any questions or feedback, please feel free to [contact
-me](mailto:contact@gpanders.com).
-
+If you have any questions or feedback, please feel free to [contact me].
 
   [here]: https://github.com/gpanders/vitis_example
   [Vitis Tutorials]: https://github.com/Xilinx/Vitis-Tutorials
   [XRT Platform Creation]: https://github.com/Xilinx/XRT/tree/master/src/platform/zcu102_base
   [Vitis Documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/kme1569523964461.html
+  [Create a hardware design (XSA file) in Vivado]: #creating-your-hardware-design
+  [Create Linux software components]: #create-linux-software-components
+  [Create a Xilinx platform file (XPFM)]: #generate-a-xilinx-platform-file
+  [Write and compile your kernels]: #write-and-compile-your-kernels
+  [Write and compile your host executable]: #write-and-compile-the-host-code
+  [Run software emulation]: #run-software-emulation
   [Xilinx's documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1854106950.html#wxe1570652701297
-  [reference implementation]: https://github.com/gpanders/vitis_example/blob/master/scripts/create_xsa.tcl
   [documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1180956723.html#itc1511211457306
+  [Configuring Platform Interface Properties]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1756746358.html#phl1512685419302
+  [PetaLinux]: https://www.xilinx.com/products/design-tools/embedded-software/petalinux-sdk.html
   [1]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk375818786.html#hog1570652702356
+  [meta-petalinux]: https://github.com/Xilinx/meta-petalinux
   [AR\# 69143]: https://www.xilinx.com/support/answers/69143.html
   [XRT Github page]: https://github.com/Xilinx/XRT/tree/master/src/platform/zcu102_base/src/qemu/lnx
   [2]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk356017304.html#jvn1570652701832
-  [3]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk595166594.html#tvy1528754367816
-  [4]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1798293725.html#wrj1504034328013
+  [3]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1798293725.html#wrj1504034328013
+  [official Xilinx documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk595166594.html#tvy1528754367816
   [example]: https://github.com/gpanders/vitis_example/blob/master/src/host/host.cpp
-  [5]: https://www.khronos.org/registry/OpenCL/sdk/1.2/docs/man/xhtml/
+  [4]: https://www.khronos.org/registry/OpenCL/sdk/1.2/docs/man/xhtml/
+  [contact me]: mailto:contact@gpanders.com
