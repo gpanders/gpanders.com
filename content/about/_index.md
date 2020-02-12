@@ -22,6 +22,6 @@ personal finance. More than anything, I love to learn.
 See my [Github](https://github.com/gpanders) page for projects I've created and
 that I contribute to. You can also find me on
 [Keybase](https://keybase.io/gpanders) and
-[LinkedIn](https://keybase.io/gpanders).
+[LinkedIn](https://www.linkedin.com/in/gpanders/).
 
 If you want to get in touch, you can [contact me](mailto:greg@gpanders.com).
