@@ -186,7 +186,7 @@ Vitis, so there is no need to insert absolute paths in this file. Save the BIF
 file as `linux.bif` in your `boot` directory.
 
 Finally, you will need two plain text files that provide the command line
-arguments to QEMU. You can simply copy these from Xilinx's [XRT Github page]
+arguments to QEMU. You can simply copy these from Xilinx's [Vitis Github page]
 and save them to your `boot` directory. Note that, unfortunately, the names of
 these two files _do_ matter: they should be named `qemu_args.txt` and
 `pmu_args.txt` respectively.
@@ -408,7 +408,7 @@ If you have any questions or feedback, please feel free to [contact me].
   [1]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk375818786.html#hog1570652702356
   [meta-petalinux]: https://github.com/Xilinx/meta-petalinux
   [AR\# 69143]: https://www.xilinx.com/support/answers/69143.html
-  [XRT Github page]: https://github.com/Xilinx/XRT/tree/master/src/platform/zcu102_base/src/qemu/lnx
+  [Vitis Github page]: https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_base/vivado/src/qemu/lnx
   [2]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk356017304.html#jvn1570652701832
   [3]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1798293725.html#wrj1504034328013
   [official Xilinx documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk595166594.html#tvy1528754367816
