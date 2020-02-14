@@ -87,9 +87,9 @@ All together:
 |:----------:|:----------:|:----------:|
 | $3,024.87  | $3,049.75  | $3,000.00  |
 
-So there you have it. Getting a tax refund is the _worst_ financial outcome at
-tax time. Add on to this the fact that your psychology will likely entice you
-to spend that $3,000 refund (which is your own hard-earned money and NOT a
+There you have it. Getting a tax refund is the _worst_ financial outcome at
+tax time. Add to this the fact that your psychology will likely entice you to
+spend that $3,000 refund (which is your own hard-earned money and NOT a
 windfall!) on something you likely wouldn't have bought otherwise, which means
 you really end up even further behind.
 
@@ -107,14 +107,24 @@ As you can see, the difference is much more dramatic.
 The amount of taxes owed or refunded also matters. In our example, we assumed a
 $3,000 debit or credit, but if that had been say, _$10,000_ the difference
 would have been even more dramatic, providing $165.83 in a high-yield savings
-account and over $650 in a stock index fund.
+account and over $650 in a stock index fund.[^1]
 
-(It's important to remember that stock index funds don't _always_ provide a 7%
-return; that is simply the historical average. In 2019, a stock index fund
-yielded a return of 30.8% which would have resulted in an astounding $923.83 of
-interest for scenario 2; however, in a down year this is a very easy way to
-lose money.)
+
+To put this in finance terms, this is essentially [buying on margin][margin]
+using funds borrowed from the national government. Except, unlike in the
+finance world, this borrowing incurs no interest and there is never a margin
+call -- it is essentially risk-free. If you have the financial stability to do
+so, this is not a bad way to (hyper) optimize your finances to earn a little
+extra money each year.
 
 So this tax season, cross your fingers and hope that you get to write a check
 instead of receiving one, and smile to yourself knowing that math is on your
 side.
+
+[^1]: It's important to remember that stock index funds don't _always_ provide
+  a 7% return; that is simply the historical average. In 2019, a stock index
+  fund yielded a return of 30.8% which would have resulted in an astounding
+  $923.83 of interest for scenario 2; however, in a down year this is a very
+  easy way to lose money.
+
+[margin]: https://www.investopedia.com/terms/m/margin.asp
