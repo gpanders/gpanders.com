@@ -15,6 +15,7 @@ table {
   border-spacing: 0;
   empty-cells: show;
   border: 1px solid #dbdbdb;
+  margin: 0 auto;
 }
 
 thead {
