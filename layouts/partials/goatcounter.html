@@ -1,77 +1,55 @@
-<script>
-window.counter = 'https://gpanders.goatcounter.com/count'
-// Copyright © 2019 Martin Tournoij <martin@arp242.net>
-// This file is part of GoatCounter and published under the terms of the EUPL
-// v1.2, which can be found in the LICENSE file or at http://eupl12.zgo.at
+<script data-goatcounter="https://stats.gpanders.com/count">
+// GoatCounter: https://www.goatcounter.com
+'use strict';
 
-// See /bin/proxy on how to test this locally.
 (function() {
-	'use strict';
+	if (window.goatcounter && window.goatcounter.vars)  // Compatibility
+		window.goatcounter = window.goatcounter.vars;
+	else
+		window.goatcounter = window.goatcounter || {};
 
-	var VARS = {};
-	if (window.goatcounter)
-		VARS = window.goatcounter.vars || {};
-	else if (window.vars)  // TODO: temporary compatibility.
-		VARS = window.vars || {};
-
-	// Find canonical location of the current page.
-	var get_location = function(count_vars) {
-		var results = {
-			p: count_vars.path     || VARS.path,
-			r: count_vars.referrer || VARS.referrer,
-			t: count_vars.title    || VARS.title,
-			d: count_vars.domain   || VARS.domain,
+	// Get all data we're going to send off to the counter endpoint.
+	var get_data = function(count_vars) {
+		var data = {
+			p: count_vars.path     || goatcounter.path,
+			r: count_vars.referrer || goatcounter.referrer,
+			t: count_vars.title    || goatcounter.title,
+			e: !!(count_vars.event || goatcounter.event),
+			s: [window.screen.width, window.screen.height, (window.devicePixelRatio || 1)],
 		};
 
-		var rcb, pcb, tcb, dcb;
-		if (typeof(results.r) === 'function')
-			rcb = results.r;
-		if (typeof(results.p) === 'function')
-			pcb = results.p;
-		if (typeof(results.t) === 'function')
-			tcb = results.t;
-		if (typeof(results.d) === 'function')
-			dcb = results.d;
+		// Save callbacks.
+		var rcb, pcb, tcb;
+		if (typeof(data.r) === 'function') rcb = data.r;
+		if (typeof(data.t) === 'function') tcb = data.t;
+		if (typeof(data.p) === 'function') pcb = data.p;
 
-		// Get referrer.
-		if (results.r === null || results.r === undefined)
-			results.r = document.referrer;
-		if (rcb)
-			results.r = rcb(results.r);
-
-		// Get title.
-		if (results.t === null || results.t === undefined)
-			results.t = document.title;
-		if (tcb)
-			results.t = tcb(results.t);
-
-		// Get domain.
-		if (results.d === null || results.d === undefined)
-			results.d = location.hostname;
-		if (tcb)
-			results.d = tcb(results.d);
-
-		// Get path.
-		if (results.p === null || results.p === undefined) {
+		// Get the values unless explicitly given.
+		if (is_empty(data.r)) data.r = document.referrer;
+		if (is_empty(data.t)) data.t = document.title;
+		if (is_empty(data.p)) {
 			var loc = location,
 				c = document.querySelector('link[rel="canonical"][href]');
 			// Parse in a tag to a Location object (canonical URL may be relative).
 			if (c) {
-				var a = document.createElement('a');
-				a.href = c.href;
-				loc = a;
+				loc = document.createElement('a');
+				loc.href = c.href;
 			}
-			results.p = (loc.pathname + loc.search) || '/';
+			data.p = (loc.pathname + loc.search) || '/';
 		}
-		if (pcb)
-			results.p = pcb(results.p);
 
-		return results;
+		// Apply callbacks.
+		if (rcb) data.r = rcb(data.r);
+		if (tcb) data.t = tcb(data.t);
+		if (pcb) data.p = pcb(data.p);
+
+		return data;
 	};
 
-	// Convert parameters to urlencoded string, starting with a ?
-	//
-	// e.g. ?foo=bar&a=b
+	// Check if a value is "empty" for the purpose of get_data().
+	var is_empty = function(v) { return v === null || v === undefined || typeof(v) === 'function'; }
+
+	// Object to urlencoded string, starting with a ?.
 	var to_params = function(obj) {
 		var p = [];
 		for (var k in obj)
@@ -86,42 +64,37 @@ window.counter = 'https://gpanders.goatcounter.com/count'
 		if ('visibilityState' in document && document.visibilityState === 'prerender')
 			return;
 
+		// Find the tag used to load this script.
+		var script = document.querySelector('script[data-goatcounter]'),
+			endpoint = window.counter;  // Compatability
+		if (script)
+			endpoint = script.dataset.goatcounter;
+
 		// Don't track private networks.
-		if (location.hostname.match(/localhost$/) ||
-			location.hostname.match(/^(127\.|10\.|172\.16\.|192\.168\.)/))
-				return;
+		if (!goatcounter.allow_local && location.hostname.match(/(localhost$|^127\.|^10\.|^172\.16\.|^192\.168\.)/))
+			return;
 
-		var loc = get_location(count_vars || {});
-		loc.s = [window.screen.width, window.screen.height, (window.devicePixelRatio || 1)];
-
-		// null returned from user callback.
-		if (loc.p === null)
+		var data = get_data(count_vars || {});
+		if (data.p === null)  // null returned from user callback.
 			return;
 
 		// Add image to send request.
-		var img = document.createElement('img');
+		var img = document.createElement('img'),
+		    rm  = function() { if (img && img.parentNode) img.parentNode.removeChild(img) };
+		img.src = endpoint + to_params(data);
+		img.style.float = 'right';  // Affect layout less.
 		img.setAttribute('alt', '');
 		img.setAttribute('aria-hidden', 'true');
-		img.src = window.counter + to_params(loc);
-		img.addEventListener('load', function() { document.body.removeChild(img) }, false);
 
-		// Remove the image after 3s if the onload event is never triggered.
-		setTimeout(function() {
-			if (!img.parentNode)
-				return;
-			img.src = '';
-			document.body.removeChild(img)
-		}, 3000);
-
+		setTimeout(rm, 3000); // In case the onload isn't triggered.
+		img.addEventListener('load', rm, false);
 		document.body.appendChild(img);
 	};
 
 	// Expose public API.
-	if (!window.goatcounter)
-		window.goatcounter = {};
 	window.goatcounter.count = count;
 
-	if (!VARS.no_onload) {
+	if (!goatcounter.no_onload) {
 		if (document.body === null)
 			document.addEventListener('DOMContentLoaded', function() { count(); }, false);
 		else
