@@ -22,4 +22,5 @@ fi
 cd public
 git add .
 git commit -m "$msg"
+git pull --rebase
 git push origin master
