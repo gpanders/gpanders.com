@@ -12,7 +12,7 @@ theme = "hugo-flex"
   color = "white"
   footer = ""
   divider = ""
-  width = "70ch"
+  width = "80ch"
 
 [markup]
   [markup.highlight]
