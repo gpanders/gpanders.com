@@ -19,9 +19,14 @@ theme = "hugo-flex"
     style = "friendly"
 
 [[menu.nav]]
+  name = "Projects"
+  url = "/projects"
+  weight = 1
+
+[[menu.nav]]
   name = "Posts"
   url = "/posts"
-  weight = 1
+  weight = 2
 
 [[menu.nav]]
   name = "About"

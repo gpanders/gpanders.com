@@ -75,14 +75,14 @@ nav {
 
 .Footer {
   border-top: 1px solid #dbdbdb;
+  margin-bottom: 0;
 }
 
 .Footer-links {
-  padding: 1rem 0 0 0;
-  margin: 0;
+  padding: 0 5em;
   list-style: none;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .Footer-link {
@@ -110,4 +110,9 @@ nav {
 .List-link a {
   color: #000;
   text-decoration: none;
+}
+
+.Source-link {
+  text-decoration: none;
+  color: #666;
 }

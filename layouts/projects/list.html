@@ -1,0 +1,14 @@
+{{ define "main" }}
+
+{{ partial "heading.html" . }}
+{{ .Content }}
+<ul class="List">
+  {{ range sort .Pages }}
+  <li class="List-item">
+    <h3 class="List-link"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    <p>{{ .Summary }}</p>
+  </li>
+  {{ end }}
+</ul>
+
+{{ end }}
