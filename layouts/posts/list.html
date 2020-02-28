@@ -1,0 +1,17 @@
+{{ define "main" }}
+
+{{ partial "heading.html" . }}
+{{ .Content }}
+{{ range .Pages.GroupByPublishDate "2006" }}
+<h2 class="List-header">{{ .Key }}</h2>
+<ul class="List">
+  {{ range .Pages }}
+  <li class="List-item">
+    <h3 class="List-link"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    <small>{{ .PublishDate.Format "2006-01-02" }}</small>
+  </li>
+  {{ end }}
+</ul>
+{{ end }}
+
+{{ end }}
