@@ -3,6 +3,11 @@ p > code {
   background: #eee;
 }
 
+pre {
+  border: 0;
+  background: #eee;
+}
+
 blockquote {
   margin: 0;
   padding: 1px 1em;
