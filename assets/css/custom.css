@@ -1,5 +1,10 @@
 a {
-  color: #3333cc;
+  text-decoration: none;
+  color: #f03333;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 p > code {
@@ -70,6 +75,10 @@ nav {
   font-size: 1.25rem;
 }
 
+.Banner-item--title .Banner-link:hover {
+  text-decoration: none;
+}
+
 .Tags-link {
   color: #0066cc;
 }
@@ -80,6 +89,10 @@ nav {
 
 .Heading {
   flex-direction: column;
+}
+
+.Heading-link:hover {
+  text-decoration: none;
 }
 
 .Footer {
