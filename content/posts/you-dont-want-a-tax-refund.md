@@ -4,53 +4,60 @@ date: 2020-02-13
 tags: [finance, taxes]
 ---
 
-Tax time is approaching and this year, like every year, I know plenty of people
-excited about receiving a tax return and discussing the exciting purchases they
-plan on making with this perceived windfall.
+Tax time is approaching and this year, like every year, it is common to hear
+people excited about receiving their tax return discussing the exciting
+purchases they plan on making with this perceived windfall.
 
-Each year I find myself biting my tongue and restraining myself from stating a
-true but unpopular fact: getting a tax return is _not_ a good thing and is in
-fact the _worst_ financial outcome of tax season.
+I want to challenge this conventional wisdom by stating a true but unpopular
+fact: getting a tax return is not necessarily a good thing and, in most cases,
+is actually the least desirable financial outcome one can achieve.
 
 <!--more-->
 
-This non-intuitive fact is often framed by stating that getting a tax refund is
-equivalent to the government paying back a one year interest-free loan.
-Conversely, _owing_ money during tax season is equivalent to you paying back a
-one year interest-free loan to the government. When put in these terms, it
-seems obvious. So why don't more people feel this intuitively?
+This non-intuitive fact can be understood by a quick change of perspective.
+Receiving a tax refund is equivalent to receiving repayment on a one year,
+interest-free loan to the government.  Conversely, _owing_ money during tax
+season is equivalent to paying back a one year interest-free loan to the
+government. When put in these terms, it seems obvious. So why don't more people
+feel this intuitively?
 
 The answer comes down to simple human psychology. Our fallible brains view the
 sudden influx of money that accompanies a tax refund as a windfall, similar to
 if we had just received a check from a distant relative or found a $20 bill on
-the ground.
+the ground. Additionally, paying taxes at the end of the year can _feel_ like
+you're losing money, and humans [hate to lose things][loss aversion].
 
-This is dangerous because most people invariably "categorize" money into
-different bins. The money we earn from work as part of our paycheck goes
-towards regular, boring adult stuff like paying the rent and bills, but
-windfalls and gifts are tucked away for fun purchases, such as new clothes or a
-vacation.  This is, of course, completely irrational, but that doesn't stop us
-from doing it.
+Many people "categorize" money into different bins: the money they earn from
+work as part of their paycheck goes towards regular, boring adult stuff like
+paying the rent and bills, while windfalls and gifts are tucked away for fun
+purchases, such as new clothes or a vacation. This is irrational and is
+generally considered bad financial practice, but that doesn't stop us from
+doing it. The consequence of this is that, compounded with the loss of a year's
+worth of interest, most tax refunds are spent on things that wouldn't have
+purchased had that money been received as part of a normal cash flow. This
+ends up leaving people worse off, financially speaking.
+
+### Crunching the numbers
 
 When it comes to tax season, the optimal outcome is actually to _owe_ money,
 and the more the better! This is, again, counter-intuitive: who wants to owe
 money to the government? But remember that owing money during tax season means
-that you earned extra money during the rest of the year. Assuming you maintain
-good financial habits and are living below your means, that extra money was
-going into an interest-yielding savings account. When the tax bill comes due,
-you simply withdraw those funds to pay back the tax man. The kicker is that
-you get to keep all of the interest.
+that you earned more than you would have otherwise during the rest of the year.
+Assuming you maintain good financial habits and are living below your means,
+that extra money was being deposited into an interest-bearing savings or
+brokerage account. When the tax bill comes due, you simply withdraw those funds
+to pay back the tax man.  The kicker is that you get to keep all of the
+interest.
 
 To put this into concrete numbers, let's evaluate 3 different scenarios: 1) you
 owe nothing and are owed nothing at tax time (that is, you paid exactly the
 correct amount of taxes during the previous tax year); 2) you owe $3,000 at tax
 season; and 3) you receive a $3,000 tax refund.
 
-Again, for this analysis we are assuming that your income is more than enough
-to cover your living expenses and that you're making regular deposits into a
-savings account. If you are either a) not earning enough to save or b) spending
-too much to save then the following analysis won't apply (although the
-conclusion remains the same).
+(Again, for this analysis we are assuming that your income is in excess
+of your living expenses and that you're making regular deposits into a
+savings account. If this doesn't describe your situation then the following
+analysis won't apply, although the conclusion remains the same.)
 
 A $3,000 tax debit or credit means that each month you pocketed $250
 more or less than you should have. To keep the math simple, we'll assume that
@@ -87,12 +94,6 @@ All together:
 |:----------:|:----------:|:----------:|
 | $3,024.87  | $3,049.75  | $3,000.00  |
 
-There you have it. Getting a tax refund is the _worst_ financial outcome at
-tax time. Add to this the fact that your psychology will likely entice you to
-spend that $3,000 refund (which is your own hard-earned money and NOT a
-windfall!) on something you likely wouldn't have bought otherwise, which means
-you really end up even further behind.
-
 Now you might say: "Okay, so there's a difference of less than $50. Big deal.
 Over one full year that's not much". Let's see what happens if, instead of a
 high-yield savings account, we invested in a US stock index fund (which
@@ -111,7 +112,7 @@ account and over $650 in a stock index fund.[^1]
 
 
 To put this in finance terms, this is essentially [buying on margin][margin]
-using funds borrowed from the national government. Except, unlike in the
+using funds borrowed from the government. Except, unlike in the
 finance world, this borrowing incurs no interest and there is never a margin
 call -- it is essentially risk-free. If you have the financial stability to do
 so, this is not a bad way to (hyper) optimize your finances to earn a little
@@ -127,4 +128,5 @@ side.
   $923.83 of interest for scenario 2; however, in a down year this is a very
   easy way to lose money.
 
+[loss aversion]: https://www.behavioraleconomics.com/resources/mini-encyclopedia-of-be/loss-aversion/
 [margin]: https://www.investopedia.com/terms/m/margin.asp
