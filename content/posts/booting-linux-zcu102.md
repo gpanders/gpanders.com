@@ -307,5 +307,5 @@ in the console saying as much), so this should only be a temporary stopgap.
 And that's it! From here, everything else is just configuration and the hardest
 part is out of the way.
 
-Feel free to [contact me](mailto:greg@gpanders.com) if you have any questions
+Feel free to [contact me](mailto:contact@gpanders.com) if you have any questions
 or suggestions for improvement.

@@ -1,3 +1,7 @@
+a {
+  color: #3333cc;
+}
+
 p > code {
   padding: 2px 4px;
   background: #eee;
@@ -105,7 +109,7 @@ nav {
 }
 
 .List-item {
-  margin: 0.5em 0;
+  margin: 2em 0;
 }
 
 .List-link {

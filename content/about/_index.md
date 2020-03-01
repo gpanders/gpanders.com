@@ -24,4 +24,4 @@ that I contribute to. You can also find me on
 [Keybase](https://keybase.io/gpanders) and
 [LinkedIn](https://www.linkedin.com/in/gpanders/).
 
-If you want to get in touch, you can [contact me](mailto:greg@gpanders.com).
+If you want to get in touch, you can [contact me](mailto:contact@gpanders.com).
