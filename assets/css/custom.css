@@ -132,3 +132,20 @@ nav {
   text-decoration: none;
   color: #666;
 }
+
+.Contact-links {
+  padding: 0;
+  margin: 40px 0 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: none;
+}
+
+.Contact-item {
+  padding: 12px 0;
+}
+.Contact-item p {
+  font-weight: 700;
+  margin: 0;
+}
