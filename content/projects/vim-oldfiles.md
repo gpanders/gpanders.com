@@ -1,7 +1,7 @@
 ---
 title: vim-oldfiles
 license: MIT
-summary: Improve Vim's native recent file history.
+summary: Improve Vim's native recent file history
 src: vim-oldfiles
 github: gpanders/vim-oldfiles
 ---

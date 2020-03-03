@@ -4,20 +4,26 @@ date: 2019-08-12
 tags: [markdown, vim]
 ---
 
-I use Markdown a lot and it is common to have code blocks within a Markdown
-file that look something like this:
+When writing Markdown it is common to have code blocks within your document
+that look something like this:
 
     This is a code block:
     ```bash
     echo "Hello, world!"
     ```
 
-One of the "killer features" of Emacs' [Org mode](https://orgmode.org/) is its
+One of the great features of Emacs' [Org mode](https://orgmode.org/) is its
 ability to evaluate blocks of code from within the editing environment. I
 always appreciated this feature about Org mode which got me to thinking about
 implementing something similar in Vim.
 
 <!--more-->
+
+**Update (2020-03-02):** I've packaged this into a Vim plugin called
+[Medieval](https://github.com/gpanders/vim-medieval). The remainder of this
+post contains the original implementation, which is now out-of-date.
+
+---
 
 The solution ended up being fairly straightforward. I created the following
 [autoloaded](http://learnvimscriptthehardway.stevelosh.com/chapters/53.html)
