@@ -6,6 +6,8 @@ github: gpanders/vim-medieval
 summary: Evaluate Markdown code blocks within Vim
 ---
 
+[![asciicast](https://asciinema.org/a/306995.svg)](https://asciinema.org/a/306995)
+
 Medieval allows you to evaluate code blocks in Markdown buffers of the
 following form:
 
