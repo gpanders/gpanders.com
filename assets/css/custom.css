@@ -1,6 +1,6 @@
 a {
   text-decoration: none;
-  color: #0000f0;
+  color: #0066d6;
 }
 
 a:hover {
@@ -52,13 +52,16 @@ nav {
   border-bottom: 1px solid #dbdbdb;
 }
 
+.u-clickable {
+  font-weight: inherit;
+}
+
 .Banner {
   align-items: center;
 }
 
 .Banner-link {
   color: #000;
-  font-weight: normal;
   font-size: 1rem;
 }
 
@@ -98,18 +101,9 @@ nav {
 .Footer {
   border-top: 1px solid #dbdbdb;
   margin-bottom: 0;
-}
-
-.Footer-links {
-  padding: 0 5em;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-}
-
-.Footer-link {
+  padding: 15px 0;
   color: #666;
-  font-weight: normal;
+  font-size: smaller;
 }
 
 .List-header {

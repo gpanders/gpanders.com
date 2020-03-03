@@ -10,7 +10,7 @@ theme = "hugo-flex"
   summaries = true
   css = ["assets/css/custom.css"]
   color = "white"
-  footer = ""
+  footer = 'Content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.'
   divider = ""
   width = "80ch"
 
