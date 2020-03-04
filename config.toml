@@ -7,6 +7,7 @@ theme = "hugo-flex"
 [taxonomies]
 
 [params]
+  description = "Personal website for Greg Anders"
   summaries = true
   css = ["assets/css/custom.css"]
   color = "white"
