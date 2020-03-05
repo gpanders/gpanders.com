@@ -16,7 +16,7 @@
   {{ if site.Params.twittercards }}{{ template "_internal/twitter_cards.html" . }}{{ end }}
   <title>
     {{ if eq .Title site.Title }}
-    {{ site.Title }}
+    {{ site.Title }}{{ with site.Params.description }} | {{ . }}{{ end }}
     {{ else }}
     {{ with .Title }}{{ . }} | {{ end }}{{ site.Title }}
     {{ end }}
