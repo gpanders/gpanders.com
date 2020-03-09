@@ -8,7 +8,9 @@
   {{ range .Pages }}
   <li class="List-item">
     <h3 class="List-link"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-    <small>{{ .PublishDate.Format "2006-01-02" }}</small>
+    {{ with .PublishDate | default nil }}
+    <small>{{ .Format "2006-01-02" }}</small>
+    {{ end }}
   </li>
   {{ end }}
 </ul>

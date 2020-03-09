@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ site.LanguageCode }}">
 <head>
-  {{ partial "head.html" . }}
+  {{ partial "meta.html" . }}
+  <title>
+    {{ if eq .Title site.Title }}
+    {{ site.Title }}{{ with site.Params.description }} | {{ . }}{{ end }}
+    {{ else }}
+    {{ with .Title }}{{ . }} | {{ end }}{{ site.Title }}
+    {{ end }}
+  </title>
+  <link rel="canonical" href="{{ .Permalink }}">
   {{ range .AlternativeOutputFormats }}
   {{ printf "<link rel=%q type=%q href=%q title=%q>" .Rel .MediaType .Permalink site.Title | safeHTML }}
   {{ end }}
@@ -30,6 +38,7 @@
   {{ range .Scratch.GetSortedMapValues "js" }}
   <script defer src="{{ .Permalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
   {{ end }}
+  {{ partialCached "goatcounter.html" . }}
 </head>
 <body>
   {{ partialCached "banner.html" . }}

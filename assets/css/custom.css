@@ -65,14 +65,6 @@ nav {
   font-size: 1rem;
 }
 
-.Divider {
-  border-bottom: 1px solid #dbdbdb;
-}
-
-.Divider:last-of-type {
-  border-bottom: none;
-}
-
 .Banner-item--title .Banner-link {
   font-weight: 700;
   font-size: 1.25rem;
@@ -128,8 +120,7 @@ nav {
   text-decoration: none;
 }
 
-.Source-link {
-  text-decoration: none;
+.Source-links, .Source-links a {
   color: #666;
 }
 
