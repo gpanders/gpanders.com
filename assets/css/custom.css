@@ -7,6 +7,10 @@ a:hover {
   text-decoration: underline;
 }
 
+code {
+  font-size: 85%;
+}
+
 p > code {
   padding: 2px 4px;
   background: #eee;
