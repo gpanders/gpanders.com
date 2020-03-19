@@ -234,7 +234,7 @@ following to configure the repos you want to mirror to Github:
 repo @github
     config remote.github.url = git@github.com:gpanders/%GL_REPO.git
     config remote.github.mirror = true
-    option hook.post-receive = mirror
+    option hook.post-receive.mirror = mirror
 ```
 
 Update your `gitolite.rc` file to allow the `remote.*` config options to be set:
@@ -327,6 +327,51 @@ and modify [line 28][] to
 
             echo "$repo" >> $tmpfile
 
+### Generate a README
+
+Github and other sites automatically convert your README file (if it exists)
+from Markdown, reStructured Text, etc. into HTML when you visit the web page.
+We can do this too with Gitolite!
+
+If the file `README.html` exists in the root of your repository, Gitweb will
+display it on the project's summary page ([example][]). We can create a hook to
+automatically create this file from the plain text README file in the repo.
+Create a hook at `hooks/repo-specific/readme` in your [local code
+directory][local code path] with the following contents:
+
+```sh
+#!/bin/sh
+
+if ! command -v pandoc >/dev/null 2>/dev/null; then
+        exit 0
+fi
+
+tmpdir=$(mktemp -d)
+git --work-tree="$tmpdir" checkout --force
+
+for file in README README.md README.rst README.txt; do
+        if [ -f "$tmpdir"/"$file" ]; then
+                pandoc -o README.html "$tmpdir"/"$file"
+                break
+        fi
+done
+
+rm -rf "$tmpdir"
+```
+
+Now in your `gitolite.conf` file add
+
+```gitolite
+repo @all
+    option hook.post-receive.readme = readme
+```
+
+Obviously this requires that [`pandoc`][pandoc] be installed on your git
+server.
+
+[example]: https://git.gpanders.com/vim-medieval
+[pandoc]: https://pandoc.org/
+
 ### Publish a Hugo site
 
 This is the hook I use to publish this blog. I use Hugo to "compile" my site
@@ -374,7 +419,7 @@ and in my `gitolite.conf` I simply use:
 
 ```gitolite
 repo blog
-    option hook.post-receive = publish
+    option hook.post-receive.publish = publish
 ```
 
 [local code path]: https://gitolite.com/gitolite/non-core#for-your-non-core-programs
