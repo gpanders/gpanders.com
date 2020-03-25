@@ -3,36 +3,56 @@ title: "Creating Your Own Git Server"
 date: 2020-03-18
 ---
 
-I recently set up my own git server at [git.gpanders.com][]. If you've ever
-considered doing something similar yourself, or if you're just curious as to
-what's involved, this post will outline the high-level steps.
+Ever considered setting up and running your very own git server? It's actually
+quite easy! In this post, I'll outline the steps I took to set up [my
+own][git.gpanders.com] so that you can give it a try yourself. But first, why
+might you even want to go through the trouble of setting up your own server?
 
 <!--more-->
 
-First off, why might you want to use your own server? After all, there are a
-wide array of free to use choices out there, such as Github, Gitlab, and the
-up-and-coming [sourcehut][].
+After all, there are a wide array of excellent and free to use choices out
+there, such as GitHub, GitLab, and the up-and-coming [sourcehut][].
 
-I can think of a few reasons, chief of all being that when you host your own
-server, you truly own your own data. In today's world of corporate
-surveillance, rampant privacy violations, and data breaches, there is something
-to be said of true ownership. Your code and your files live on
-_your_ server. This also means that "private" repos truly are private.
+One reason is ownership: in today's world of corporate surveillance, rampant
+privacy violations, and data breaches, there is something to be said of truly
+owning your own data. Both git and the web itself were designed and built on
+principles of decentralization and distribution. Standing up your own server is
+one way to tap into that heritage.
 
-It can also serve as a form of self-promotion, for lack of a better
-term. It shows potential employers, collaborators, customers, or clients that
-you at least know enough to set up and manage your own server.
-
-And finally, it's just fun, at least if you're into that sort of thing. It's
-something _you_ control. You get to decide how it works, how it looks, who
-can access it, and what exists on it.
+It's also just plain fun, at least if you're into that sort of thing. You get
+to build something useful and put your name on it. It's something _you_
+control. You get to decide how it works, how it looks, who can access it, and
+what exists on it.
 
 Setting up a git server is actually relatively straight-forward. Almost all of
-the heavy lifting is done by git itself, but a few supplementary tools are
-required to handle things like access control and HTTP access.
+the heavy lifting is done by git itself, but I will also introduce a few
+supplementary tools to handle things like access control and HTTP access.
 
 [git.gpanders.com]: https://git.gpanders.com
 [sourcehut]: https://sr.ht
+
+## Evaluating the choices
+
+Depending on your needs, you may want to install something like [GitLab's
+Community Edition][gitlab-ce] which is very easy to set up and provides things
+like user accounts, issue tracking, and more.
+
+However, if all you need is a simple single-user system where you (and maybe a
+few other trusted collaborators) are the only one making changes to your source
+code, GitLab may be a bit overkill. Other options include [Gitea][] or
+[Gogs][], both of which offer slimmed down versions of full-scale offerings
+like GitLab and are designed to run on smaller hardware like a Raspberry Pi.
+
+In this guide, we'll be using [Gitolite][] to provide and manage SSH access to
+our git repositories. Gitolite does not offer any kind of HTTP access or a web
+frontend: for this, we'll turn to the old-fashioned (but still viable!) gitweb.
+Finally, we'll use the built-in `git daemon` to serve repositories over the
+`git://` protocol.
+
+[gitlab-ce]: https://about.gitlab.com/install/?version=ce
+[Gitea]: https://gitea.io
+[Gogs]: https://gogs.io
+[Gitolite]: https://gitolite.com/gitolite/index.html
 
 ## Preparing your server
 
@@ -45,26 +65,36 @@ as the base location for all of your repositories. I chose `/var/lib/git` as
 the home directory, but `/home/git` or `/srv/git` are other common choices.
 
     # useradd -r -d /var/lib/git git
+
+Make sure to set the password for the new user:
+
     # passwd git
+
+And make sure you can SSH to the `git` user on your server:
+
+    $ ssh git@yourserver.com
 
 ## Gitolite
 
-Next, install the excellent [gitolite][] tool. Gitolite makes managing your
+Next, install the excellent [Gitolite][] tool. Gitolite makes managing your
 server much easier and allows you to do things like user management, access
 control, triggers, hooks, and more. Copy your SSH **public** key into your git
-user's home directory (and make sure it's readable by the git user) and then 
-clone gitolite into the git user's home directory:
+user's home directory and then clone Gitolite into the git user's home
+directory.
 
-    $ sudo cp ~/.ssh/id_rsa.pub /var/lib/git/greg.pub
-    $ sudo chown git: /var/lib/git/greg.pub
+From your home computer (i.e. not your server):
+
+    $ scp ~/.ssh/id_rsa.pub git@yourserver:yourname.pub
+
+From your server:
+
     $ su - git
-    $ mkdir -p ~/bin
     $ git clone https://github.com/sitaramc/gitolite
+    $ mkdir -p ~/bin
     $ gitolite/install -ln ~/bin
-    $ gitolite setup -pk greg.pub
+    $ gitolite setup -pk yourname.pub
 
-Now from your home computer (i.e. not your server), test your gitolite
-installation:
+Now from your home computer, test your Gitolite installation:
 
     $ git ls-remote git@server:gitolite-admin
 
@@ -73,13 +103,15 @@ You should get something like:
     9dd8aab60bac5e54ccf887a87b4f3d35c96b05e4    HEAD
     9dd8aab60bac5e54ccf887a87b4f3d35c96b05e4    refs/heads/master
 
-You can easily add new users by having them send you their public keys.
+The `gitolite-admin` repo is where all of the Gitolite configuration takes
+place. You can clone this to your home computer and push your changes back to
+your server and Gitolite will automatically re-configure itself. This is also
+how you add new SSH keys (either for yourself or for other users).
+
 Gitolite also interfaces quite nicely with `git-daemon` and `gitweb`. Be sure
-to check out the thorough documentation on [Gitolite's website][gitolite].
+to check out the thorough documentation on [Gitolite's website][Gitolite].
 
-[gitolite]: https://gitolite.com/gitolite/index.html
-
-## git-daemon
+## git daemon
 
 Git includes a `daemon` subcommand that will listen for incoming connections
 and serve data over the `git://` protocol. This allows you to clone repos from
@@ -87,7 +119,7 @@ your server using
 
     $ git clone git://yourserver/repo.git
 
-The `git://` protocl is the fastest and simplest option for read-only access,
+The `git://` protocol is the fastest and simplest option for read-only access,
 and it's trivial to set up. Assuming your `git` user's home directory is
 `/var/lib/git`, simply create the following `systemd` service file (e.g. at
 `/etc/systemd/system/git-daemon.service`):
@@ -128,19 +160,17 @@ readable by the special `daemon` user.
 
 ## Gitweb and HTTP
 
-The most difficult part of setting up a git server is the web frontend
-and HTTP access. The git documentation has a section on [Smart HTTP][] which
-is a good starting point, but it still took me quite a while to get everything
-working in Apache. Part of the reason I had some difficulty was because I
-insisted on running the webserver in a Docker container (so that I can version
-control the configuration). It took me a while to get working, but the ultimate
-solution ended up being pretty simple.
+The most difficult part of setting up a git server is the web frontend and HTTP
+access. The git documentation has a section on [Smart HTTP][] which is a good
+starting point, but it still took me quite a while to get everything working.
+Part of the reason I had some difficulty was because I insisted on running the
+webserver in a Docker container (so that I can version control the
+configuration).
 
 By default, your `git` installation includes the `git-http-backend` script
 which allows you to clone over HTTP. If you also want to host a web frontend,
 then you have to create some rules for your webserver so that it knows when to
-direct traffic to the web page and when to direct it to the `git-http-backend`
-script.
+serve the web page and when to direct traffic to the `git-http-backend` script.
 
 Here is an example Apache configuration file:
 
@@ -181,13 +211,13 @@ suffix you'll have to create non-suffixed symlinks to those directories.
 Create and modify the [`/etc/gitweb.conf`][gitweb.conf] file to configure
 Gitweb.
 
-In my case, I run Apache behind a reverse proxy that handles all of the TLS
+I run Apache behind a reverse proxy that handles all of the TLS
 encryption, so the configuration above doesn't deal with any of that. Setting
 up TLS for a webserver is out of scope for this guide and if that's
-not something you care to do, you can always omit the HTTPS portion of your
+not something you care to do, you can always omit the HTTP/S portion of your
 server and simply serve via `git://` and SSH. Like I said, this part is the
 most complex and will likely take more time than the other steps. The above
-snippet should be a good starting point.
+snippet should be a good starting point though.
 
 Unfortunately, even after getting the web server configured, I had another
 problem. The default Gitweb web page is a bit... utilitarian, to phrase it
@@ -201,32 +231,27 @@ Gitweb uses a Perl CGI script to generate the HTML, which means unless you want
 to manually modify that script your basically stuck with the HTML that Gitweb
 gives you.
 
-Fortunately, CSS is super powerful these days and you can do _a lot_ with it.
-For me, styling the web frontend was the most fun part. I haven't done any
-front-end work in a few years now so it was nice to dip my toes back into the
-water. New CSS tricks like `flex` and `grid` are really cool and very
-powerful.
-
-With only 6.25 KB of CSS I was able to transform the drab, default Gitweb
-interface into what you see today at [git.gpanders.com][]. You may think it
-still looks drab, but considering I'm not a designer or a front-end developer,
-I'm fairly proud of how it turned out.
+Fortunately, CSS is quite powerful these days and there is _a lot_ you can do
+with it. With only 6.25 KB of CSS I was able to transform the drab, default
+Gitweb interface into what you see today at [git.gpanders.com][archived][^1].
+You may think it still looks drab, but I'm fairly proud of how it turned out.
 
 [Smart HTTP]: https://git-scm.com/book/en/v2/Git-on-the-Server-Smart-HTTP
 [gitweb.conf]: https://git-scm.com/docs/gitweb.conf
+[archived]: https://web.archive.org/web/20200326151219/https://git.gpanders.com/
 
 ## Gitolite tips and tricks
 
 Here are some of the Gitolite tricks I've set up on my server that you may find
 useful.
 
-### Mirroring to Github
+### Mirroring to GitHub
 
-I still mirror most of my repositories to Github, as that's still the best
+I still mirror most of my repositories to GitHub, as that's still the best
 place for discoverability and compatibility with other programs.
 
 This is easy to set up in Gitolite. In your `gitolite.conf` file, add the
-following to configure the repos you want to mirror to Github:
+following to configure the repos you want to mirror to GitHub:
 
 ```gitolite
 @github = repo1 repo2
@@ -252,7 +277,7 @@ git push --quiet --mirror --force github
 ```
 
 You'll also need to create an SSH key for your `git` user on your server and
-upload the public key to Github to allow your server to push to Github:
+upload the public key to GitHub to allow your server to push to GitHub:
 
     $ ssh yourserver.com
     $ su - git
@@ -261,7 +286,7 @@ upload the public key to Github to allow your server to push to Github:
 
 ### Clone repos without .git suffix
 
-Github and other popular hosting sites allow you to interact with remote git
+GitHub and other popular hosting sites allow you to interact with remote git
 repos with or without the `.git` suffix, e.g.
 
     git clone https://github.com/gpanders/dotfiles.git
@@ -329,7 +354,7 @@ and modify [line 28][] to
 
 ### Generate a README
 
-Github and other sites automatically convert your README file (if it exists)
+GitHub and other sites automatically convert your README file (if it exists)
 from Markdown, reStructured Text, etc. into HTML when you visit the web page.
 We can do this too with Gitolite!
 
@@ -369,13 +394,13 @@ repo @all
 Obviously this requires that [`pandoc`][pandoc] be installed on your git
 server.
 
-[example]: https://git.gpanders.com/vim-medieval
+[example]: https://web.archive.org/web/20200326151319/git.gpanders.com/pushbroom
 [pandoc]: https://pandoc.org/
 
 ### Publish a Hugo site
 
 This is the hook I use to publish this blog. I use Hugo to "compile" my site
-and I push it to Github where it's hosted on Github Pages. My publish hook is
+and I push it to GitHub where it's hosted on GitHub Pages. My publish hook is
 located at `hooks/repo-specific/publish`:
 
 ```sh
@@ -426,3 +451,6 @@ repo blog
 [trigger]: https://gitolite.com/gitolite/triggers
 [default trigger]: https://github.com/sitaramc/gitolite/blob/d89c7ddce000de3de8c6216877e2ad94d63e36d1/src/triggers/post-compile/update-gitweb-access-list
 [line 28]: https://github.com/sitaramc/gitolite/blob/d89c7ddce000de3de8c6216877e2ad94d63e36d1/src/triggers/post-compile/update-gitweb-access-list#L28
+
+[^1]: This is an archived link so you can see the CSS changes I'm referring to.
+  The live version of <https://git.gpanders.com> no longer looks like this.
