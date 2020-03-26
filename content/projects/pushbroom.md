@@ -2,7 +2,7 @@
 title: Pushbroom
 license: MIT
 summary: Sweep your filesystem clear of clutter
-src: pushbroom
+src: gpanders/pushbroom
 github: gpanders/pushbroom
 ---
 

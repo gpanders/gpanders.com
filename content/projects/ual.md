@@ -2,7 +2,7 @@
 title: ual
 license: MIT
 summary: The other half of man
-src: ual
+src: gpanders/ual
 github: gpanders/ual
 ---
 

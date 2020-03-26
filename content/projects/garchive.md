@@ -2,7 +2,7 @@
 title: garchive
 license: MIT
 summary: Ultra-simple front-end for a web archive
-src: garchive
+src: gpanders/garchive
 github: gpanders/garchive
 ---
 
