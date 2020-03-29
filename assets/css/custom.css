@@ -52,7 +52,12 @@ th, td {
   overflow: visible;
 }
 
-nav {
+time {
+  font-size: 14px;
+  color: #666;
+}
+
+nav.u-background {
   border-bottom: 1px solid #dbdbdb;
 }
 
@@ -65,11 +70,16 @@ nav {
 }
 
 .Banner-link {
-  color: #000;
+  color: #666;
   font-size: 1rem;
 }
 
+.Banner-link:hover {
+  color: #000;
+}
+
 .Banner-item--title .Banner-link {
+  color: #000;
   font-weight: 700;
   font-size: 1.25rem;
 }
@@ -140,7 +150,13 @@ nav {
 .Contact-item {
   padding: 12px 0;
 }
+
 .Contact-item p {
   font-weight: 700;
   margin: 0;
+}
+
+.Pagination {
+  font-size: 1rem;
+  color: #666;
 }

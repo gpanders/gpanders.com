@@ -9,7 +9,7 @@
   <li class="List-item">
     <h3 class="List-link"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
     {{ with .PublishDate | default nil }}
-    <small>{{ .Format "2006-01-02" }}</small>
+    <time datetime="{{ .Format "2006-01-02T00:00:00Z00:00" }}">{{ .Format "2 January, 2006" }}</time>
     {{ end }}
   </li>
   {{ end }}
