@@ -10,7 +10,7 @@ ambitious tool with a lot of potential. This guide will help you get started.
 
 <!--more-->
 
-The guide is targeted toward the Zynq UltraScale+ MPSoC using a command line
+The guide is targeted toward the Zynq Ultrascale+ MPSoC using a command line
 (as opposed to a GUI) flow because that is what I use. However, where possible,
 I've aimed to keep things as device agnostic as possible.
 
@@ -44,8 +44,34 @@ The high-level outline of doing hardware acceleration in Vitis is
 5.  [Write and compile your host executable]
 6.  [Run software emulation]
 
+Pre-packaged Embedded Platforms
+-------------------------------
+
+Xilinx offers a set of standard embedded hardware platforms available
+[here][platforms]. If you're just getting started or if your design does not
+contain any custom IP or infrastructure, you can use one of these standard
+platforms and skip steps 1-3 above.
+
+To use one of these platforms (for example, `zcu102_base`), download the ZIP
+file from Xilinx's website and extract the platform to the `platforms`
+subdirectory beneath your Vitis installation. For example, if you installed
+Vitis to `/opt/Xilinx/Vitis/2019.2`, you would copy the `zcu102_base` directory
+to `/opt/Xilinx/Vitis/2019.2/platforms/zcu102_base`. In the rest of this guide,
+you will then provide `zcu102_base` as the argument to the `--platform` command
+line flag.
+
+Also download the cross-compilation sysroot from the same [downloads
+page][platforms]. After extracting the archive you'll find `sdk.sh` scripts for
+both the Zynq 7000 and the Zynq Ultrascale. Execute the `sdk.sh` script for
+your chip and supply an installation path for the sysroot.
+
+[platforms]: https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-platforms.html
+
 Creating Your Hardware Design
 -----------------------------
+
+**NOTE**: You can skip this step if you are using a [pre-packaged embedded
+platform](#pre-packaged-embedded-platforms).
 
 This step is done using Vivado and is responsible for generating the Xilinx
 Shell Archive (`xsa`) file (formerly known as a Hardware Description File
@@ -105,6 +131,9 @@ the memory interfaces of your kernels.
 
 Create Linux Software Components
 --------------------------------
+
+**NOTE**: You can skip this step if you are using a [pre-packaged embedded
+platform](#pre-packaged-embedded-platforms).
 
 Vitis requires the following software components:
 
@@ -186,7 +215,7 @@ Vitis, so there is no need to insert absolute paths in this file. Save the BIF
 file as `linux.bif` in your `boot` directory.
 
 Finally, you will need two plain text files that provide the command line
-arguments to QEMU. You can simply copy these from Xilinx's [Vitis Github page]
+arguments to QEMU. You can simply copy these from Xilinx's [Vitis GitHub page]
 and save them to your `boot` directory. Note that, unfortunately, the names of
 these two files _do_ matter: they should be named `qemu_args.txt` and
 `pmu_args.txt` respectively.
@@ -196,6 +225,9 @@ targets, which we'll get to later.
 
 Generate a Xilinx Platform File
 -------------------------------
+
+**NOTE**: You can skip this step if you are using a [pre-packaged embedded
+platform](#pre-packaged-embedded-platforms).
 
 Vitis introduces some new jargon: **platforms**, **domains**, and system
 projects. A **platform** is essentially the hardware platform which we created
@@ -231,7 +263,7 @@ Write and Compile Your Kernels
 ------------------------------
 
 Writing OpenCL or Vivado HLS kernels is a huge topic that is beyond the scope
-of this gude. As a simple example, however, assume we have the following
+of this guide. As a simple example, however, assume we have the following
 multiply-and-add kernel at `kernels/axpy/axpy.c`:
 
 ```c
@@ -264,6 +296,14 @@ v++ --platform ./build/platform/vitis_example/export/vitis_example/vitis_example
 
 Note that the `xpfm` file created in the last step is a required argument to
 the `v++` compiler.
+
+If you are using a [pre-packaged embedded
+platform](#pre-packaged-embedded-platforms), supply the name of the platform as
+the argument to the `--platform` command line flag. For example,
+
+```console
+v++ --platform zcu102_base ...
+```
 
 Once you have one or more `.xo` files, you can link them together into an
 `.xclbin` file:
@@ -298,12 +338,13 @@ is in part because Xilinx depends on some APIs that were deprecated in OpenCL
 Run Software Emulation
 ----------------------
 
-This is the point where the edge-based flow differs signifcantly from an
+This is the point where the edge-based flow differs significantly from an
 x86/PCIe platform. In order to do software emulation for the ARM CPU, Vitis
-spins up a QEMU VM using the parameters supplied during platform creation. At
-this point, you can run your host executable with the compiled xclbin file. The
-Xilinx Runtime will generate run summaries and reports on the target VM, which
-you must then transfer back over to your host development machine.
+spins up a QEMU virtual machine using the parameters supplied during platform
+creation. At this point, you can run your host executable with the compiled
+xclbin file. The Xilinx Runtime will generate run summaries and reports on the
+target VM, which you must then transfer back over to your host development
+machine.
 
 The software emulation VM is launched using a script called `launch_emulator`.
 When you source the Vitis `settings64.sh` file, this script is added to your
