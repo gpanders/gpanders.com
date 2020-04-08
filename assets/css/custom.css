@@ -1,3 +1,7 @@
+main {
+  margin: 1.5rem 0;
+}
+
 a {
   text-decoration: none;
   color: #0066d6;
@@ -57,10 +61,6 @@ time {
   color: #666;
 }
 
-nav.u-background {
-  border-bottom: 1px solid #dbdbdb;
-}
-
 .u-clickable {
   font-weight: inherit;
 }
@@ -81,7 +81,7 @@ nav.u-background {
 .Banner-item--title .Banner-link {
   color: #000;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 24px;
 }
 
 .Banner-item--title .Banner-link:hover {
@@ -106,7 +106,7 @@ nav.u-background {
 
 .Footer {
   border-top: 1px solid #dbdbdb;
-  margin-bottom: 0;
+  margin: 0;
   padding: 15px 0;
   color: #666;
   font-size: smaller;
