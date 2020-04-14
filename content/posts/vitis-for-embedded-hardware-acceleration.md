@@ -96,23 +96,6 @@ set_property PFM.CLOCK { \
 Every platform must specify one clock with `id=0`, `status="fixed"` and
 `is_default="true"`.
 
-The following is an excerpt from the Xilinx [documentation][]:
-
-> Multiple clocks are supported. Every platform must provide and declare one or
-> more clock nets sourced within the platform. The platform can have as many
-> internal clocks as needed. These can, but are not required to, be declared
-> for use by the v++ linker.
->
-> -   The PFM.CLOCK property is used to set clocking and associated reset
->     information.
-> -   Your design must include a clock set as the default clock, with id=`0`
->     and status=`fixed`.
-> -   If available, a clock with id=`1` and status=`fixed` will be used by the
->     v++ linker to connect to the `ap_clk2` port of an acceleration kernel.
-> -   Frequencies of either clock are unspecified, but the designer should
->     consider device and timing constraints. Platforms can contain other
->     clocks.
-
 In addition to the clocks, you must also specify the available memory ports in
 your design. Again, this can be done in the GUI in the
 `Window > Platform Interfaces` window or can be done directly in Tcl:
@@ -177,10 +160,11 @@ Runtime will not be able to detect your hardware device.
 If you use plain YoctoLinux, the `xrt` and `zocl` applications can be found in
 Xilinx's [meta-petalinux] layer.
 
-One other important modification you must make that is not covered in the
-Xilinx documentation is to disable the `CONFIG_CPU_IDLE` kernel option. See
-[AR\# 69143] for more information. Without this modification, QEMU will hang
-during bootup.
+One other important modification you must make is to disable the
+`CONFIG_CPU_IDLE` kernel option. See [AR\# 69143] for more information. Without
+this modification, QEMU will hang during bootup (**UPDATE 2020-04-14**: This
+step is now included in the official Vitis documentation. See Step 9
+[here][1]).
 
 Once you run `petalinux-build`, you will find all of the requisite software
 components in the `images/linux/` directory. Copy these to a location of your
@@ -317,12 +301,10 @@ and link phases. The `-t` option is mandatory and determines what actually is
 produced in the `.xclbin` file. The available options are `sw_emu`, `hw_emu`,
 or `hw`. For now, we'll just use `sw_emu` (meaning "software emulation").
 
-You can find a full list of available `v++` options [here][3].
-
 We now have our platform file and our `xclbin` file. All that's left is to
 write and compile the host code and test our application in the emulator.
 
-For more information on using `v++` see the [official Xilinx documentation].
+For more information on using `v++` see the [official Xilinx documentation][3].
 
 Write and Compile the Host Code
 -------------------------------
@@ -434,7 +416,7 @@ If you have any questions or feedback, please feel free to [contact me].
 
   [here]: https://github.com/gpanders/vitis_example
   [Vitis Tutorials]: https://github.com/Xilinx/Vitis-Tutorials
-  [XRT Platform Creation]: https://github.com/Xilinx/XRT/tree/master/src/platform/zcu102_base
+  [XRT Platform Creation]: https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_base
   [Vitis Documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/kme1569523964461.html
   [Create a hardware design (XSA file) in Vivado]: #creating-your-hardware-design
   [Create Linux software components]: #create-linux-software-components
@@ -442,17 +424,15 @@ If you have any questions or feedback, please feel free to [contact me].
   [Write and compile your kernels]: #write-and-compile-your-kernels
   [Write and compile your host executable]: #write-and-compile-the-host-code
   [Run software emulation]: #run-software-emulation
-  [Xilinx's documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1854106950.html#wxe1570652701297
-  [documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1180956723.html#itc1511211457306
-  [Configuring Platform Interface Properties]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1756746358.html#phl1512685419302
+  [Xilinx's documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk373975992.html#wxe1570652701297
+  [Configuring Platform Interface Properties]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk440719349.html#phl1512685419302
   [PetaLinux]: https://www.xilinx.com/products/design-tools/embedded-software/petalinux-sdk.html
-  [1]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk375818786.html#hog1570652702356
+  [1]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1468064742.html#ariaid-title2
   [meta-petalinux]: https://github.com/Xilinx/meta-petalinux
   [AR\# 69143]: https://www.xilinx.com/support/answers/69143.html
   [Vitis Github page]: https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_base/vivado/src/qemu/lnx
-  [2]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk356017304.html#jvn1570652701832
-  [3]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1798293725.html#wrj1504034328013
-  [official Xilinx documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk595166594.html#tvy1528754367816
+  [2]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk468473335.html#ariaid-title2
+  [3]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1193338764.html#wrj1504034328013
   [example]: https://github.com/gpanders/vitis_example/blob/master/src/host/host.cpp
   [4]: https://www.khronos.org/registry/OpenCL/sdk/1.2/docs/man/xhtml/
   [contact me]: mailto:contact@gpanders.com
