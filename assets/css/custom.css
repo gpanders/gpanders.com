@@ -160,3 +160,10 @@ time {
   font-size: 1rem;
   color: #666;
 }
+
+.Lastmod {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin: 2em 0 0;
+}
