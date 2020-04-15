@@ -4,6 +4,7 @@ author = "Greg Anders"
 title = "g.p. anders"
 theme = "hugo-flex"
 enableGitInfo = true
+paginate = 9999999
 
 [taxonomies]
 
