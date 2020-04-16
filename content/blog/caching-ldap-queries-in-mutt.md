@@ -1,16 +1,7 @@
 ---
 title: "Caching LDAP Queries in Mutt"
 date: 2020-03-11
-draft: true
 ---
-
-It is possible to integrate [Mutt][] with an LDAP server to
-use Mutt at work and want to be able to look up recipient email addresses. Mutt
-has a setting called `query_command` that you can invoke when entering
-recipients in a new message. The command will be executed and Mutt will display
-the output and allow you to make a selection.
-
-<!--more-->
 
 You can use the [`lbdb`](https://www.spinnaker.de/lbdb/) tool to query an LDAP
 server within Mutt using the `query_command` setting. Setting up `lbdb` is out
@@ -31,8 +22,8 @@ The script queries your LDAP server using `lbdbq` and returns those "raw"
 results to Mutt so that you can make your selection. However, it also reformats
 the output and saves it to an aliases file for Mutt to use later.
 
-Save this script, make it executable, and use it in Mutt's `query_command`
-setting. For example,
+Save this script to `~/.lbdb/query.sh`, make it executable, and
+use it in Mutt's `query_command` setting:
 
     set query_command = "~/.lbdb/query.sh '%s'"
 

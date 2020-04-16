@@ -1,7 +1,6 @@
 ---
 title: Git Plumbing
 date: 2020-03-02
-draft: true
 ---
 
 ## Porcelain and Plumbing
