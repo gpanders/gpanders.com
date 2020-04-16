@@ -4,6 +4,7 @@ author = "Greg Anders"
 title = "g.p. anders"
 theme = "hugo-flex"
 enableGitInfo = true
+pluralizeListTitles = false
 paginate = 9999999
 
 [taxonomies]
@@ -27,8 +28,8 @@ paginate = 9999999
   weight = 1
 
 [[menu.nav]]
-  name = "Posts"
-  url = "/posts"
+  name = "Blog"
+  url = "/blog"
   weight = 2
 
 [[menu.nav]]
