@@ -1,6 +1,7 @@
 ---
 title: "Creating Your Own Git Server"
 date: 2020-03-18
+featured: true
 ---
 
 Ever considered setting up and running your very own git server? It's actually

@@ -2,6 +2,7 @@
 title: Using Xilinx Vitis for Embedded Hardware Acceleration
 date: 2020-02-12
 tags: [xilinx, fpga]
+featured: true
 ---
 
 Xilinx recently released their new Vitis tool, which aims to ease the process

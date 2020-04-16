@@ -23,16 +23,11 @@ paginate = 9999999
     style = "friendly"
 
 [[menu.nav]]
-  name = "Projects"
-  url = "/projects"
+  name = "Blog"
+  url = "/blog"
   weight = 1
 
 [[menu.nav]]
-  name = "Blog"
-  url = "/blog"
+  name = "Projects"
+  url = "/projects"
   weight = 2
-
-[[menu.nav]]
-  name = "About"
-  url = "/about"
-  weight = 3

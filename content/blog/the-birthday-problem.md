@@ -2,6 +2,7 @@
 title: The Birthday Problem
 date: 2015-12-07
 tags: [probability]
+featured: true
 ---
 
 The "Birthday Problem" is a classic in introductory probability theory, and it

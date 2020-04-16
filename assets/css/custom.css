@@ -178,3 +178,11 @@ nav.u-background {
   text-align: center;
   margin: 2em 0 0;
 }
+
+.Featured {
+  padding-left: 1em;
+}
+
+.Featured-item {
+  margin: 0.5em 0;
+}

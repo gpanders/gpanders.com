@@ -2,6 +2,7 @@
 title: Evaluating Markdown Code Blocks in Vim
 date: 2019-08-12
 tags: [markdown, vim]
+featured: true
 ---
 
 When writing Markdown it is common to have code blocks within your document
