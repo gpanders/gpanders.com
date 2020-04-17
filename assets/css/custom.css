@@ -186,3 +186,17 @@ nav.u-background {
 .Featured-item {
   margin: 0.5em 0;
 }
+
+.Search-input {
+  border-radius: 5px;
+  border: 1px solid #dbdbdb;
+  padding: 0 0.5em;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #666;
+}
+
+.Search-results {
+  list-style: none;
+  padding: 0;
+}
