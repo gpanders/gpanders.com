@@ -1,0 +1,136 @@
+---
+title: "Building Site Search With Hugo"
+date: 2020-04-17T13:08:49-06:00
+tags: ["hugo", "search", "howto"]
+---
+
+Search is a handy feature you might want on your Hugo static site. Hugo does
+not have any built-in way to provide a search function, but they do offer some
+[suggestions][] on how to do it yourself.
+
+The difficulty with implementing a search function is that it usually requires
+some kind of serverside logic, which is obviously missing when using a static
+site like Hugo. So any search implementation must be done entirely on the
+client side. One of the [options Hugo suggests][] offers an
+implementation using jQuery and Fuse JS. 
+
+This seemed a bit overkill to me. I did not want to have to add two (rather
+large) Javascript libraries to my site simply to provide a simple feature like
+search. Further, even after trying Fuse JS I was utterly confounded by the
+search results it returned and found the documentation incomplete and
+confusing. For example, while testing Fuse I searched my site for "fpga". As of
+this writing, there are two posts on this site containing the word "fpga", so I
+would expect the search to return those two posts and those two posts only.
+However, Fuse completely failed to find one of the posts and also returned
+several false positives! This happens because Fuse uses a fuzzy search
+algorithm, so the search term "fpga" matches a lot of things besides the term
+itself, which is not what I wanted.
+
+Fortunately, there is a better way.
+
+Hugo can create a JSON index of your entire site, with keys of your choosing.
+For example, you can create an `index.json` file with keys such as `title`,
+`tags`, `permalink`, `date`, and `contents`. You can then use Javascript to
+download this `index.json` file, parse it into a Javascript object and then
+search through it (this is also how the Fuse implementation works).
+
+To tell Hugo to create a `index.json` of your site, add the following to your
+`config.toml` file:
+
+```toml
+[outputs]
+  home = ["html", "json"]
+```
+
+Also create the following file at `layouts/_default/index.json`:
+
+```go
+{{- $.Scratch.Add "index" slice -}}
+{{- range where .Site.RegularPages "Section" "in" site.Params.mainSections  -}}
+    {{- $.Scratch.Add "index" (dict "title" .Title "date" (dateFormat "2006-01-02" .Date) "tags" .Params.tags "contents" .Plain "permalink" .Permalink) -}}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}
+```
+
+When you use `hugo` to publish your site, you will find a file at
+`public/index.json` containing a JSON representation of your whole site.
+
+Once the `index.json` file is created, we can download it with
+
+```javascript
+var httpRequest = new XMLHttpRequest();
+httpRequest.onreadystatechange = function() {
+    if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+        const index = JSON.parse(httpRequest.responseText);
+        // Search `index` for your search query
+    }
+};
+
+httpRequest.open("GET", "/index.json");
+httpRequest.send();
+```
+
+Then it's just a matter of searching the index object for our query:
+
+```javascript
+// XMLHttpRequest boilerplate from above
+// ...
+const index = JSON.parse(httpRequest.responseText);
+const keys = ["title", "permalink", "tags", "contents"];
+const re = new RegExp(query);  // See below for how we get the query
+var results = index.filter(item => {
+    for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        if (!item[key]) {
+            continue;
+        }
+
+        if (key === "tags") {
+            if (item[key].some(tag => re.test(tag.toLowerCase()))) {
+                return true;
+            }
+        } else if (re.test(item[key].toLowerCase())) {
+            return true;
+        }
+    }
+
+    return false;
+});
+// ...
+```
+
+The items in `results` are your search results. Now it's just a
+matter of adding those results to the DOM to present them to your user.
+
+I added a form to the navigation banner on this site with a single input field
+that redirects users to `gpanders.com/search/` with a single query param `q`.
+So a search URL looks like `gpanders.com/search/?q=query_phrase`. To get the
+search query from the request URL, I simply use:
+
+```javascript
+const match = window.locaiton.href.match(/\?q=(.+)/);
+if (!match) {
+    return;
+}
+
+const query = match[1];
+```
+
+`query` is then used in the `XMLHttpRequest` callback we wrote above.
+
+To create the actual search page in Hugo, create the file
+`content/search/index.md` with the simple contents:
+
+```markdown
+---
+layout: "search"
+---
+```
+
+Then create the layout file for this page at `layouts/_default/search.html`.
+
+You can find my full implementation [online][].
+
+[suggestions]: https://gohugo.io/tools/search/
+[options Hugo suggests]: https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae
+[online]: https://gpanders.com/search
