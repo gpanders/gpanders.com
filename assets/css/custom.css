@@ -187,6 +187,10 @@ nav.u-background {
   margin: 0.5em 0;
 }
 
+.Search-form {
+  padding: 0.5rem 1rem;
+}
+
 .Search-input {
   border-radius: 5px;
   border: 1px solid #dbdbdb;
