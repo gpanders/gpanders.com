@@ -1,0 +1,11 @@
+{{ define "main" }}
+
+{{ with resources.Get "js/search.js" | fingerprint }}
+<script async type="text/javascript" src="{{ .Permalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+{{ end }}
+
+<h2 class="Search-header"></h2>
+<ul class="Search-results">
+</ul>
+
+{{ end }}

@@ -29,14 +29,16 @@
       var results = data.filter((item) => {
         for (var i = 0; i < keys.length; i++) {
           var key = keys[i];
-          if (item[key]) {
-            if (key === "tags") {
-              if (item[key].some((tag) => re.test(tag.toLowerCase()))) {
-                return true;
-              }
-            } else if (re.test(item[key].toLowerCase())) {
+          if (!item[key]) {
+            continue;
+          }
+
+          if (key === "tags") {
+            if (item[key].some((tag) => re.test(tag.toLowerCase()))) {
               return true;
             }
+          } else if (re.test(item[key].toLowerCase())) {
+            return true;
           }
         }
 
