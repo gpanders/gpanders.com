@@ -1,0 +1,11 @@
+{{ define "main" }}
+
+<article>
+  {{ partial "heading.html" . }}
+  {{ .Content }}
+  {{ partial "modified.html" . }}
+  {{ partial "tags.html" . }}
+  {{ partial "comments.html" . }}
+</article>
+
+{{ end }}
