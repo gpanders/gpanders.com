@@ -19,7 +19,7 @@ paginate = 9999999
   color = "white"
   footer = 'Content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.'
   divider = false
-  width = "80ch"
+  width = "90ch"
 
 [markup]
   [markup.highlight]
