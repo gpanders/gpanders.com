@@ -2,12 +2,13 @@
   var header = document.querySelector(".Search-header");
   const match = window.location.href.match(/\?q=(.+)/);
   if (!match) {
-    header.innerText =
-      "No search query provided.";
+    header.innerText = "No search query provided.";
     return;
   }
 
   const query = match[1];
+  header.innerText = 'Searching for "' + query + '"...';
+
   const re = new RegExp(query.toLowerCase());
   var httpRequest = new XMLHttpRequest();
 
