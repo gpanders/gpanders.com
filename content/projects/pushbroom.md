@@ -182,7 +182,7 @@ service file depending on your method of installation.
 ## Contributing
 
 Please feel free to contribute changes or bug fixes! You can [send patches][]
-to <git@gpanders.com> or submit a pull request on [Github][].
+to <git@gpanders.com> or submit a pull request on [GitHub][].
 
 [send patches]: https://git-send-email.io/
 [Github]: https://github.com/gpanders/pushbroom
