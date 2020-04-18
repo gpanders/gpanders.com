@@ -118,6 +118,9 @@ const query = match[1];
 
 `query` is then used in the `XMLHttpRequest` callback we wrote above.
 
+Save this Javascript file to `assets/js/search.js`. It needs to be under the
+`assets` directory so that we can access it using Hugo's `resources` API.
+
 To create the actual search page in Hugo, create the file
 `content/search/index.md` with the simple contents:
 
@@ -128,9 +131,43 @@ layout: "search"
 ```
 
 Then create the layout file for this page at `layouts/_default/search.html`.
+For example,
 
-You can find my full implementation [online][].
+```html
+{{ with resources.Get "js/search.js" | fingerprint }}
+<script async type="text/javascript" src="{{ .Permalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+{{ end }}
+
+<h2 class="search-header"></h2>
+<ul id="search-results">
+</ul>
+```
+
+The way your layout is structured will depend on the theme you are using. You
+should use the single page layout files from your theme as a starting point and
+modify it from there.
+
+Then, in your `search.js` file, fill in the DOM using your search results:
+```javascript
+// Generate `results` from listing above
+// ...
+var html = "";
+for (var i = 0; i < results.length; i++) {
+    html += '<li><a href="' + results[i].permalink + '">' + results[i].title + '</a></li>'
+}
+
+document.getElementById("search-results").innerHTML = html;
+```
+
+Et voila! You now have working search on your static Hugo site!
+
+The post above is not meant to be a finely detailed, step-by-step guide, but
+rather a high-level overview of how I did my implementation. There are a lot of
+gaps you'll have to fill in for yourself, but of course, that's the fun part!
+Feel free to [contact me][] with any questions or feedback. And of course, you
+can always find my full implementation [here on this site][].
 
 [suggestions]: https://gohugo.io/tools/search/
 [options Hugo suggests]: https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae
-[online]: https://gpanders.com/search
+[contact me]: mailto:contact@gpanders.com
+[here on this site]: https://gpanders.com/search
