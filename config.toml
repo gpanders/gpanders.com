@@ -5,7 +5,6 @@ title = "g.p. anders"
 theme = "hugo-flex"
 enableGitInfo = true
 pluralizeListTitles = false
-paginate = 9999999
 
 [taxonomies]
 
@@ -23,7 +22,7 @@ paginate = 9999999
 
 [markup]
   [markup.highlight]
-    style = "friendly"
+    style = "igor"
 
 [[menu.nav]]
   name = "Blog"
