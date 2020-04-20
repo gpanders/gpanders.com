@@ -7,3 +7,9 @@
   </div>
 </footer>
 {{ end }}
+
+<script type="text/javascript">
+// Scrollable code blocks should be tab focusable. Hugo does not do this and
+// there is no way to change that presently. See issue gohugoio/hugo#7194.
+document.querySelectorAll(".highlight > pre").forEach(el => el.tabIndex = "0");
+</script>

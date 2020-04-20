@@ -31,7 +31,6 @@
     pre-render, shortcodes can be used to load additional CSS and JS
     resources to specific pages of the website.
   */}}
-  {{ block "loadshortcodes" . }}{{ with .Content }}{{ end }}{{ end }}
   {{ range .Scratch.GetSortedMapValues "css" }}
   <link rel="stylesheet" href="{{ .Permalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
   {{ end }}

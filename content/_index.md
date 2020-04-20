@@ -1,5 +1,3 @@
-Hello!
-
 My name is Greg. I am an electrical and computer engineer specializing in
 reconfigurable and embedded computing for space-based systems.
 

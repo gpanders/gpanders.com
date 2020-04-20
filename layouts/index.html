@@ -1,31 +1,10 @@
-{{ define "loadshortcodes" }}
-
-{{/*
-  Here Hugo is forced to cycle through all the items that will appear on
-  the page, effectively pre-rendering all their shortcodes. Afterwards,
-  when a shortcode contains a "css" or a "js" entry in their local
-  .Scratch variable, the content of this entry is merged to the content
-  of the corresponding entry in the global .Scratch variable.
-*/}}
-{{ $paginator := where site.RegularPages "Type" "in" site.Params.mainSections | .Paginate }}
-{{ range $paginator.Pages }}
-{{ with .Content }}{{ end }}
-{{ with .Scratch.Get "css" }}
-{{ . | merge ($.Scratch.Get "css") | $.Scratch.Set "css" }}
-{{ end }}
-{{ with .Scratch.Get "js" }}
-{{ . | merge ($.Scratch.Get "js") | $.Scratch.Set "js" }}
-{{ end }}
-{{ end }}
-{{ .Scratch.Set "paginator" $paginator }}
-
-{{ end }}
-
 {{ define "main" }}
+
+<h1>Hello!</h1>
 
 {{ .Content }}
 
-<h3>Featured Posts</h3>
+<h2>Featured Posts</h2>
 <ul class="Featured">
 {{ $posts := where .Site.RegularPages "Section" "blog" }}
 {{ range sort (where $posts ".Params.featured" true) "Title" }}

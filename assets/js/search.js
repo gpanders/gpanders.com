@@ -65,11 +65,11 @@
 		for (var i = 0; i < numResults; i++) {
 			searchItems +=
 				'<li class="List-item">' +
-				'<h3 class="List-link"><a href="' +
+				'<h2 class="List-link"><a href="' +
 				results[i].permalink +
 				'" tabindex="0">' +
 				results[i].title +
-				"</a></h3>" +
+				"</a></h2>" +
 				'<time datetime="' +
 				results[i].date +
 				'">' +
