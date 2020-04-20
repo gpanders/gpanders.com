@@ -2,6 +2,7 @@
 title: "Building Site Search With Hugo"
 date: 2020-04-17T13:08:49-06:00
 tags: ["hugo", "search", "howto"]
+featured: true
 ---
 
 Search is a handy feature you might want on your Hugo static site. Hugo does
@@ -9,14 +10,14 @@ not have any built-in way to provide a search function, but they do offer some
 [suggestions][] on how to do it yourself.
 
 The difficulty with implementing a search function is that it usually requires
-some kind of serverside logic, which is obviously missing when using a static
+some kind of server side logic, which is obviously missing when using a static
 site like Hugo. So any search implementation must be done entirely on the
 client side. One of the [options Hugo suggests][] offers an
-implementation using jQuery and Fuse JS. 
+implementation using jQuery and Fuse.js.
 
 This seemed a bit overkill to me. I did not want to have to add two (rather
-large) Javascript libraries to my site simply to provide a simple feature like
-search. Further, even after trying Fuse JS I was utterly confounded by the
+large) JavaScript libraries to my site simply to provide a simple feature like
+search. Further, even after trying Fuse.js I was utterly confounded by the
 search results it returned and found the documentation incomplete and
 confusing. For example, while testing Fuse I searched my site for "fpga". As of
 this writing, there are two posts on this site containing the word "fpga", so I
@@ -30,8 +31,8 @@ Fortunately, there is a better way.
 
 Hugo can create a JSON index of your entire site, with keys of your choosing.
 For example, you can create an `index.json` file with keys such as `title`,
-`tags`, `permalink`, `date`, and `contents`. You can then use Javascript to
-download this `index.json` file, parse it into a Javascript object and then
+`tags`, `permalink`, `date`, and `contents`. You can then use JavaScript to
+download this `index.json` file, parse it into a JavaScript object and then
 search through it (this is also how the Fuse implementation works).
 
 To tell Hugo to create a `index.json` of your site, add the following to your
@@ -77,19 +78,19 @@ Then it's just a matter of searching the index object for our query:
 // ...
 const index = JSON.parse(httpRequest.responseText);
 const keys = ["title", "permalink", "tags", "contents"];
-const re = new RegExp(query);  // See below for how we get the query
-var results = index.filter(item => {
+const pattern = new RegExp(query);  // See below for how we get the query
+const results = index.filter(item => {
     for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
+        const key = keys[i];
         if (!item[key]) {
             continue;
         }
 
         if (key === "tags") {
-            if (item[key].some(tag => re.test(tag.toLowerCase()))) {
+            if (item[key].some(tag => pattern.test(tag.toLowerCase()))) {
                 return true;
             }
-        } else if (re.test(item[key].toLowerCase())) {
+        } else if (pattern.test(item[key].toLowerCase())) {
             return true;
         }
     }
@@ -108,17 +109,24 @@ So a search URL looks like `gpanders.com/search/?q=query_phrase`. To get the
 search query from the request URL, I simply use:
 
 ```javascript
-const match = window.locaiton.href.match(/\?q=(.+)/);
+const match = window.location.href.match(/\?q=(.+)/);
 if (!match) {
     return;
 }
 
 const query = match[1];
+const pattern = new RegExp(query.toLowerCase().replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'));
 ```
 
-`query` is then used in the `XMLHttpRequest` callback we wrote above.
+We force `query` to be lower case to make searches case-insensitive and also
+[escape characters that are semantically meaningful in regular
+expressions][regexp escape]. This ensures that the search query entered by the
+user is interpreted literally and not as a regular expression. If you _want_
+search queries to use regular expression syntax, then simply omit the
+`.replace()` call above. `pattern` is then used in the `XMLHttpRequest`
+callback we wrote above.
 
-Save this Javascript file to `assets/js/search.js`. It needs to be under the
+Save this JavaScript file to `assets/js/search.js`. It needs to be under the
 `assets` directory so that we can access it using Hugo's `resources` API.
 
 To create the actual search page in Hugo, create the file
@@ -149,7 +157,7 @@ modify it from there.
 
 Then, in your `search.js` file, fill in the DOM using your search results:
 ```javascript
-// Generate `results` from listing above
+// Generate `results` as in the code block above
 // ...
 var html = "";
 for (var i = 0; i < results.length; i++) {
@@ -169,5 +177,6 @@ can always find my full implementation [here on this site][].
 
 [suggestions]: https://gohugo.io/tools/search/
 [options Hugo suggests]: https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae
+[regexp escape]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
 [contact me]: mailto:contact@gpanders.com
 [here on this site]: https://gpanders.com/search
