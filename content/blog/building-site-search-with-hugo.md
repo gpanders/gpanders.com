@@ -109,22 +109,22 @@ So a search URL looks like `gpanders.com/search/?q=query_phrase`. To get the
 search query from the request URL, I simply use:
 
 ```javascript
-const match = window.location.href.match(/\?q=(.+)/);
+const match = window.location.href.match(/\?q=([^&]+)/);
 if (!match) {
     return;
 }
 
-const query = match[1];
+const query = decodeURIComponent(match[1].replace(/\+/g, " "));
 const pattern = new RegExp(query.toLowerCase().replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'));
 ```
 
-We force `query` to be lower case to make searches case-insensitive and also
-[escape characters that are semantically meaningful in regular
-expressions][regexp escape]. This ensures that the search query entered by the
-user is interpreted literally and not as a regular expression. If you _want_
-search queries to use regular expression syntax, then simply omit the
-`.replace()` call above. `pattern` is then used in the `XMLHttpRequest`
-callback we wrote above.
+We capture the query parameter from the URI and decode it. We then force
+`query` to be lower case to make searches case-insensitive and also [escape
+characters that are semantically meaningful in regular expressions][regexp
+escape]. This ensures that the search query entered by the user is interpreted
+literally and not as a regular expression. If you _want_ search queries to use
+regular expression syntax, then simply omit the `.replace()` call above.
+`pattern` is then used in the `XMLHttpRequest` callback we wrote above.
 
 Save this JavaScript file to `assets/js/search.js`. It needs to be under the
 `assets` directory so that we can access it using Hugo's `resources` API.

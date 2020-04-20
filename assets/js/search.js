@@ -1,12 +1,12 @@
 (function() {
   const header = document.querySelector(".Search-header");
-  const match = window.location.href.match(/\?q=(.+)/);
+  const match = window.location.href.match(/\?q=([^&]+)/);
   if (!match) {
     header.innerText = "No search query provided.";
     return;
   }
 
-  const query = match[1];
+  const query = decodeURIComponent(match[1].replace(/\+/g, " "));
   header.innerText = 'Searching for "' + query + '"...';
 
   const pat = new RegExp(
