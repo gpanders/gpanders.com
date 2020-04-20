@@ -1,6 +1,6 @@
 main {
   margin: 1.5rem 0;
-  color: #333;
+  color: #282828;
 }
 
 a {
@@ -38,7 +38,7 @@ table {
 
 thead {
   background-color: #e0e0e0;
-  color: #000;
+  color: #282828;
   text-align: left;
   vertical-align: bottom;
 }
@@ -76,22 +76,18 @@ nav.u-background {
 }
 
 .Banner-link {
-  color: #666;
+  color: #282828;
   font-size: 1rem;
 }
 
 .Banner-link:hover {
-  color: #333;
+  color: #000;
 }
 
 .Banner-item--title .Banner-link {
-  color: #333;
+  color: #282828;
   font-weight: 700;
   font-size: 1.5rem;
-}
-
-.Banner-item--title .Banner-link:hover {
-  text-decoration: none;
 }
 
 .Tags-link {
@@ -104,10 +100,6 @@ nav.u-background {
 
 .Heading {
   flex-direction: column;
-}
-
-.Heading-link:hover {
-  text-decoration: none;
 }
 
 .Footer {
@@ -136,8 +128,7 @@ nav.u-background {
 }
 
 .List-link a {
-  color: #000;
-  text-decoration: none;
+  color: #282828;
 }
 
 .Source-links, .Source-links a {
@@ -192,7 +183,11 @@ nav.u-background {
   padding: 0 0.5em;
   font-size: 0.9rem;
   line-height: 1.8;
-  color: #666;
+}
+
+.Search-input:focus {
+  border-color: #0066d6;
+  box-shadow: 0 0 2px #0066d6;
 }
 
 .Search-results {

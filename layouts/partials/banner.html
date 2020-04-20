@@ -5,8 +5,10 @@
         <a class="Banner-link u-clickable" href="{{ "" | absURL }}">{{ site.Title }}</a>
       </li>
       <li class="Banner-item">
-        <form class="Search-form" action="/search">
-          <input name="q" aria-label="search" class="Search-input" placeholder="Search..." tabindex="0">
+        <form class="Search-form" role="search" action="/search" method="GET" accept-charset="UTF-8">
+	  <label>
+	    <input name="q" aria-label="Search" class="Search-input" placeholder="Search…" tabindex="0">
+	  </label>
         </form>
       </li>
       {{ range site.Menus.nav }}
