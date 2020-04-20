@@ -69,8 +69,14 @@
             '" tabindex="0">' +
             results[i].title +
             "</a></h3>" +
-            "<time>" +
+            '<time datetime="' +
             results[i].date +
+            '">' +
+            new Date(results[i].date).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric"
+            }) +
             "</time>" +
             "</li>";
         }
