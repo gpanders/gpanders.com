@@ -1,91 +1,90 @@
 (function() {
-  const header = document.querySelector(".Search-header");
-  const match = window.location.href.match(/\?q=([^&]+)/);
-  if (!match) {
-    header.innerText = "No search query provided.";
-    return;
-  }
+	const header = document.querySelector(".Search-header");
+	const match = window.location.href.match(/\?q=([^&]+)/);
+	if (!match) {
+		header.innerText = "No search query provided.";
+		return;
+	}
 
-  const query = decodeURIComponent(match[1].replace(/\+/g, " "));
-  header.innerText = 'Searching for "' + query + '"...';
+	const query = decodeURIComponent(match[1].replace(/\+/g, " "));
+	header.innerText = 'Searching for "' + query + '"...';
 
-  const pat = new RegExp(
-    query.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-  );
+	const pat = new RegExp(
+		query.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+	);
 
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.onreadystatechange = function() {
-    if (httpRequest.readyState === 4) {
-      if (httpRequest.status !== 200) {
-        header.innerText =
-          "Something went wrong while searching. Please try again.";
-        return;
-      }
+	const keys = ["title", "permalink", "tags", "contents"];
+	function search(item) {
+		for (var i = 0; i < keys.length; i++) {
+			const key = keys[i];
+			if (!item[key]) {
+				continue;
+			}
 
-      document
-        .querySelectorAll(".Search-query")
-        .forEach(el => (el.innerText = query));
+			if (key === "tags") {
+				if (item[key].some(tag => pat.test(tag.toLowerCase()))) {
+					return true;
+				}
+			} else if (pat.test(item[key].toLowerCase())) {
+				return true;
+			}
+		}
 
-      const keys = ["title", "permalink", "tags", "contents"];
-      const data = JSON.parse(httpRequest.responseText);
-      const results = data.filter(item => {
-        for (var i = 0; i < keys.length; i++) {
-          const key = keys[i];
-          if (!item[key]) {
-            continue;
-          }
+		return false;
+	}
 
-          if (key === "tags") {
-            if (item[key].some(tag => pat.test(tag.toLowerCase()))) {
-              return true;
-            }
-          } else if (pat.test(item[key].toLowerCase())) {
-            return true;
-          }
-        }
+	var httpRequest = new XMLHttpRequest();
+	httpRequest.onreadystatechange = function() {
+		if (httpRequest.readyState !== 4) {
+			return;
+		}
 
-        return false;
-      });
+		if (httpRequest.status !== 200) {
+			header.innerText =
+				"Something went wrong while searching. Please try again.";
+			return;
+		}
 
-      const numResults = results.length;
-      if (numResults === 0) {
-        header.innerText = 'No results found for "' + query + '"';
-      } else {
-        header.innerText =
-          "Found " +
-          numResults +
-          " result" +
-          (numResults > 1 ? "s" : "") +
-          ' for "' +
-          query +
-          '"';
+		const results = JSON.parse(httpRequest.responseText).filter(search);
+		const numResults = results.length;
+		if (numResults === 0) {
+			header.innerText = 'No results found for "' + query + '"';
+			return;
+		}
 
-        var searchItems = "";
-        for (var i = 0; i < numResults; i++) {
-          searchItems +=
-            '<li class="List-item">' +
-            '<h3 class="List-link"><a href="' +
-            results[i].permalink +
-            '" tabindex="0">' +
-            results[i].title +
-            "</a></h3>" +
-            '<time datetime="' +
-            results[i].date +
-            '">' +
-            new Date(results[i].date).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric"
-            }) +
-            "</time>" +
-            "</li>";
-        }
+		header.innerText =
+			"Found " +
+			numResults +
+			" result" +
+			(numResults > 1 ? "s" : "") +
+			' for "' +
+			query +
+			'"';
 
-        document.querySelector(".Search-results").innerHTML = searchItems;
-      }
-    }
-  };
+		var searchItems = "";
+		for (var i = 0; i < numResults; i++) {
+			searchItems +=
+				'<li class="List-item">' +
+				'<h3 class="List-link"><a href="' +
+				results[i].permalink +
+				'" tabindex="0">' +
+				results[i].title +
+				"</a></h3>" +
+				'<time datetime="' +
+				results[i].date +
+				'">' +
+				new Date(results[i].date).toLocaleDateString("en-US", {
+					year: "numeric",
+					month: "long",
+					day: "numeric"
+				}) +
+				"</time>" +
+				"</li>";
+		}
 
-  httpRequest.open("GET", "/index.json");
-  httpRequest.send();
+		document.querySelector(".Search-results").innerHTML = searchItems;
+	};
+
+	httpRequest.open("GET", "/index.json");
+	httpRequest.send();
 })();
