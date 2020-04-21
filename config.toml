@@ -9,7 +9,7 @@ pluralizeListTitles = false
 [taxonomies]
 
 [outputs]
-  home = ["html", "json"]
+  home = ["html", "rss", "json"]
 
 [params]
   description = "Personal website for Greg Anders"
