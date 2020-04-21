@@ -14,7 +14,6 @@ pluralizeListTitles = false
 [params]
   description = "Personal website for Greg Anders"
   mainSections = ["blog"]
-  css = ["assets/css/custom.css"]
   color = "white"
   footer = 'Content on this site is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.'
   divider = false
