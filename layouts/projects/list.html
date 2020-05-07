@@ -5,7 +5,7 @@
 <ul class="List">
   {{ range .Pages }}
   <li class="List-item">
-    <h2 class="List-link"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    <h2 class="List-link"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
     <p>{{ .Summary }}</p>
   </li>
   {{ end }}
