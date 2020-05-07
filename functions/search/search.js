@@ -34,8 +34,7 @@ exports.handler = async (event, context) => {
 
       index.search(query).forEach((result) => {
         let item = items.filter((item) => item.title == result.ref)[0];
-        delete item.contents;
-        results.push(item);
+        results.push({'date': item.date, 'permalink': item.permalink, 'title': item.title});
       });
     }
 
