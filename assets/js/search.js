@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	const header = document.querySelector(".Search-header");
 	const match = window.location.href.match(/\?q=([^&]+)/);
 	if (!match) {
@@ -9,32 +9,8 @@
 	const query = decodeURIComponent(match[1].replace(/\+/g, " "));
 	header.innerText = 'Searching for "' + query + '"...';
 
-	const pat = new RegExp(
-		query.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-	);
-
-	const keys = ["title", "permalink", "tags", "contents"];
-	function search(item) {
-		for (var i = 0; i < keys.length; i++) {
-			const key = keys[i];
-			if (!item[key]) {
-				continue;
-			}
-
-			if (key === "tags") {
-				if (item[key].some(tag => pat.test(tag.toLowerCase()))) {
-					return true;
-				}
-			} else if (pat.test(item[key].toLowerCase())) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
 	var httpRequest = new XMLHttpRequest();
-	httpRequest.onreadystatechange = function() {
+	httpRequest.onreadystatechange = function () {
 		if (httpRequest.readyState !== 4) {
 			return;
 		}
@@ -45,7 +21,7 @@
 			return;
 		}
 
-		const results = JSON.parse(httpRequest.responseText).filter(search);
+		const results = JSON.parse(httpRequest.responseText);
 		const numResults = results.length;
 		if (numResults === 0) {
 			header.innerText = 'No results found for "' + query + '"';
@@ -62,29 +38,29 @@
 			'"';
 
 		var searchItems = "";
-		for (var i = 0; i < numResults; i++) {
+		results.forEach(function (result) {
 			searchItems +=
 				'<li class="List-item">' +
 				'<h2 class="List-link"><a href="' +
-				results[i].permalink +
+				result.permalink +
 				'" tabindex="0">' +
-				results[i].title +
+				result.title +
 				"</a></h2>" +
 				'<time datetime="' +
-				results[i].date +
+				result.date +
 				'">' +
-				new Date(results[i].date).toLocaleDateString("en-US", {
+				new Date(result.date).toLocaleDateString("en-US", {
 					year: "numeric",
 					month: "long",
-					day: "numeric"
+					day: "numeric",
 				}) +
 				"</time>" +
 				"</li>";
-		}
+		});
 
 		document.querySelector(".Search-results").innerHTML = searchItems;
 	};
 
-	httpRequest.open("GET", "/index.json");
+	httpRequest.open("GET", "/.netlify/functions/search?q=" + query);
 	httpRequest.send();
 })();

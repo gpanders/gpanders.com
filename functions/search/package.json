@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "lunr": "^2.3.8",
+    "node-fetch": "^2.3.0"
+  }
+}
