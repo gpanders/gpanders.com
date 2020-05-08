@@ -1,5 +1,6 @@
 image: alpine/edge
 packages:
+    - yarn
     - npm
     - hugo
 sources:
@@ -7,12 +8,11 @@ sources:
 secrets:
     - 71f0c0eb-4596-440c-954e-d2710c8f75db
 environment:
-    PATH: ~/.npm/bin:/bin:/usr/bin:/sbin:/usr/sbin
+    PATH: ~/.local/bin:/bin:/usr/bin:/sbin:/usr/sbin
 tasks:
     - setup: |
-        mkdir ~/.npm
-        npm config set prefix ~/.npm
-        npm install -g netlify-cli
+        cd gpanders.com
+        yarn global add --prefix ~/.local netlify-cli
     - build: |
         . ~/.env
         cd gpanders.com
@@ -21,5 +21,3 @@ tasks:
         . ~/.env
         cd gpanders.com
         netlify deploy --prod
-
-

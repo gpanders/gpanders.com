@@ -1,5 +1,8 @@
 public/
 node_modules/
 
+# Output product of build script
+static/lunr.json
+
 # Local Netlify folder
 .netlify

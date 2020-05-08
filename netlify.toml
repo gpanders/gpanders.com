@@ -1,6 +1,6 @@
 [build]
 publish = "public"
-command = "hugo"
+command = "yarn install && yarn build"
 functions = "functions"
 
 [[redirects]]

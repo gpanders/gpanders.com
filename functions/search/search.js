@@ -1,41 +1,29 @@
 const fetch = require("node-fetch");
 const lunr = require("lunr");
 
-const buildIndex = (items) => {
-  const idx = lunr(function () {
-    this.ref("title");
-    this.field("title");
-    this.field("permalink");
-    this.field("contents");
-    this.field("tags");
-
-    items.forEach((item) => this.add(item), this);
-  });
-
-  return JSON.parse(JSON.stringify(idx));
-};
-
 exports.handler = async (event, context) => {
   try {
     let results = [];
     const query = event.queryStringParameters.q;
     if (query) {
-      const response = await fetch("https://gpanders.com/index.json", {
-        headers: { Accept: "application/json" },
-      });
+      const host = "http://localhost:8888";
+      const urls = ["search/index.json", "lunr.json"];
+      const headers = { Accept: "application/json" };
+      const tasks = await Promise.all(
+        urls.map(url => fetch(`${host}/${url}`, { headers: headers }))
+      );
 
-      if (!response.ok) {
-        // NOT res.status >= 200 && res.status < 300
-        return { statusCode: response.status, body: response.statusText };
+      for (let i = 0; i < tasks.length; i++) {
+        if (!tasks[i].ok) {
+          return { statusCode: tasks[i].status, body: tasks[i].statusText };
+        }
       }
 
-      const items = await response.json();
-      const index = lunr.Index.load(buildIndex(items));
-
-      index.search(query).forEach((result) => {
-        let item = items.filter((item) => item.title == result.ref)[0];
-        results.push({'date': item.date, 'permalink': item.permalink, 'title': item.title});
-      });
+      const items = await tasks[0].json();
+      const index = lunr.Index.load(await tasks[1].json());
+      results = index
+        .search(query)
+        .map(result => items.filter(item => item.title == result.ref)[0]);
     }
 
     return {

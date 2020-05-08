@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "lunr": "^2.3.8"
+  },
+  "scripts": {
+    "build": "hugo && scripts/bldidx < public/index.json > static/lunr.json && hugo"
+  }
+}
