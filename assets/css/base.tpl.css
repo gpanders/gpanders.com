@@ -306,6 +306,15 @@ nav {
   box-shadow: 0 0 2px var(--link-color);
 }
 
+.Search-icon {
+  height: 1rem;
+  position: relative;
+  fill: #ccc;
+  right: 2rem;
+  vertical-align: text-bottom;
+  cursor: pointer;
+}
+
 .Search-results {
   list-style: none;
   padding: 0;
