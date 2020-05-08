@@ -27,7 +27,7 @@ post contains the original implementation, which is now out-of-date.
 ---
 
 The solution ended up being fairly straightforward. I created the following
-[autoloaded](http://learnvimscriptthehardway.stevelosh.com/chapters/53.html)
+[autoloaded](https://learnvimscriptthehardway.stevelosh.com/chapters/53.html)
 function in `~/.vim/autoload/ft/markdown.vim`:
 
 ```vim

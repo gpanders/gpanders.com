@@ -101,5 +101,5 @@ services:
 
 [link rot]: https://en.wikipedia.org/wiki/Link_rot
 [go]: https://golang.org/doc/install
-[fetch]: ./bin/fetch
+[fetch]: https://git.sr.ht/~gpanders/garchive/tree/master/bin/fetch
 [release]: https://github.com/gpanders/garchive/releases

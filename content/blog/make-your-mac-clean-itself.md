@@ -32,7 +32,7 @@ That's bad. File systems are like bedrooms - they're much better when cleaned
 up and organized.
 
 If you're on Windows there's a great program called
-[Belvedere](https://lifehacker.com/341950/belvedere-automates-your-self-cleaning-pc)
+[Belvedere](https://lifehacker.com/belvedere-automates-your-self-cleaning-pc-341950)
 that takes care of this problem for you. But if you're on a Mac, you'll most
 likely have to pay money for a similar program, and that's just no good.
 Instead, follow the quick and easy tutorial below to have your Mac

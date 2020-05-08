@@ -265,7 +265,7 @@ whatever works for you. If you want just a minimal Debian or Ubuntu file system,
 you can download one from [eewiki](https://rcn-ee.com/rootfs/eewiki/minfs/).
 
 You can also use a tool like [buildroot](https://buildroot.org) or [Yocto
-Linux](https://yoctoproject.org) to generate a customized file system for your
+Linux](https://yoctoproject.org/) to generate a customized file system for your
 specific application.
 
 If your development machine is running a Debian-based distribution (such as
