@@ -5,9 +5,9 @@ featured: true
 ---
 
 Ever considered setting up and running your very own git server? It's actually
-quite easy! In this post, I'll outline the steps I took to set up [my
-own][git.gpanders.com] so that you can give it a try yourself. But first, why
-might you even want to go through the trouble of setting up your own server?
+quite easy! In this post, I'll outline the steps I took to set up my own so
+that you can give it a try yourself. But first, why might you even want to go
+through the trouble of setting up your own server?
 
 <!--more-->
 
@@ -29,7 +29,6 @@ Setting up a git server is actually relatively straight-forward. Almost all of
 the heavy lifting is done by git itself, but I will also introduce a few
 supplementary tools to handle things like access control and HTTP access.
 
-[git.gpanders.com]: https://git.gpanders.com
 [sourcehut]: https://sr.ht
 
 ## Evaluating the choices
