@@ -1,0 +1,25 @@
+image: alpine/edge
+packages:
+    - npm
+    - hugo
+sources:
+    - https://git.sr.ht/~gpanders/gpanders.com
+secrets:
+    - 71f0c0eb-4596-440c-954e-d2710c8f75db
+environment:
+    PATH: ~/.npm/bin:/bin:/usr/bin:/sbin:/usr/sbin
+tasks:
+    - setup: |
+        mkdir ~/.npm
+        npm config set prefix ~/.npm
+        npm install -g netlify-cli
+    - build: |
+        . ~/.env
+        cd gpanders.com
+        netlify build
+    - deploy: |
+        . ~/.env
+        cd gpanders.com
+        netlify deploy --prod
+
+
