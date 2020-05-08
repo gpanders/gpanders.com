@@ -1,8 +1,7 @@
 ---
 title: vim-medieval
 license: MIT
-src: gpanders/vim-medieval
-github: gpanders/vim-medieval
+src: https://github.com/gpanders/vim-medieval
 summary: Evaluate Markdown code blocks within Vim
 ---
 

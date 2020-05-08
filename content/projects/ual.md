@@ -2,8 +2,7 @@
 title: ual
 license: MIT
 summary: The other half of man
-src: gpanders/ual
-github: gpanders/ual
+src: https://git.sr.ht/~gpanders/ual
 ---
 
 ual is a tool to write and manage custom notes that can be viewed just like

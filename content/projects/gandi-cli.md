@@ -2,8 +2,7 @@
 title: Gandi CLI
 license: MIT
 summary: Command line interface to the Gandi API
-src: gpanders/gandi-cli
-github: gpanders/gandi-cli
+src: https://git.sr.ht/~gpanders/gandi-cli
 ---
 
 Command line interface to the [Gandi API][].

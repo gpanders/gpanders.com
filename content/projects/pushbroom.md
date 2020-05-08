@@ -2,8 +2,7 @@
 title: Pushbroom
 license: MIT
 summary: Sweep your filesystem clear of clutter
-src: gpanders/pushbroom
-github: gpanders/pushbroom
+src: https://git.sr.ht/~gpanders/pushbroom
 ---
 
 Pushbroom is a tool designed to help keep your filesystem clear of clutter.

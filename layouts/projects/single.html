@@ -4,10 +4,7 @@
   {{ partial "heading.html" . }}
   <small class="Source-links">
     {{ with .Param "src" }}
-    <a href="https://git.gpanders.com/{{.}}">Source</a>
-    {{ end }}
-    {{ with .Param "github" }}
-    | <a href="https://github.com/{{.}}">Github</a>
+    <a href="{{.}}">Source</a>
     {{ end }}
   </small>
   {{ .Content }}
