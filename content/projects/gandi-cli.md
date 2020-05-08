@@ -9,6 +9,21 @@ Command line interface to the [Gandi API][].
 
 [Gandi API]: https://docs.gandi.net/en/domain_names/advanced_users/api.html
 
+Installation
+------------
+
+### pip
+
+Install using pip:
+
+    pip3 install --user gandi
+
+### pipx
+
+Install using [pipx](https://pipxproject.github.io/pipx/):
+
+    pipx install gandi
+
 Configuration
 -------------
 
@@ -18,7 +33,11 @@ Create a file at `$XDG_CONFIG_HOME/gandi/config` with the following format
 ```ini
 [gandi]
 api_key = <your Gandi API key>
+
+; Optional: can be given on command line if not in config file
 domain = <your Gandi domain>
+
+; Optional: can be given on command line if not in config file
 mailbox_id = <your Gandi mailbox ID>
 ```
 
@@ -43,11 +62,8 @@ Remove an existing alias
 
     gandi alias --remove ALIAS
 
-Contributing
-------------
+**mbox**: Manage email mailboxes
 
-Please feel free to contribute changes or bug fixes! You can [send patches][]
-to <git@gpanders.com> or submit a pull request on [GitHub][].
+List mailboxes
 
-[send patches]: https://git-send-email.io/
-[Github]: https://github.com/gpanders/gandi-cli
+    gandi mbox --list
