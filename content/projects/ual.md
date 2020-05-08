@@ -104,12 +104,3 @@ For example, **this text** will not be bold, and _this text_ will not be underli
 This is useful for blocks of code or other preformatted text.
 ```
 ````
-
-## Contributing
-
-Please feel free to contribute changes or bug fixes! You can [send patches][]
-to <git@gpanders.com> or submit a pull request on [Github][].
-
-[send patches]: https://git-send-email.io/
-[Github]: https://github.com/gpanders/ual
-

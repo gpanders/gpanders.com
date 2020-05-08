@@ -132,11 +132,3 @@ nnoremap <buffer> Z! :<C-U>EvalBlock<CR>
 For now, Medieval only works in Markdown buffers. If you'd like to see support
 added for other file types, please see the [Contributing](#contributing)
 section.
-
-## Contributing
-
-Please feel free to contribute changes or bug fixes! You can [send patches][]
-to <git@gpanders.com> or submit a pull request on [Github][].
-
-[send patches]: https://git-send-email.io/
-[Github]: https://github.com/gpanders/vim-medieval
