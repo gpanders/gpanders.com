@@ -27,19 +27,17 @@ Install using [pipx](https://pipxproject.github.io/pipx/):
 Configuration
 -------------
 
-Create a file at `$XDG_CONFIG_HOME/gandi/config` with the following format
-(`$XDG_CONFIG_HOME` is set to `$HOME/.config` by default):
+Run `gandi setup` to create a configuration file at
+`$XDG_CONFIG_HOME/gandi/config`. This will ask for your Gandi API key as well
+as an (optional) default domain name and an (optional) default mailbox ID.
 
-```ini
-[gandi]
-api_key = <your Gandi API key>
+If you specify a domain name and mailbox ID, subcommands that require these
+parameters will use the values supplied in your config file instead of
+requiring them as commandline flags.
 
-; Optional: can be given on command line if not in config file
-domain = <your Gandi domain>
+Parameters can also be specified using environment variables, e.g.:
 
-; Optional: can be given on command line if not in config file
-mailbox_id = <your Gandi mailbox ID>
-```
+    GANDI_API_KEY=... gandi mbox -d DOMAIN --list
 
 Usage
 -----
@@ -48,22 +46,26 @@ Usage
 
 ### Subcommands
 
+**setup**: Setup the Gandi CLI config file
+
+    gandi setup
+
 **alias**: Manage email aliases
 
-List existing email aliases
+    gandi alias [-d DOMAIN] [-m MAILBOXID] (--list | --add ALIAS | --remove ALIAS)
 
-    gandi alias --list
+List existing email aliases:
 
-Add a new email alias
+    gandi alias -l
 
-    gandi alias --add ALIAS
+Add a new alias:
 
-Remove an existing alias
+    gandi alias -a ALIAS
 
-    gandi alias --remove ALIAS
+Remove an alias:
+
+    gandi alias -r ALIAS
 
 **mbox**: Manage email mailboxes
 
-List mailboxes
-
-    gandi mbox --list
+    gandi alias [-d DOMAIN] --list
