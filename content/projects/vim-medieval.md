@@ -5,7 +5,11 @@ src: https://github.com/gpanders/vim-medieval
 summary: Evaluate Markdown code blocks within Vim
 ---
 
+Evaluate Markdown code blocks within Vim.
+
 [![asciicast](https://asciinema.org/a/306995.svg)](https://asciinema.org/a/306995)
+
+## Description
 
 Medieval allows you to evaluate code blocks in Markdown buffers of the
 following form:
@@ -67,6 +71,20 @@ The difference between art and science is that science is what we
 understand well enough to explain to a computer.  Art is everything else.
                 -- Donald Knuth, "Discover"
 ```
+````
+
+The target block can be either another code block (delimited by `` ``` `` or
+`~~~`) or a LaTeX math block (delimited by `$$`):
+
+````markdown
+<!-- target: math -->
+```python
+print(r"\text{Hello LaTeX!}")
+```
+
+<!-- name: math -->
+$$
+$$
 ````
 
 The block labels must be of the form `<!-- target: <NAME>` or `<!-- name:

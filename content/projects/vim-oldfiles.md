@@ -5,7 +5,8 @@ summary: Improve Vim's native recent file history
 src: https://github.com/gpanders/vim-oldfiles
 ---
 
-## Motivation
+Motivation
+----------
 
 Vim natively keeps a list of your file history in the `v:oldfiles` variable
 which you can see with the `:oldfiles` command or, even better, with `:browse
@@ -18,14 +19,13 @@ oldfiles`. Unfortunately, `:oldfiles` has two significant drawbacks:
    `:wviminfo` and `:rviminfo` commands, but this is cumbersome and not very
    intuitive.
 
-This plugin enhances Vim's native capability by addressing these two
-problems. The command `:Oldfiles` uses `:oldfiles` under the hood, but presents
-a list of your recently visited files in the quickfix list. Once in the
-quickfix list, you can use all of the standard tools to navigate and search
-through your list of recent files (e.g. `:clist`, `:cc`, `:Cfilter`, and so
-on). **vim-oldfiles** will also automatically filter non-existent and
-unreadable files from the list, something vanilla `:oldfiles`
-does not do.
+This plugin enhances Vim's native capability by addressing these two problems.
+The command `:Oldfiles` uses `:oldfiles` under the hood, but presents a list of
+your recently visited files in the quickfix list. Once in the quickfix list,
+you can use all of the standard tools to navigate and search through your list
+of recent files (e.g. `:clist`, `:cc`, `:Cfilter`, and so on). **vim-oldfiles**
+will also automatically filter non-existent and unreadable files from the list,
+something vanilla `:oldfiles` does not do.
 
 Further, while you can natively filter the output of `:oldfiles` using the
 `:filter` command, this is a bit clunky. Instead, `:Oldfiles` (capital `O`)
@@ -33,11 +33,13 @@ lets you pass a search pattern as an optional second argument to allow easy
 filtering.
 
 Before:
+
 ```vim
 :filter /pattern/ oldfiles
 ```
 
 With **vim-oldfiles**:
+
 ```vim
 :Oldfiles /pattern/
 ```
@@ -49,7 +51,8 @@ Most importantly, **vim-oldfiles** keeps the `v:oldfiles` variable up to date
 as you use Vim, so when you open a new buffer you will see it at the top of the
 `:Oldfiles` list.
 
-## Usage
+Usage
+-----
 
 Use `:Oldfiles` to view your recent files in the quickfix list. You can also
 use `:Oldfiles {pattern}` to only show files matching that pattern, or
@@ -66,7 +69,8 @@ By default, this is mapped to `g<C-^>`.
 
 See `:h Oldfiles` for more information.
 
-## Installation
+Installation
+------------
 
 ### Manual
 
