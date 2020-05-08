@@ -6,7 +6,7 @@ exports.handler = async (event, context) => {
     let results = [];
     const query = event.queryStringParameters.q;
     if (query) {
-      const host = "http://localhost:8888";
+      const host = "https://gpanders.com";
       const urls = ["search/index.json", "lunr.json"];
       const headers = { Accept: "application/json" };
       const tasks = await Promise.all(
