@@ -4,5 +4,18 @@ command = "hugo"
 functions = "functions"
 
 [[redirects]]
-    from = "/posts/*"
-    to = "/blog/:splat"
+from = "/posts/*"
+to = "/blog/:splat"
+
+[[plugins]]
+package = "netlify-plugin-a11y"
+
+[plugins.inputs]
+checkPaths = ["/"]
+resultMode = "warn"
+
+[[plugins]]
+package = "netlify-plugin-checklinks"
+
+[plugins.inputs]
+checkExternal = true
