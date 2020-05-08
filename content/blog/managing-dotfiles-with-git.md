@@ -57,7 +57,7 @@ What I like most about this method is how easy it is to bootstrap a new machine
 with your dotfiles repo:
 
 ```console
-$ git clone --bare git@git.gpanders.com:gpanders/dotfiles.git .dotfiles
+$ git clone --bare git@git.sr.ht:~gpanders/dotfiles .dotfiles
 $ git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout -f
 ```
 
@@ -217,6 +217,6 @@ to using rebase, it might seem a little daunting at first. But I assure you
 that once you get used to it it takes no time at all and becomes just another
 git operation.
 
-[dotfiles with symlinks]: https://git.gpanders.com/gpanders/dotfiles/src/commit/2da1dde5ea566f82ebe6532bc6d3b8670fd77ce8
+[dotfiles with symlinks]: https://git.sr.ht/~gpanders/dotfiles/tree/2da1dde5ea566f82ebe6532bc6d3b8670fd77ce8
 [write up]: https://www.atlassian.com/git/tutorials/dotfiles
 [rewriting history]: https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History
