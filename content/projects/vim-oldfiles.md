@@ -85,7 +85,7 @@ ALL` to generate help tags. Use `:help Oldfiles` to view the help docs.
 
 ```console
 cd ~/.vim/bundle
-git clone https://github.com/gpanders/vim-oldfiles.git
+git clone {{< param src >}}
 ```
 
 ### vim-plug

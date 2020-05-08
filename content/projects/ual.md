@@ -5,7 +5,7 @@ summary: The other half of man
 src: https://git.sr.ht/~gpanders/ual
 ---
 
-ual is a tool to write and manage custom notes that can be viewed just like
+`ual` is a tool to write and manage custom notes that can be viewed just like
 man pages in your terminal.
 
 <!--more-->
@@ -14,28 +14,36 @@ Your pages can be called anything you like and can contain anything you like.
 This is useful for writing down quick notes for complicated command invocations
 or other reference material.
 
-As an example, see some of my own notes
-[here](https://github.com/gpanders/notes).
+As an example, see some of my own notes [here][notes].
 
-## Prerequisites
+[notes]: https://github.com/gpanders/notes
 
--   [`pandoc`](https://pandoc.org/)
+Prerequisites
+-------------
 
-## Installation
+- [`pandoc`][pandoc]
+
+[pandoc]: https://pandoc.org/
+
+Installation
+------------
 
 ### macOS
 
 ```
-brew install gpanders/tap/ual
+brew install --HEAD gpanders/tap/ual
 ```
 
 ### Other Platforms
 
 ```
-curl -sLo /usr/local/bin/ual https://git.io/JerRw
+curl -sLO {{< param src >}}/tree/master/ual
+chmod +x ual
+mv ual /usr/local/bin/
 ```
 
-## Usage
+Usage
+-----
 
 To view a note called `foo`, simply use
 
@@ -61,13 +69,14 @@ notes with
 
     ual sync
 
-`ual` will look for notes in `$UAL_PATH` or `$HOME/.notes` if `$UAL_PATH` is
-unset.
+`ual` will look for notes in `$UAL_PATH` or `$XDG_DATA_HOME/ual` if `$UAL_PATH`
+is unset. `$XDG_DATA_HOME` resolves to `$HOME/.local/share` unless specifically
+set otherwise.
 
-## Writing Notes
+Writing Notes
+-------------
 
-Notes should be written in [Markdown format](https://pandoc.org/MANUAL.html#pandocs-markdown).
-See below for an example.
+Notes should be written in [Markdown format][]. Example:
 
 ````
 # NAME
@@ -104,3 +113,5 @@ For example, **this text** will not be bold, and _this text_ will not be underli
 This is useful for blocks of code or other preformatted text.
 ```
 ````
+
+[Markdown format]: https://pandoc.org/MANUAL.html#pandocs-markdown

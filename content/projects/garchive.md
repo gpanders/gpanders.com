@@ -26,7 +26,7 @@ maintain archives of websites and fight [link rot][].
 The easiest method is to use [Docker](#using-docker). If you can't or don't
 want to use Docker, you can build `garchive` yourself:
 
-    $ git clone git://git.gpanders.com/garchive.git
+    $ git clone {{< param src >}}
     $ cd garchive
     $ go build
 
@@ -71,7 +71,7 @@ You can easily import bookmarks from Pinboard into your `links.csv` file using
 
 First, build the Docker image. You only need to do this once.
 
-    $ git clone https://github.com/gpanders/garchive
+    $ git clone {{< param src >}}
     $ cd garchive
     $ docker build -t garchive .
 
@@ -100,5 +100,4 @@ services:
 
 [link rot]: https://en.wikipedia.org/wiki/Link_rot
 [go]: https://golang.org/doc/install
-[fetch]: https://git.sr.ht/~gpanders/garchive/tree/master/bin/fetch
-[release]: https://github.com/gpanders/garchive/releases
+[fetch]: {{< param src >}}/tree/master/bin/fetch

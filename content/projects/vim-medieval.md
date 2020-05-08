@@ -150,3 +150,27 @@ nnoremap <buffer> Z! :<C-U>EvalBlock<CR>
 For now, Medieval only works in Markdown buffers. If you'd like to see support
 added for other file types, please see the [Contributing](#contributing)
 section.
+
+## Installation
+
+### Manual
+
+If your version of Vim supports packages (`has('packages')` returns `1`),
+simply clone this repository to `~/.vim/pack/gpanders/start/vim-medieval`.
+
+Otherwise, copy the `plugin` and `doc` directories into your Vim runtime folder
+(`$HOME/.vim` on macOS/Unix, `$HOME/vimfiles` on Windows) and run `:helptags
+ALL` to generate help tags. Use `:help medieval` to view the help docs.
+
+### Pathogen
+
+```console
+cd ~/.vim/bundle
+git clone {{< param src >}}
+```
+
+### vim-plug
+
+```vim
+Plug 'gpanders/vim-medieval'
+```
