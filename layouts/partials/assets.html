@@ -1,9 +1,10 @@
-{{ range .Scratch.GetSortedMapValues "css" }}
-  <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
-{{ end }}
-
-{{ range .Scratch.GetSortedMapValues "js" }}
-  <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
-{{ end }}
-
+{{- range .Scratch.GetSortedMapValues "css" -}}
+<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+{{- end -}}
+{{- range .Scratch.GetSortedMapValues "js" -}}
+<script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end -}}
+{{- with resources.Get "js/search.tpl.js" | resources.ExecuteAsTemplate "js/search.js" . | minify | fingerprint -}}
+<script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+{{- end }}
 <script data-goatcounter="https://stats.gpanders.com/count" async src="//stats.gpanders.com/count.js"></script>

@@ -1,5 +1,0 @@
----
-outputs:
-- html
-- json
----

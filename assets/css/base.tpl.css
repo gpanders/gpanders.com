@@ -307,15 +307,61 @@ nav {
 }
 
 .Search-icon {
-  height: 1rem;
   position: relative;
-  fill: #ccc;
   right: 2rem;
-  vertical-align: text-bottom;
   cursor: pointer;
+  display: inline-block;
+  width: 0;
+}
+
+.Search-icon svg {
+  fill: #ccc;
+  vertical-align: text-bottom;
 }
 
 .Search-results {
   list-style: none;
   padding: 0;
+  position: absolute;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25em;
+  background: {{ site.Params.color }};
+}
+
+.Search-results li {
+  padding: 0.5em;
+  font-size: 14px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+}
+
+.Search-results li a {
+  color: var(--banner-link-color);
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Search-results li small {
+  color: var(--light-gray);
+  flex-basis: 10ch;
+  text-align: right;
+}
+
+.Search-results li:first-of-type {
+  border-top: none;
+}
+
+.Search-results li.selected {
+  background: var(--link-color);
+}
+
+.Search-results li.selected a {
+  color: white;
+}
+
+.Search-results li.selected small {
+  color: white;
 }

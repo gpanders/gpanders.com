@@ -1,9 +1,0 @@
-{{/*
-    Full JSON index of blog posts used by the `bldidx` script to generate a
-    lunr search index.
-*/}}
-{{- $.Scratch.Add "index" slice -}}
-{{- range where .Site.RegularPages "Section" "in" site.Params.mainSections  -}}
-    {{- $.Scratch.Add "index" (dict "title" .Title "date" (dateFormat "2006-01-02" .Date) "tags" .Params.tags "contents" .Plain "permalink" .RelPermalink) -}}
-{{- end -}}
-{{- $.Scratch.Get "index" | jsonify -}}

@@ -1,7 +1,6 @@
 image: alpine/edge
 packages:
     - yarn
-    - npm
     - hugo
 sources:
     - https://git.sr.ht/~gpanders/gpanders.com
