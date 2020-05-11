@@ -146,6 +146,7 @@
     li.addEventListener('click', submit);
     li.addEventListener('keyup', function(e) { if (e.keyCode === {{ $KEY_RETURN }}) submit(e); });
 
+    a.tabIndex = -1;
     a.href = page.href;
     a.textContent = page.title;
     section.innerText = page.section;
