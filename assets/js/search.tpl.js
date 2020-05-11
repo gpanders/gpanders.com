@@ -40,7 +40,7 @@
     input.removeEventListener('focus', init); // init once
     input.required = true;
 
-    loadScript('{{ "flexsearch.min.js" | relURL }}');
+    loadScript('{{ "js/flexsearch.min.js" | relURL }}');
     loadScript('{{ $searchData.RelPermalink }}', function() {
       input.required = false;
       search();
