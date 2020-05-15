@@ -11,17 +11,19 @@
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   line-height: 1.6;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   margin: 0;
   padding: 0;
 }
 
 main {
-  flex-grow: 1;
   margin: 1.5rem 0;
   color: var(--main-fg-color);
+  margin: auto;
+  display: grid;
+  grid: auto / auto;
+  grid-gap: 0 5em;
+  grid-auto-columns: 20rem;
+  max-width: {{ site.Params.width }};
 }
 
 a {
@@ -33,6 +35,9 @@ a:hover {
   text-decoration: underline;
 }
 
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  color: inherit;
+}
 
 img {
   max-width: 100%;
@@ -94,37 +99,52 @@ nav {
   border-bottom: 1px solid var(--border-color);
 }
 
-{{ with site.Params.width }}
-
-  @media only screen and (min-width: calc({{ . }} + 3rem)) {
-    nav .u-wrapper {
-      max-width: calc(100% - 3rem);
-    }
-  }
-
-{{ end }}
-
 .Banner {
   list-style: none;
-  display: flex;
-  flex-flow: row-reverse wrap-reverse;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0;
+  display: grid;
+  align-items: baseline;
+  margin: auto;
+  max-width: {{ .Site.Params.width }};
   padding: 0;
+  line-height: 2;
+  grid-template-columns: auto;
 }
 
-{{ $len := len site.Menus.nav }}
-{{ range seq $len }}
-
-  .Banner-item:nth-child({{ . }}) {
-    order: {{ sub $len . | add 1 }};
-  }
-
-{{ end }}
+.Banner-item {
+  text-align: center;
+  padding: 0 1em;
+  grid-row: 2;
+}
 
 .Banner-item--title {
-  flex-grow: 1;
+  grid-row: 1;
+  grid-column: 1 / {{ len site.Menus.nav | add 1 }};
+}
+
+.Banner-item--search {
+  grid-row: 3;
+  grid-column: 1 / {{ len site.Menus.nav | add 1 }};
+}
+
+@media only screen and (min-width: 600px) {
+  .Banner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .Banner-item {
+    text-align: left;
+    padding: 0;
+    grid-row: 1;
+  }
+
+  .Banner-item--title {
+    grid-column: 1;
+  }
+
+  .Banner-item--search {
+    grid-row: 1;
+    grid-column: 2;
+  }
 }
 
 .Banner-link {
@@ -141,6 +161,10 @@ nav {
   color: var(--banner-title-color);
   font-size: 1.5rem;
   font-weight: 700;
+}
+
+.Content {
+  padding: 1em;
 }
 
 .Heading {
@@ -178,26 +202,52 @@ nav {
   color: var(--link-color);
 }
 
-{{ with site.Params.divider }}
-
-  .Divider {
-    display: flex;
-    justify-content: center;
-  }
-
-  .Divider::after {
-    content: "{{ . }}";
-  }
-
-{{ end }}
-
 .Pagination {
-  font-size: 1.25rem;
-  color: inherit;
+  border: none;
+  display: grid;
+  grid: auto / 1fr 1fr;
+  justify-items: center;
+  margin-top: 2em;
 }
 
-.Pagination--right {
-  float: right;
+.Pagination a {
+  font-size: 1rem;
+}
+
+.Pagination a[rel="prev"] {
+  grid-column: 1;
+}
+
+.Pagination a[rel="next"] {
+  grid-column: 2;
+}
+
+.Home-posts {
+  padding-right: 2em;
+}
+
+.Sidebar {
+  padding: 1em;
+  border-top: 1px solid var(--border-color);
+  margin-top: 2rem;
+}
+
+.Sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Sidebar li {
+  margin: 1.25em 0;
+}
+
+@media only screen and (min-width: 800px) {
+  .Sidebar {
+    border: 0;
+    margin: 0;
+    grid-column-start: -1;
+  }
 }
 
 .Footer {
@@ -209,22 +259,20 @@ nav {
   font-size: smaller;
 }
 
-.u-wrapper {
-  {{ with site.Params.width }}max-width: {{ . }};{{ end }}
-  margin: auto;
+.Project-link {
+  font-weight: 500;
+  margin: 0;
 }
 
-.u-padding {
-  padding: 0 1rem;
+.Project-link a {
+  color: var(--main-fg-color);
 }
 
-{{ with site.Params.color }}
-
-  .u-background {
-    background: {{ . }};
-  }
-
-{{ end }}
+.Project-desc {
+  font-size: 0.8rem;
+  color: var(--light-gray);
+  margin: 0;
+}
 
 .List-header {
   border-bottom: 1px solid var(--border-color);
@@ -247,50 +295,17 @@ nav {
   color: var(--main-fg-color);
 }
 
-.Source-links, .Source-links a {
-  color: var(--light-gray);
-}
-
-.Contact-links {
-  padding: 0;
-  margin: 40px 0 0;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.Contact-item {
-  padding: 12px 0;
-}
-
-.Contact-item p {
-  font-weight: 700;
-  margin: 0;
-}
-
-.Pagination {
-  font-size: 1rem;
-  color: var(--light-gray);
-}
-
 .Lastmod {
   font-size: 14px;
   color: var(--light-gray);
   text-align: center;
-  margin: 2em 0 0;
-}
-
-.Featured {
-  padding-left: 1em;
-}
-
-.Featured-item {
-  margin: 0.5em 0;
+  margin: 2em 0;
 }
 
 .Search-form {
   padding: 0.5rem 1rem;
+  position: relative;
+  min-width: 15rem;
 }
 
 .Search-input {
@@ -299,6 +314,8 @@ nav {
   padding: 0 0.5em;
   font-size: 0.9rem;
   line-height: 1.8;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .Search-input:focus {
@@ -307,11 +324,10 @@ nav {
 }
 
 .Search-icon {
-  position: relative;
-  right: 2rem;
+  position: absolute;
+  right: 1.5em;
+  top: 0.5em;
   cursor: pointer;
-  display: inline-block;
-  width: 0;
 }
 
 .Search-icon svg {
@@ -326,19 +342,22 @@ nav {
   border: 1px solid var(--border-color);
   border-radius: 0.25em;
   background: {{ site.Params.color }};
+  display: grid;
+  width: 300px;
 }
 
 .Search-results li {
   padding: 0.5em;
   font-size: 14px;
   border-top: 1px solid var(--border-color);
-  display: flex;
+  display: grid;
+  grid: auto / auto 8ch;
   align-items: center;
+  justify-content: space-between;
 }
 
 .Search-results li a {
   color: var(--banner-link-color);
-  flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -346,8 +365,7 @@ nav {
 
 .Search-results li small {
   color: var(--light-gray);
-  flex-basis: 10ch;
-  text-align: right;
+  justify-self: right;
 }
 
 .Search-results li:first-of-type {

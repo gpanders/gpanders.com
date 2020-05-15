@@ -148,6 +148,7 @@
 
     a.tabIndex = -1;
     a.href = page.href;
+    a.title = page.title;
     a.textContent = page.title;
     section.innerText = page.section;
 

@@ -14,7 +14,7 @@ pluralizeListTitles = false
   color = "white"
   footer = 'Content on this site is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.'
   divider = false
-  width = "55rem"
+  width = "75rem"
 
 [markup]
   [markup.highlight]
@@ -24,8 +24,3 @@ pluralizeListTitles = false
   name = "Blog"
   url = "/blog"
   weight = 1
-
-[[menu.nav]]
-  name = "Projects"
-  url = "/projects"
-  weight = 2

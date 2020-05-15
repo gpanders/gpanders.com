@@ -1,15 +1,43 @@
+{{ define "load_page_assets" }}
+
+  {{ $pages := where .Site.RegularPages "Section" "blog" }}
+
+  {{ $paginator := .Paginate $pages }}
+
+  {{ range $paginator.Pages }}
+    {{ with .Content }}{{ end }}
+    {{ $page_css := .Scratch.Get "css" }}
+    {{ with $page_css }}
+      {{ $css_list := $.Scratch.Get "css" }}
+      {{ . | merge $css_list | $.Scratch.Set "css" }}
+    {{ end }}
+    {{ $page_js := .Scratch.Get "js" }}
+    {{ with $page_js }}
+      {{ $js_list := $.Scratch.Get "js" }}
+      {{ . | merge $js_list | $.Scratch.Set "js" }}
+    {{ end }}
+  {{ end }}
+
+  {{ $paginator | .Scratch.Set "paginator" }}
+
+{{ end }}
+
 {{ define "main" }}
 
-<h1>Hello!</h1>
+  {{ $paginator := .Scratch.Get "paginator" }}
 
-{{ .Content }}
+  {{ range $paginator.Pages }}
+  <article>
+    {{ partial "heading.html" . }}
+    <p>{{ .Summary }}</p>
+    {{ if .Truncated }}
+      <p>
+        <a class="u-clickable" href="{{ .RelPermalink }}">Read More…</a>
+      </p>
+    {{ end }}
+  </article>
+  {{ end }}
 
-<h2>Featured Posts</h2>
-<ul class="Featured">
-{{ $posts := where .Site.RegularPages "Section" "blog" }}
-{{ range sort (where $posts ".Params.featured" true) "Title" }}
-  <li class="Featured-item"><a class="Featured-link" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-{{ end }}
-</ul>
+  {{ partial "pagination.html" . }}
 
 {{ end }}
