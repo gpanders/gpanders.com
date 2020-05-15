@@ -9,4 +9,4 @@ If you'd like to contact me, you can get in touch via [email][] or leave a
 comment in my [public inbox][].
 
 [email]: mailto:contact@gpanders.com
-[public inbox]: https://lists.sr.ht/~gpanders/inbox
+[public inbox]: https://lists.sr.ht/~gpanders/public-inbox
