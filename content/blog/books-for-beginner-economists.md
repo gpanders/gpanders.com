@@ -1,6 +1,7 @@
 ---
 title: "Books for Beginner Economists"
 date: 2020-04-16
+tags: [economics, books]
 ---
 
 I am not an economist by any definition of the word: I haven't taken a formal

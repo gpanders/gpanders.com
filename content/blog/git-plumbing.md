@@ -1,6 +1,7 @@
 ---
 title: Git Plumbing
 date: 2020-03-02
+tags: [git]
 ---
 
 ## Porcelain and Plumbing
