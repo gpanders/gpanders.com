@@ -50,10 +50,11 @@
 
   let timer = undefined;
   form.addEventListener('submit', submit);
-  form.addEventListener('blur', function() { timer = setTimeout(function() { clearResults(); }, 20); }, true);
-  form.addEventListener('focus', function() { if (timer) clearTimeout(timer); }, true);
-
   form.addEventListener('keydown', navigate);
+  form.addEventListener('blur', function() {
+    timer = setTimeout(function() { clearResults(); }, 20);
+  }, true);
+  form.addEventListener('focus', function() { if (timer) clearTimeout(timer); }, true);
 
   input.addEventListener('focus', init);
   input.addEventListener('keyup', search);
@@ -150,19 +151,18 @@
       return;
     }
 
-    const searchHits = window.searchIndex.search(input.value, 10);
-    searchHits.forEach(function(page) {
-      let li = createResultItem(page);
-      results.appendChild(li);
+    window.searchIndex.search(input.value, 10, function(hits) {
+      hits.forEach(function(hit) {
+        let li = createResultItem(hit);
+        results.appendChild(li);
+      });
+      results.style.display = '';
     });
-
-    results.style.display = '';
   }
 
   function createResultItem(page) {
     const li = document.createElement('li');
     const a = li.appendChild(document.createElement('a'));
-    const section = li.appendChild(document.createElement('small'));
 
     li.tabIndex = 0;
     li.addEventListener('mouseenter', select);
@@ -175,7 +175,6 @@
     a.href = page.href;
     a.title = page.title;
     a.textContent = page.title;
-    section.innerText = page.section;
 
     return li;
   }

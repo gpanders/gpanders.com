@@ -16,13 +16,12 @@ body {
 }
 
 main {
-  margin: 1.5rem 0;
   color: var(--main-fg-color);
   margin: auto;
   display: grid;
-  grid: auto / auto;
-  grid-gap: 0 5em;
+  grid-template-columns: auto;
   grid-auto-columns: 20rem;
+  grid-gap: 2em;
   max-width: {{ site.Params.width }};
 }
 
@@ -33,6 +32,10 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 1.5rem 0 0 0;
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -165,22 +168,7 @@ nav {
 
 .Content {
   padding: 1em;
-}
-
-.Heading {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.Heading-title {
-  margin: 1.5rem 0.5rem 0 0;
-}
-
-.Heading-link {
-  color: inherit;
+  overflow: auto;
 }
 
 .Tags {
@@ -205,8 +193,7 @@ nav {
 .Pagination {
   border: none;
   display: grid;
-  grid: auto / 1fr 1fr;
-  justify-items: center;
+  justify-content: space-between;
   margin-top: 2em;
 }
 
@@ -244,9 +231,10 @@ nav {
 
 @media only screen and (min-width: 800px) {
   .Sidebar {
-    border: 0;
+    border-top: 0;
+    border-left: 1px solid var(--border-color);
     margin: 0;
-    grid-column-start: -1;
+    grid-column: 2;
   }
 }
 
@@ -299,7 +287,7 @@ nav {
   font-size: 14px;
   color: var(--light-gray);
   text-align: center;
-  margin: 2em 0;
+  margin: 2em 0 0;
 }
 
 .Search-form {
@@ -341,7 +329,7 @@ nav {
   position: absolute;
   border: 1px solid var(--border-color);
   border-radius: 0.25em;
-  background: {{ site.Params.color }};
+  background: white;
   display: grid;
   width: 300px;
 }
@@ -350,22 +338,10 @@ nav {
   padding: 0.5em;
   font-size: 14px;
   border-top: 1px solid var(--border-color);
-  display: grid;
-  grid: auto / auto 8ch;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.Search-results li a {
-  color: var(--banner-link-color);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.Search-results li small {
-  color: var(--light-gray);
-  justify-self: right;
+  color: var(--banner-link-color);
 }
 
 .Search-results li:first-of-type {
@@ -374,12 +350,9 @@ nav {
 
 .Search-results li.selected {
   background: var(--link-color);
-}
-
-.Search-results li.selected a {
   color: white;
 }
 
-.Search-results li.selected small {
-  color: white;
+.Search-results li a {
+  color: inherit;
 }

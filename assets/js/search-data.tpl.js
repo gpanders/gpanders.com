@@ -26,23 +26,21 @@
 'use strict';
 
 (function() {
-  const indexCfg = { 'cache': true };
-  indexCfg.doc = {
-    id: 'id',
-    field: ['title', 'content'],
-    store: ['title', 'href', 'section'],
-  };
+  const index = FlexSearch.create('balance', {
+    cache: true,
+    doc: {
+      id: 'id',
+      field: ['title', 'content'],
+      store: ['title', 'href'],
+    },
+  });
 
-  const index = FlexSearch.create('balance', indexCfg);
+  {{- $docs := slice }}
+  {{- range $index, $page := where .Site.RegularPages "Section" "blog" -}}
+    {{- $docs = $docs | append (dict "id" $index "href" $page.RelPermalink "title" $page.Title "content" $page.Plain) }}
+  {{- end -}}
+  index.add({{ $docs | jsonify }});
+
   window.searchIndex = index;
 
-  {{- range $index, $page := .Site.RegularPages -}}
-  index.add({
-    'id': {{ $index }},
-    'href': '{{ $page.RelPermalink }}',
-    'title': {{ $page.Title | jsonify }},
-    'content': {{ $page.Plain | jsonify }},
-    'section': {{ (humanize $page.Section) | jsonify }},
-  });
-  {{- end -}}
 })();

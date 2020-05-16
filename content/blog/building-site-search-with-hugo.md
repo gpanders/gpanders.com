@@ -37,7 +37,7 @@ Also create the following file at `layouts/_default/index.json`:
 
 ```go
 {{- $.Scratch.Add "index" slice -}}
-{{- range where .Site.RegularPages "Section" "in" site.Params.mainSections  -}}
+{{- range .Site.RegularPages -}}
     {{- $.Scratch.Add "index" (dict "title" .Title "date" (dateFormat "2006-01-02" .Date) "tags" .Params.tags "contents" .Plain "permalink" .Permalink) -}}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}
