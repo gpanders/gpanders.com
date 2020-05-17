@@ -79,7 +79,7 @@
     while (results.firstChild) {
       results.removeChild(results.firstChild);
     }
-    results.style.display = 'none';
+    results.style.display = '';
   }
 
   function submit(event) {
@@ -156,7 +156,7 @@
         let li = createResultItem(hit);
         results.appendChild(li);
       });
-      results.style.display = '';
+      results.style.display = 'block';
     });
   }
 

@@ -335,13 +335,17 @@ nav {
   vertical-align: text-bottom;
 }
 
+.Search-icon input {
+  display: none;
+}
+
 .Search-results {
+  display: none;
   list-style: none;
   padding: 0;
   position: absolute;
   border: 1px solid var(--border-color);
   border-radius: 0.25em;
-  display: grid;
   width: 300px;
   background: var(--search-bg-color);
 }
