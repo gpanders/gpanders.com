@@ -1,12 +1,21 @@
-{{- range .Scratch.GetSortedMapValues "css" -}}
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.webmanifest">
+
+{{ range .Scratch.GetSortedMapValues "css" }}
   <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
-{{- end -}}
-{{- range .Scratch.GetSortedMapValues "js" -}}
+{{ end }}
+
+{{ range .Scratch.GetSortedMapValues "js" }}
   <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
-{{- end -}}
-{{- with resources.Get "js/search.tpl.js" | resources.ExecuteAsTemplate "js/search.js" . | minify | fingerprint -}}
+{{ end }}
+
+{{ with resources.Get "js/search.tpl.js" | resources.ExecuteAsTemplate "js/search.js" . | minify | fingerprint }}
   <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
-{{- end }}
-{{- with resources.Get "js/count.js" | fingerprint -}}
+{{ end }}
+
+{{ with resources.Get "js/count.js" | fingerprint }}
+  <link rel="preconnect" href="https://stats.gpanders.com">
   <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" data-goatcounter="https://stats.gpanders.com/count"></script>
-{{- end }}
+{{ end }}
