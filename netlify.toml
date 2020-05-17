@@ -1,7 +1,14 @@
 [build]
-publish = "public"
-command = "hugo"
+  publish = "public"
+  command = "hugo"
 
 [[redirects]]
-from = "/posts/*"
-to = "/blog/:splat"
+  from = "/posts/*"
+  to = "/blog/:splat"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; img-src *.gpanders.com"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
