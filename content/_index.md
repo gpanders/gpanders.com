@@ -13,9 +13,8 @@ Send a message to my [public inbox][].
 
 ### Other places to find me
 
-- [sourcehut](https://sr.ht/~gpanders)
+- [sourcehut](https://git.sr.ht/~gpanders)
 - [GitHub](https://github.com/gpanders)
 - [Goodreads](https://www.goodreads.com/user/show/23021370-greg-anders)
-
 
 [public inbox]: https://lists.sr.ht/~gpanders/public-inbox
