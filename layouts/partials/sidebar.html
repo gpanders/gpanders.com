@@ -2,16 +2,4 @@
   {{ with .Site.GetPage "home" }}
   {{ .Content }}
   {{ end }}
-
-  {{ with .Site.GetPage "section" "projects" }}
-  <h3><a href="{{ .RelPermalink }}">Featured Projects</a></h3>
-  {{ end }}
-  <ul>
-  {{ range where .Site.RegularPages "Section" "projects" }}
-    <li>
-      <p class="Project-link"><a href="{{ with .Params.href }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ .Title }}</a></p>
-      <p class="Project-desc">{{ .Summary }}</p>
-    </li>
-  {{ end }}
-  </ul>
 </div>

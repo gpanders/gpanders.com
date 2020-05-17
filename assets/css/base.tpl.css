@@ -259,7 +259,6 @@ nav {
 
 .Project-link {
   font-weight: 500;
-  margin: 0;
 }
 
 .Project-link a {
@@ -269,7 +268,6 @@ nav {
 .Project-desc {
   font-size: 0.8rem;
   color: var(--subtle-color);
-  margin: 0;
 }
 
 .List-header {
