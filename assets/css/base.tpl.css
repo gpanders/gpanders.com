@@ -343,7 +343,7 @@ nav {
   border-radius: 0.25em;
   display: grid;
   width: 300px;
-  background: var(--main-bg-color);
+  background: var(--search-bg-color);
 }
 
 .Search-results li {
@@ -362,7 +362,7 @@ nav {
 
 .Search-results li.selected {
   background: var(--link-color);
-  color: white;
+  color: var(--main-bg-color);
 }
 
 .Search-results li a {
