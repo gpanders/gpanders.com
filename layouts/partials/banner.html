@@ -1,7 +1,7 @@
 <nav>
   <ul class="Banner">
     <li class="Banner-item Banner-item--title">
-      <a class="Banner-link u-clickable" href="{{ "" | absURL }}">{{ site.Title }}</a>
+      <a class="Banner-link" href="{{ "" | absURL }}">{{ site.Title }}</a>
     </li>
     <li class="Banner-item Banner-item--search">
       <form class="Search-form" role="search" action="https://google.com/search" method="GET" accept-charset="UTF-8">
@@ -20,7 +20,7 @@
     </li>
     {{- range site.Menus.nav -}}
     <li class="Banner-item">
-      <a class="Banner-link u-clickable" href="{{ .URL | absURL }}">{{ .Name }}</a>
+      <a class="Banner-link" href="{{ .URL | absURL }}">{{ .Name }}</a>
     </li>
     {{- end -}}
   </ul>

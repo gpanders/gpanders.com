@@ -1,11 +1,25 @@
 :root {
     --main-fg-color: #282828;
-    --banner-link-color: #444;
-    --banner-title-color: #282828;
-    --light-gray: #666;
-    --dark-gray: #000;
+    --main-bg-color: #fff;
+    --strong-color: #000;
+    --subtle-color: #666;
     --border-color: #dbdbdb;
     --link-color: #0066d6;
+    --code-bg-color: #eee;
+    --search-bg-color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-fg-color: #fffdf9;
+    --main-bg-color: #2d2d2d;
+    --strong-color: #fff;
+    --subtle-color: #a09f93;
+    --border-color: #393939;
+    --link-color: #7fbfff;
+    --code-bg-color: #272822;
+    --search-bg-color: #515151;
+  }
 }
 
 body {
@@ -13,10 +27,11 @@ body {
   line-height: 1.6;
   margin: 0;
   padding: 0;
+  background: var(--main-bg-color);
+  color: var(--main-fg-color);
 }
 
 main {
-  color: var(--main-fg-color);
   margin: auto;
   display: grid;
   grid-template-columns: auto;
@@ -35,6 +50,7 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  color: var(--strong-color);
   margin: 1.5rem 0 0 0;
 }
 
@@ -60,7 +76,7 @@ code {
 
 a > code, p > code {
   padding: 2px 4px;
-  background: #eee;
+  background: var(--code-bg-color);
 }
 
 blockquote {
@@ -95,7 +111,7 @@ th, td {
 
 time {
   font-size: 14px;
-  color: var(--light-gray);
+  color: var(--subtle-color);
 }
 
 nav {
@@ -152,16 +168,11 @@ nav {
 
 .Banner-link {
   font-size: 1rem;
-  color: var(--banner-link-color);
+  color: var(--strong-color);
   padding: 0.5rem 1rem;
 }
 
-.Banner-link:hover {
-  color: var(--dark-gray);
-}
-
 .Banner-item--title .Banner-link {
-  color: var(--banner-title-color);
   font-size: 1.5rem;
   font-weight: 700;
 }
@@ -241,7 +252,7 @@ nav {
   text-align: center;
   margin: 0;
   padding: 1em;
-  color: var(--light-gray);
+  color: var(--subtle-color);
   border-top: 1px solid var(--border-color);
   font-size: smaller;
 }
@@ -257,7 +268,7 @@ nav {
 
 .Project-desc {
   font-size: 0.8rem;
-  color: var(--light-gray);
+  color: var(--subtle-color);
   margin: 0;
 }
 
@@ -284,7 +295,7 @@ nav {
 
 .Lastmod {
   font-size: 14px;
-  color: var(--light-gray);
+  color: var(--subtle-color);
   text-align: center;
   margin: 2em 0 0;
 }
@@ -303,6 +314,8 @@ nav {
   line-height: 1.8;
   width: 100%;
   box-sizing: border-box;
+  background: var(--search-bg-color);
+  color: var(--main-fg-color);
 }
 
 .Search-input:focus {
@@ -328,9 +341,9 @@ nav {
   position: absolute;
   border: 1px solid var(--border-color);
   border-radius: 0.25em;
-  background: white;
   display: grid;
   width: 300px;
+  background: var(--main-bg-color);
 }
 
 .Search-results li {
