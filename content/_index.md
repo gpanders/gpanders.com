@@ -7,6 +7,10 @@ reconfigurable and embedded computing for space-based systems.
 
 [contact@gpanders.com](mailto:contact@gpanders.com)
 
+#### PGP
+
+[56E93C2FB6B08BDB](/publickey.txt)
+
 #### Questions or comments?
 
 Send a message to my [public inbox][].
