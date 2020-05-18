@@ -1,9 +1,13 @@
 {{ define "main" }}
 
-<article>
+<article class="h-entry">
   {{ partial "heading.html" . }}
+  <div class="e-content">
   {{ .Content }}
-  {{ partial "modified.html" . }}
+  </div>
+  {{ with .GitInfo }}
+  <p class="Lastmod">Last modified by <a class="p-author h-card" href="{{ "" | absURL }}">{{ .AuthorName }}</a> on <time class="dt-updated" datetime="{{ .AuthorDate.Format "2006-01-02T00:00:00Z00:00" }}">{{ .AuthorDate.Format "January 2, 2006" }}</time></p>
+  {{ end }}
 </article>
 
 {{ end }}

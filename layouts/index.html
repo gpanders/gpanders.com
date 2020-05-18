@@ -27,9 +27,9 @@
   {{ $paginator := .Scratch.Get "paginator" }}
 
   {{ range $paginator.Pages }}
-  <article>
+  <article class="h-entry">
     {{ partial "heading.html" . }}
-    <p>{{ .Summary }}</p>
+    <p class="p-summary">{{ .Summary }}</p>
     {{ if .Truncated }}
       <p>
         <a class="u-clickable" href="{{ .RelPermalink }}">Read More…</a>

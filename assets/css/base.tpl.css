@@ -109,11 +109,6 @@ th, td {
   overflow: visible;
 }
 
-time {
-  font-size: 14px;
-  color: var(--subtle-color);
-}
-
 nav {
   border-bottom: 1px solid var(--border-color);
 }
@@ -180,6 +175,11 @@ nav {
 .Content {
   padding: 1em;
   overflow: auto;
+}
+
+.Subheader {
+  font-size: 14px;
+  color: var(--subtle-color);
 }
 
 .Tags {
@@ -295,7 +295,11 @@ nav {
   font-size: 14px;
   color: var(--subtle-color);
   text-align: center;
-  margin: 2em 0 0;
+  margin: 2em 0 1em;
+}
+
+.Lastmod a {
+  color: var(--subtle-color);
 }
 
 .Search-form {

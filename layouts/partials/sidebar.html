@@ -1,5 +1,33 @@
 <div class="Sidebar">
-  {{ with .Site.GetPage "home" }}
-  {{ .Content }}
-  {{ end }}
+  <div class="h-card">
+    <h3 class="p-name"><a class="u-url" href="{{ "" | absURL }}">Greg Anders</a></h3>
+    <div class="p-note">
+      <p>Electrical and computer engineer and open source software enthusiast.</p>
+      <p>I use this site to write about things I learn or find interesting.</p>
+    </div>
+    <h4>Email</h4>
+    <p class="u-email"><a rel="me" href="mailto:contact@gpanders.com">contact@gpanders.com</a></p>
+    </h4>
+    <h4>PGP</h4>
+    <p class="u-key"><a href="/publickey.txt">56E93C2FB6B08BDB</a></p>
+    <h4>Questions or comments?</h4>
+    <p>Send a message to my <a href="https://lists.sr.ht/~gpanders/public-inbox">public inbox</a>.</p>
+    <h4>Other places to find me</h4>
+    <ul>
+      <li><a rel="me" href="https://git.sr.ht/~gpanders">sourcehut</a></li>
+      <li><a rel="me" href="https://github.com/gpanders">GitHub</a></li>
+      <li><a rel="me" href="https://www.goodreads.com/user/show/23021370-greg-anders">Goodreads</a></li>
+      <li><a rel="me" href="https://news.ycombinator.com/user?id=gpanders">Hacker News</a></li>
+    </ul>
+  </div>
+
+  <h4>Featured Projects</h4>
+  <ul>
+    {{ range where (where .Site.RegularPages "Section" "projects") ".Params.featured" "eq" true }}
+    <li>
+      <div class="Project-link"><a href="{{ with .Params.href }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ .Title }}</a></div>
+      <div class="Project-desc">{{ .Summary }}</div>
+    </li>
+    {{ end }}
+  </ul>
 </div>
