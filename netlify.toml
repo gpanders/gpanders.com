@@ -10,11 +10,11 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; img-src 'self' stats.gpanders.com"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' https://stats.gpanders.com/count"
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "SAMEORIGIN"
 
 [[headers]]
   for = "/blog/caching-ldap-queries-in-mutt/"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; img-src 'self' stats.gpanders.com; script-src 'self' gist.github.com; style-src 'self' 'unsafe-inline' github.githubassets.com"
+    Content-Security-Policy = "default-src 'self'; img-src 'self' https://stats.gpanders.com/count; script-src 'self' https://gist.github.com; style-src 'self' 'unsafe-inline' https://github.githubassets.com"
