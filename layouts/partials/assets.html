@@ -14,8 +14,3 @@
 {{ with resources.Get "js/search.tpl.js" | resources.ExecuteAsTemplate "js/search.js" . | minify | fingerprint }}
   <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
 {{ end }}
-
-{{ with resources.Get "js/count.js" | fingerprint }}
-  <link rel="preconnect" href="https://stats.gpanders.com">
-  <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" data-goatcounter="https://stats.gpanders.com/count"></script>
-{{ end }}
