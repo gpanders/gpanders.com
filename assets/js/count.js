@@ -8,13 +8,15 @@
 		window.goatcounter = window.goatcounter || {}
 
 	// Get all data we're going to send off to the counter endpoint.
-	var get_data = function(count_vars) {
+	var get_data = function(vars) {
 		var data = {
-			p: count_vars.path     || goatcounter.path,
-			r: count_vars.referrer || goatcounter.referrer,
-			t: count_vars.title    || goatcounter.title,
-			e: !!(count_vars.event || goatcounter.event),
+			p: (vars.path     === undefined ? goatcounter.path     : vars.path),
+			r: (vars.referrer === undefined ? goatcounter.referrer : vars.referrer),
+			t: (vars.title    === undefined ? goatcounter.title    : vars.title),
+			e: !!(vars.event || goatcounter.event),
 			s: [window.screen.width, window.screen.height, (window.devicePixelRatio || 1)],
+			b: is_bot(),
+			q: location.search,
 		}
 
 		var rcb, pcb, tcb  // Save callbacks to apply later.
@@ -43,6 +45,22 @@
 	// Check if a value is "empty" for the purpose of get_data().
 	var is_empty = function(v) { return v === null || v === undefined || typeof(v) === 'function' }
 
+	// See if this looks like a bot; there is some additional filtering on the
+	// backend, but these properties can't be fetched from there.
+	var is_bot = function() {
+		// Headless browsers are probably a bot.
+		var w = window, d = document
+		if (w.callPhantom || w._phantom || w.phantom)
+			return 150
+		if (w.__nightmare)
+			return 151
+		if (d.__selenium_unwrapped || d.__webdriver_evaluate || d.__driver_evaluate)
+			return 152
+		if (navigator.webdriver)
+			return 153
+		return 0
+	}
+
 	// Object to urlencoded string, starting with a ?.
 	var to_params = function(obj) {
 		var p = []
@@ -53,20 +71,24 @@
 	}
 
 	// Count a hit.
-	window.goatcounter.count = function(count_vars) {
+	window.goatcounter.count = function(vars) {
 		if ('visibilityState' in document && document.visibilityState === 'prerender')
+			return
+		if (location !== parent.location)  // Frame
 			return
 		if (!goatcounter.allow_local && location.hostname.match(/(localhost$|^127\.|^10\.|^172\.(1[6-9]|2[0-9]|3[0-1])\.|^192\.168\.)/))
 			return
 
 		var script   = document.querySelector('script[data-goatcounter]'),
-		    endpoint = window.counter  // Compatibility
+		    endpoint = (window.goatcounter.endpoint || window.counter)  // counter is for compat; don't use.
 		if (script)
 			endpoint = script.dataset.goatcounter
 
-		var data = get_data(count_vars || {})
+		var data = get_data(vars || {})
 		if (data.p === null)  // null from user callback.
 			return
+
+		data.rnd = Math.random().toString(36).substr(2, 5)  // Browsers don't always listen to Cache-Control.
 
 		var img = document.createElement('img'),
 		    rm  = function() { if (img && img.parentNode) img.parentNode.removeChild(img) }
@@ -88,9 +110,39 @@
 				return s[i].substr(name.length + 1)
 	}
 
-	if (!goatcounter.no_onload)
-		if (document.body === null)
-			document.addEventListener('DOMContentLoaded', function() { goatcounter.count() }, false)
-		else
+	// Track click events.
+	window.goatcounter.bind_events = function() {
+		var send = function(elem) {
+			return function() {
+				goatcounter.count({
+					event:    true,
+					path:     (elem.dataset.goatcounterClick || elem.name || elem.id || ''),
+					title:    (elem.dataset.goatcounterTitle || elem.title || (elem.innerHTML || '').substr(0, 200) || ''),
+					referrer: (elem.dataset.goatcounterReferrer || elem.dataset.goatcounterReferral || ''),
+				})
+			}
+		}
+
+		document.querySelectorAll("*[data-goatcounter-click]").forEach(function(elem) {
+			if (elem.dataset.goatcounterBound)
+				return
+			var f = send(elem)
+			elem.addEventListener('click', f, false)
+			elem.addEventListener('auxclick', f, false)  // Middle click.
+			elem.dataset.goatcounterBound = 'true'
+		})
+	}
+
+	if (!goatcounter.no_onload) {
+		var go = function() {
 			goatcounter.count()
+			if (!goatcounter.no_events)
+				goatcounter.bind_events()
+		}
+
+		if (document.body === null)
+			document.addEventListener('DOMContentLoaded', function() { go() }, false)
+		else
+			go()
+	}
 })();
