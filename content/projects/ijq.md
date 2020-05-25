@@ -1,6 +1,6 @@
 ---
 title: ijq
 summary: Interactive jq
-href: https://gpanders.com/blog/introducing-ijq/
+href: https://sr.ht/~gpanders/ijq/
 featured: true
 ---
