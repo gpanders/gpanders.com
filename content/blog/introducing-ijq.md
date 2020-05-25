@@ -1,5 +1,5 @@
 ---
-title: "Introducing ijq, an interactive jq tool"
+title: "Introducing ijq, an Interactive jq Tool"
 date: 2020-05-23T19:07:09-06:00
 ---
 
