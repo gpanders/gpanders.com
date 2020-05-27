@@ -51,7 +51,14 @@ a:hover {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--strong-color);
-  margin: 1.5rem 0 0 0;
+  margin: 0;
+}
+
+/* Add a little more whitespace around headers on larger screens */
+@media only screen and (min-width: 800px) {
+  h1, h2, h3, h4, h5, h6 {
+    margin: 1.5rem 0 0 0;
+  }
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -348,8 +355,14 @@ nav {
   position: absolute;
   border: 1px solid var(--border-color);
   border-radius: 0.25em;
-  width: 300px;
+  width: calc(100% - 2rem - 2px);
   background: var(--search-bg-color);
+}
+
+@media only screen and (min-width: 800px) {
+  .Search-results {
+    width: 300px;
+  }
 }
 
 .Search-results li {
@@ -360,6 +373,7 @@ nav {
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--banner-link-color);
+  text-align: left;
 }
 
 .Search-results li:first-of-type {
