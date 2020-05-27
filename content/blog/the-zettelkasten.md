@@ -1,5 +1,5 @@
 ---
-title: "How I Take Notes: The Zettelkasten"
+title: "The Zettelkasten"
 date: 2020-05-25T15:43:50-06:00
 ---
 
