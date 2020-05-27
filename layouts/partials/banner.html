@@ -4,8 +4,8 @@
       <a class="Banner-link" href="{{ "" | absURL }}">{{ site.Title }}</a>
     </li>
     <li class="Banner-item Banner-item--search">
-      <form class="Search-form" role="search" action="https://google.com/search" method="GET" accept-charset="UTF-8">
-        <input type="hidden" name="q" value="site:https://gpanders.com">
+      <form class="Search-form" role="search" action="https://duckduckgo.com/" method="GET" accept-charset="UTF-8">
+        <input type="hidden" name="sites" value="{{ .Site.BaseURL }}">
         <label>
           <input name="q" aria-label="Search" class="Search-input" placeholder="Search…" tabindex="0" autocomplete="off" autocapitalize="off" required>
         </label>
