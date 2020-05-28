@@ -30,7 +30,7 @@ but the information is often stale, badly formatted, obscure, or just plain
 wrong. This guide aspires to be what Xilinx's wiki should be: a step-by-step
 solution from nothing to Linux.
 
-## What You'll Need
+### What You'll Need
 
 1.  A ZCU102 evaluation board
 2.  A USB-connection to the board's UART (the kit comes with this cable)
@@ -43,7 +43,7 @@ solution from nothing to Linux.
     compilers and other tools required to build the Linux kernel and other
     components.
 
-## Step 1: Build your design in Vivado
+### Step 1: Build your design in Vivado
 
 This process is pretty well outlined in [Vivado's
 tutorials](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_1/ug1209-embedded-design-tutorial.pdf)
@@ -55,7 +55,7 @@ who's programmed an FPGA with Vivado before.
 Once the bitstream is finished compiling, go to `File` > `Export` > `Export
 Hardware`.  Make sure "Include bitstream" is checked.
 
-## Step 2: Launch SDK
+### Step 2: Launch SDK
 
 While still in Vivado, go to `File` > `Launch SDK`. You can accept the defaults
 in the Launch SDK window or specify a custom location -- it doesn't really
@@ -68,7 +68,7 @@ all of the files to initialize the processing system (PS) to the settings you
 gave it in the IP integrator. The HDF file also contains your bitstream and any
 drivers for custom IP you might have included.
 
-## Step 3: Create the First Stage Boot Loader (FSBL)
+### Step 3: Create the First Stage Boot Loader (FSBL)
 
 In the Vivado SDK, go to `File` > `New` > `Application Project`. In the **New
 Project** dialog that appears, call the project `fsbl` and set the OS Platform
@@ -93,14 +93,14 @@ ahead and enable `FSBL_DEBUG_DETAILED_VAL`, just in case:
 #define FSBL_DEBUG_DETAILED_VAL     (1U)
 ```
 
-## Step 4: Create the PMU Firmware (PMUFW)
+### Step 4: Create the PMU Firmware (PMUFW)
 
 This step is almost identical to the last one. Create a new Application Project
 and this time call it `pmufw`. Set the Processor to `psu_pmu_0`.  Click
 **Next** and select the only option in the **Templates** window (ZynqMP PMU
 Firmware).  Click Finish.
 
-## Step 5: Create the Device Tree Binary (dtb) files
+### Step 5: Create the Device Tree Binary (dtb) files
 
 First, clone Xilinx's
 [device-tree-xlnx](https://github.com/Xilinx/device-tree-xlnx) repository (it
@@ -158,7 +158,7 @@ to the top of your `system-top.dts` file or you can append the contents of
 Once you have your `system.dtb` file, copy it to the FAT32 (boot) partition of
 your SD card.
 
-## Step 6: Compile U-Boot
+### Step 6: Compile U-Boot
 
 Clone Xilinx's [U-Boot repository](https://github.com/Xilinx/u-boot-xlnx).
 Again, **be sure to check out the tag corresponding to the version of Vivado
@@ -183,7 +183,7 @@ $ make
 Once U-Boot is done compiling, you should see a `u-boot.elf` file in that
 directory.
 
-## Step 7: Compile Arm Trusted Firmware (ATF)
+### Step 7: Compile Arm Trusted Firmware (ATF)
 
 This process is similar to building U-Boot. Clone Xilinx's [ARM Trusted
 Firmware repository](https://github.com/Xilinx/arm-trusted-firmware), check out
@@ -197,7 +197,7 @@ $ make PLAT=zynqmp bl31
 Once complete, you should have a `bl31.elf` file under
 `build/zynqmp/release/bl31/`.
 
-## Step 8: Create a boot image
+### Step 8: Create a boot image
 
 This step is covered pretty well in Vivado's [Embedded Design
 Tutorial](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2018_1/ug1209-embedded-design-tutorial.pdf).
@@ -235,7 +235,7 @@ you can install the boot files using
 $ sudo make INSTALL_DIR=/media/sd install
 ```
 
-## Step 9: Compile the Linux kernel
+### Step 9: Compile the Linux kernel
 
 Clone Xilinx's [fork of the Linux kernel](https://github.com/Xilinx/linux-xlnx)
 and check out the tag corresponding to your Vivado version. Again, make sure
@@ -258,7 +258,7 @@ Xilinx U-Boot fork.
 
 Copy the `Image` file to the FAT32 (boot) partition of your SD card.
 
-## Step 10: Find or create a file system
+### Step 10: Find or create a file system
 
 There are a thousand and one ways to procure a file system for Linux, so do
 whatever works for you. If you want just a minimal Debian or Ubuntu file system,
@@ -277,7 +277,7 @@ create a Debian-based root file system, use the process outlined
 However you get it, install the file system to the ext4 partition of your
 SD card.
 
-## Step 12: Boot Linux
+### Step 12: Boot Linux
 
 We're finally there! Put your SD card into your device and make sure the boot
 pins are set to boot from SD card mode (see [ZCU102 User

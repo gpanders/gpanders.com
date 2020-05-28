@@ -1,7 +1,7 @@
 :root {
     --main-fg-color: #282828;
     --main-bg-color: #fff;
-    --strong-color: #000;
+    --strong-color: #282828;
     --subtle-color: #666;
     --border-color: #dbdbdb;
     --link-color: #0066d6;
@@ -51,14 +51,6 @@ a:hover {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--strong-color);
-  margin: 0;
-}
-
-/* Add a little more whitespace around headers on larger screens */
-@media only screen and (min-width: 800px) {
-  h1, h2, h3, h4, h5, h6 {
-    margin: 1.5rem 0 0 0;
-  }
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -121,62 +113,54 @@ nav {
 }
 
 .Banner {
+  display: grid;
+  margin: auto;
+  max-width: {{ site.Params.width }};
+  line-height: 2;
+  text-align: center;
+}
+
+.Banner-menu {
   list-style: none;
   display: grid;
   align-items: baseline;
-  margin: auto;
-  max-width: {{ .Site.Params.width }};
+  margin: 0;
   padding: 0;
-  line-height: 2;
-  grid-template-columns: auto;
-}
-
-.Banner-item {
-  text-align: center;
-  padding: 0 1em;
   grid-row: 2;
 }
 
-.Banner-item--title {
+.Banner-title {
   grid-row: 1;
-  grid-column: 1 / {{ len site.Menus.nav | add 1 }};
+  margin: 0;
 }
 
-.Banner-item--search {
-  grid-row: 3;
+.Banner-item {
+  grid-row: 1;
+}
+
+.Banner-link {
+  color: var(--strong-color);
+  padding: 0.5rem 1rem;
+}
+
+.Banner-search {
+  grid-row: 2;
   grid-column: 1 / {{ len site.Menus.nav | add 1 }};
 }
 
 @media only screen and (min-width: 600px) {
   .Banner {
     grid-template-columns: 1fr auto;
-  }
-
-  .Banner-item {
     text-align: left;
-    padding: 0;
+  }
+
+  .Banner-menu {
     grid-row: 1;
   }
 
-  .Banner-item--title {
-    grid-column: 1;
-  }
-
-  .Banner-item--search {
+  .Banner-search {
     grid-row: 1;
-    grid-column: 2;
   }
-}
-
-.Banner-link {
-  font-size: 1rem;
-  color: var(--strong-color);
-  padding: 0.5rem 1rem;
-}
-
-.Banner-item--title .Banner-link {
-  font-size: 1.5rem;
-  font-weight: 700;
 }
 
 .Content {
@@ -184,9 +168,14 @@ nav {
   overflow: auto;
 }
 
-.Subheader {
+.Heading {
+  margin-bottom: 0;
+}
+
+.Subheading {
   font-size: 14px;
   color: var(--subtle-color);
+  margin: 0;
 }
 
 .Tags {
@@ -261,20 +250,25 @@ nav {
   padding: 1em;
   color: var(--subtle-color);
   border-top: 1px solid var(--border-color);
-  font-size: smaller;
 }
 
-.Project-link {
+.Project-list {
+  margin: 0;
+}
+
+.Project-list dt {
   font-weight: 500;
+  margin-top: 1em;
 }
 
-.Project-link a {
+.Project-list a {
   color: var(--main-fg-color);
 }
 
-.Project-desc {
+.Project-list dd {
   font-size: 0.8rem;
   color: var(--subtle-color);
+  margin: 0;
 }
 
 .List-header {

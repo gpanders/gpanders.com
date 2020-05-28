@@ -1,18 +1,18 @@
-<div class="Sidebar">
+<section class="Sidebar">
   <div class="h-card">
-    <h3 class="p-name"><a class="u-url" href="{{ "" | absURL }}">Greg Anders</a></h3>
+    <h2 class="p-name"><a class="u-url" href="{{ "" | absURL }}">Greg Anders</a></h2>
     <div class="p-note">
       <p>Electrical and computer engineer and open source software enthusiast.</p>
       <p>I use this site to write about things I learn or find interesting.</p>
     </div>
-    <h4>Email</h4>
+    <h3>Email</h3>
     <p class="u-email"><a rel="me" href="mailto:contact@gpanders.com">contact@gpanders.com</a></p>
     </h4>
-    <h4>PGP</h4>
+    <h3>PGP</h3>
     <p class="u-key"><a href="/publickey.txt">56E93C2FB6B08BDB</a></p>
-    <h4>Questions or comments?</h4>
+    <h3>Questions or comments?</h3>
     <p>Send a message to my <a href="https://lists.sr.ht/~gpanders/public-inbox">public inbox</a>.</p>
-    <h4>Other places to find me</h4>
+    <h3>Other places to find me</h3>
     <ul>
       <li><a rel="me" href="https://git.sr.ht/~gpanders">sourcehut</a></li>
       <li><a rel="me" href="https://github.com/gpanders">GitHub</a></li>
@@ -21,13 +21,11 @@
     </ul>
   </div>
 
-  <h4>Featured Projects</h4>
-  <ul>
+  <h3>Featured Projects</h3>
+  <dl class="Project-list">
     {{ range where (where .Site.RegularPages "Section" "projects") ".Params.featured" "eq" true }}
-    <li>
-      <div class="Project-link"><a href="{{ with .Params.href }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ .Title }}</a></div>
-      <div class="Project-desc">{{ .Summary }}</div>
-    </li>
+    <dt><a href="{{ with .Params.href }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ .Title }}</a></dt>
+    <dd>{{ .Summary }}</dd>
     {{ end }}
-  </ul>
-</div>
+  </dl>
+</section>

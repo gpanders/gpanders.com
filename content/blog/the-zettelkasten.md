@@ -39,7 +39,7 @@ because it works for me doesn't mean it'll work for you.
 [Getting Things Done]: https://www.amazon.com/Getting-Things-Done-Stress-Free-Productivity/dp/0143126563
 [appdemic]: https://appademic.tech/zettelkasten-thoughtful-plain-text-note-taking/#fn3
 
-## What is a Zettelkasten?
+### What is a Zettelkasten?
 
 Quoting from the [blog post above][appdemic] (emphasis mine):
 
@@ -123,7 +123,7 @@ soon), but you can also use something like [The Archive][] or [nvALT][].
 [no-categories]: https://zettelkasten.de/posts/no-categories/
 [nvALT]: https://brettterpstra.com/projects/nvalt/
 
-## Examples
+### Examples
 
 Ok, you're a visual learner. I get it, I am too. Here's an example of what one
 of my own Zettels looks like:
@@ -142,7 +142,7 @@ Enlightenment, he re-imagined science's relationship with nature, insisting
 that nature was mechanistic but rather highly complex and interwoven. His
 discipline would later come to be known as ecology [[20191213143234]].
 
-## Influenced
+### Influenced
 
 - George Perkins Marsh [[20191213092520]]
 - Ernst Haeckel [[20191213151234]]
@@ -150,7 +150,7 @@ discipline would later come to be known as ecology [[20191213143234]].
 - Charles Darwin
 - Goethe
 
-## Backlinks
+### Backlinks
 
 - [[20191213092520]]
 - [[20191213151234]]
@@ -188,7 +188,7 @@ and go about my day. The whole process is very fast and very low friction.
 
 [Zotero]: https://www.zotero.org/
 
-## Conclusion
+### Conclusion
 
 I have been growing my own Zettelkasten for about 6 months now and have,
 amazingly, been able to get the process to stick, which is more than I can say

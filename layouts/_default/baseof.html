@@ -15,9 +15,9 @@
 <body>
   {{ partialCached "banner.html" . }}
   <main>
-    <div class="Content">
+    <section class="Content">
       {{ block "main" . }}{{ end }}
-    </div>
+    </section>
     {{ if ne .Kind "section" }}
       {{ partialCached "sidebar.html" . }}
     {{ end }}

@@ -32,7 +32,7 @@ supplementary tools to handle things like access control and HTTP access.
 
 [sourcehut]: https://sr.ht
 
-## Evaluating the choices
+### Evaluating the choices
 
 Depending on your needs, you may want to install something like [GitLab's
 Community Edition][gitlab-ce] which is very easy to set up and provides things
@@ -55,7 +55,7 @@ Finally, we'll use the built-in `git daemon` to serve repositories over the
 [Gogs]: https://gogs.io
 [Gitolite]: https://gitolite.com/gitolite/index.html
 
-## Preparing your server
+### Preparing your server
 
 You can run your git server on something as simple as a Raspberry Pi or a
 Digital Ocean droplet. It's not very demanding, so you don't need much
@@ -75,7 +75,7 @@ And make sure you can SSH to the `git` user on your server:
 
     $ ssh git@yourserver.com
 
-## Gitolite
+### Gitolite
 
 Next, install the excellent [Gitolite][] tool. Gitolite makes managing your
 server much easier and allows you to do things like user management, access
@@ -112,7 +112,7 @@ how you add new SSH keys (either for yourself or for other users).
 Gitolite also interfaces quite nicely with `git-daemon` and `gitweb`. Be sure
 to check out the thorough documentation on [Gitolite's website][Gitolite].
 
-## git daemon
+### git daemon
 
 Git includes a `daemon` subcommand that will listen for incoming connections
 and serve data over the `git://` protocol. This allows you to clone repos from
@@ -159,7 +159,7 @@ readable by the special `daemon` user.
 
 [gitweb-daemon]: https://gitolite.com/gitolite/gitweb-daemon.html
 
-## Gitweb and HTTP
+### Gitweb and HTTP
 
 The most difficult part of setting up a git server is the web frontend and HTTP
 access. The git documentation has a section on [Smart HTTP][] which is a good
@@ -241,7 +241,7 @@ You may think it still looks drab, but I'm fairly proud of how it turned out.
 [gitweb.conf]: https://git-scm.com/docs/gitweb.conf
 [archived]: https://web.archive.org/web/20200326151219/https://git.gpanders.com/
 
-## Gitolite tips and tricks
+### Gitolite tips and tricks
 
 Here are some of the Gitolite tricks I've set up on my server that you may find
 useful.
