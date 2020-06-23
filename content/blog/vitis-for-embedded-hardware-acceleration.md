@@ -19,31 +19,36 @@ I've aimed to keep things as device agnostic as possible.
 near-future. I will try to keep this guide as up-to-date as possible, but be
 warned that some pieces may be antiquated by the time you read it.
 
-You can find a "reference implementation" of the steps below [here]. This
-implementation uses a Makefile to automate all of the steps outlined below with
-a simple example design. You are welcome to copy the reference implementation
-and modify it to your own needs however you wish.
+You can find a "reference implementation" of the steps below [here][reference].
+This implementation uses a Makefile to automate all of the steps outlined below
+with a simple example design. You are welcome to copy the reference
+implementation and modify it to your own needs however you wish.
 
 You can also find a lot of examples and Vitis tutorials online provided by
 Xilinx. However, almost all of these are targeted towards using x86/PCIe
 platforms and do not carry over well into edge-based/Zynq platforms (hence the
 need for this guide).
 
--   [Vitis Tutorials]
--   [XRT Platform Creation]
--   [Vitis Documentation]
+-   [Vitis Tutorials][]
+-   [XRT Platform Creation][]
+-   [Vitis Documentation][]
+
+[reference]: https://github.com/gpanders/vitis_example
+[Vitis Tutorials]: https://github.com/Xilinx/Vitis-Tutorials
+[XRT Platform Creation]: https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_base
+[Vitis Documentation]: https://www.xilinx.com/html_docs/xilinx2020_1/vitis_doc/kme1569523964461.html
 
 Outline
 -------
 
 The high-level outline of doing hardware acceleration in Vitis is
 
-1.  [Create a hardware design (XSA file) in Vivado]
-2.  [Create Linux software components]
-3.  [Create a Xilinx platform file (XPFM)]
-4.  [Write and compile your kernels]
-5.  [Write and compile your host executable]
-6.  [Run software emulation]
+1.  [Create a hardware design (XSA file) in Vivado](#creating-your-hardware-design)
+2.  [Create Linux software components](#create-linux-software-components)
+3.  [Create a Xilinx platform file (XPFM)](#generate-a-xilinx-platform-file)
+4.  [Write and compile your kernels](#write-and-compile-your-kernels)
+5.  [Write and compile your host executable](#write-and-compile-the-host-code)
+6.  [Run software emulation](#run-software-emulation)
 
 Pre-packaged Embedded Platforms
 -------------------------------
@@ -65,6 +70,13 @@ Also download the cross-compilation sysroot from the same [downloads
 page][platforms]. After extracting the archive you'll find `sdk.sh` scripts for
 both the Zynq 7000 and the Zynq Ultrascale. Execute the `sdk.sh` script for
 your chip and supply an installation path for the sysroot.
+
+**UPDATE 2020-06-23:** The 2020.1 Vitis update seems to have removed the
+sections on creating custom platforms from their [documentation][Vitis
+Documentation] (at least, I haven't been able to find it). I am not sure what
+the reason is behind this. Perhaps they want users to stick to their
+pre-packaged embedded platforms? In any case, the instructions below still seem
+to be valid, but proceed with caution.
 
 [platforms]: https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-platforms.html
 
@@ -159,7 +171,7 @@ Without this addition, the `zocl` driver will not be loaded and the Xilinx
 Runtime will not be able to detect your hardware device.
 
 If you use plain YoctoLinux, the `xrt` and `zocl` applications can be found in
-Xilinx's [meta-petalinux] layer.
+Xilinx's [meta-petalinux][] layer.
 
 One other important modification you must make is to disable the
 `CONFIG_CPU_IDLE` kernel option. See [AR\# 69143] for more information. Without
@@ -207,6 +219,8 @@ these two files _do_ matter: they should be named `qemu_args.txt` and
 
 Vitis uses these software components to run the software and hardware emulation
 targets, which we'll get to later.
+
+[meta-petalinux]: https://github.com/Xilinx/meta-petalinux
 
 Generate a Xilinx Platform File
 -------------------------------
@@ -274,6 +288,8 @@ void axpy(float const *a, float const *x, float const *y, float *out, int const 
 
 The first step is to compile our kernel into a Xilinx object file (`.xo`):
 
+<!-- TODO: Update this section for Vitis 2020.1 update -->
+
 ```console
 mkdir -p build/sw_emu
 v++ --platform ./build/platform/vitis_example/export/vitis_example/vitis_example.xpfm -t sw_emu -g -o build/sw_emu/axpy.xo -c kernels/axpy/axpy.c
@@ -312,14 +328,18 @@ Write and Compile the Host Code
 
 Again, this step is out of scope for this guide as it is highly design
 dependent. The easiest way to get started on this step is to start from an
-[example].
+[example][].
 
 Note that as of this writing (Feb 2020) Xilinx only supports OpenCL 1.2. This
 is in part because Xilinx depends on some APIs that were deprecated in OpenCL
 2.0. You can find the OpenCL 1.2 reference pages [here][4].
 
+[example]: https://github.com/gpanders/vitis_example/blob/master/src/host/host.cpp
+
 Run Software Emulation
 ----------------------
+
+<!-- TODO: Update for Vitis 2020.1 -->
 
 This is the point where the edge-based flow differs significantly from an
 x86/PCIe platform. In order to do software emulation for the ARM CPU, Vitis
@@ -413,27 +433,14 @@ all of them are entirely scriptable (as you can see in the reference
 implementation). This means that once the process is done once, the time cost
 of repeating it is negligible.
 
-If you have any questions or feedback, please feel free to [contact me].
+If you have any questions or feedback, please feel free to [contact
+me](mailto:contact@gpanders.com).
 
-  [here]: https://github.com/gpanders/vitis_example
-  [Vitis Tutorials]: https://github.com/Xilinx/Vitis-Tutorials
-  [XRT Platform Creation]: https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_base
-  [Vitis Documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/kme1569523964461.html
-  [Create a hardware design (XSA file) in Vivado]: #creating-your-hardware-design
-  [Create Linux software components]: #create-linux-software-components
-  [Create a Xilinx platform file (XPFM)]: #generate-a-xilinx-platform-file
-  [Write and compile your kernels]: #write-and-compile-your-kernels
-  [Write and compile your host executable]: #write-and-compile-the-host-code
-  [Run software emulation]: #run-software-emulation
   [Xilinx's documentation]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk373975992.html#wxe1570652701297
   [Configuring Platform Interface Properties]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk440719349.html#phl1512685419302
   [PetaLinux]: https://www.xilinx.com/products/design-tools/embedded-software/petalinux-sdk.html
   [1]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1468064742.html#ariaid-title2
-  [meta-petalinux]: https://github.com/Xilinx/meta-petalinux
   [AR\# 69143]: https://www.xilinx.com/support/answers/69143.html
-  [Vitis Github page]: https://github.com/Xilinx/Vitis_Embedded_Platform_Source/tree/master/Xilinx_Official_Platforms/zcu102_base/vivado/src/qemu/lnx
   [2]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk468473335.html#ariaid-title2
   [3]: https://www.xilinx.com/html_docs/xilinx2019_2/vitis_doc/Chunk1193338764.html#wrj1504034328013
-  [example]: https://github.com/gpanders/vitis_example/blob/master/src/host/host.cpp
   [4]: https://www.khronos.org/registry/OpenCL/sdk/1.2/docs/man/xhtml/
-  [contact me]: mailto:contact@gpanders.com
