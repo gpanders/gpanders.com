@@ -8,6 +8,10 @@ secrets:
     - 71f0c0eb-4596-440c-954e-d2710c8f75db
 environment:
     PATH: ~/.local/bin:/bin:/usr/bin:/sbin:/usr/sbin
+triggers:
+    - action: email
+      condition: failure
+      to: Greg Anders <greg@gpanders.com>
 tasks:
     - setup: |
         cd gpanders.com
