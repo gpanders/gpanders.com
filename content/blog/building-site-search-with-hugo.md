@@ -156,10 +156,10 @@ Et voila! You now have working search on your static Hugo site!
 The post above is not meant to be a finely detailed, step-by-step guide, but rather a high-level overview of how I did my implementation.
 There are a lot of gaps you'll have to fill in for yourself, but of course, that's the fun part!
 Feel free to [contact me][] with any questions or feedback.
-And of course you can always find my full implementation [here on this site][].
+You can also find the full implementation [on sourcehut][].
 
 [suggestions]: https://gohugo.io/tools/search/
 [options Hugo suggests]: https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae
 [regexp escape]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
 [contact me]: mailto:contact@gpanders.com
-[here on this site]: https://gpanders.com/search
+[on sourcehut]: https://git.sr.ht/~gpanders/gpanders.com/tree/6542d722c52a07efdf5096ac5a4278456c3d9a79/assets/js/search.js
