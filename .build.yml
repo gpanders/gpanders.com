@@ -11,7 +11,7 @@ environment:
 triggers:
     - action: email
       condition: failure
-      to: Greg Anders <greg@gpanders.com>
+      to: Greg Anders <pub@gpanders.com>
 tasks:
     - setup: |
         cd gpanders.com
