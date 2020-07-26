@@ -113,12 +113,12 @@ create a new note and link back to the original. In this way, the Zettelkasten
 grows organically over time along with its creator.
 
 The aforementioned traits also mean that implementing your own Zettelkasten
-tool is quite trivial. I did this myself with [zet][] (which I'll write about
+tool is quite trivial. I did this myself with [wk][] (which I'll write about
 soon), but you can also use something like [The Archive][] or [nvALT][].
 
 [Zettelkasten.de]: https://zettelkasten.de/
 [MultiMarkdown]: https://fletcherpenney.net/multimarkdown/
-[zet]: https://sr.ht/~gpanders/zet/
+[wk]: https://sr.ht/~gpanders/wk/
 [The Archive]: https://zettelkasten.de/the-archive/
 [no-categories]: https://zettelkasten.de/posts/no-categories/
 [nvALT]: https://brettterpstra.com/projects/nvalt/
@@ -173,14 +173,14 @@ citations of things I reference in the note itself. I use [Zotero][] to manage
 references and citations, and copying a citation from Zotero into a new note is
 a simple copy-paste operation.
 
-I interact with notes in my Zettelkasten with the aforementioned [zet][] tool.
+I interact with notes in my Zettelkasten with the aforementioned [wk][] tool.
 Like I mentioned, I'll write about this in more detail later, but briefly, it's
 a command line tool with commands like "open", "new", and "search". For
 example, if I just finished reading an interesting blog post about the history
 of bear migration in North America, I would simply type the following in my
 terminal:
 
-    zet new 'Bear migration in North America'
+    wk new 'Bear migration in North America'
 
 This would open a newly created note prepopulated with the relevant metadata in
 my editor (Vim) and allow me to quickly start writing. In the `tags:` field, I
