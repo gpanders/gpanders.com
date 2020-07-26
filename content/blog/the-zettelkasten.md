@@ -139,8 +139,9 @@ Alexander von Humboldt was among the first in the post-Enlightenment modern era
 to think of nature as something to be enjoyed, commune with, and treasure
 instead of simply to exploit and command. One of the last polymaths of the
 Enlightenment, he re-imagined science's relationship with nature, insisting
-that nature was mechanistic but rather highly complex and interwoven. His
-discipline would later come to be known as ecology [[20191213143234]].
+that nature was not simply mechanistic but rather highly complex and
+interwoven. His discipline would later come to be known as ecology
+[[20191213143234]].
 
 ### Influenced
 
