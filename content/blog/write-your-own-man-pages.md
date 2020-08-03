@@ -89,7 +89,7 @@ ual () {
 
             TITLE="$(echo $1 | tr '[:lower:]' '[:upper:]')"
             SECTION="ual"
-            AUTHOR="Greg Anders"
+            AUTHOR="Gregory Anders"
             DATE="$(date +'%B %d, %Y' -r "$NOTE")"
 
             pandoc \
@@ -132,7 +132,7 @@ DESCRIPTION
        foobar is a test.
 
 AUTHORS
-       Greg Anders.
+       Gregory Anders.
 
 
 

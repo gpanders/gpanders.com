@@ -62,8 +62,8 @@ where each line in the file has two fields separated by a tab character. The
 first field is the web page title or description, and the second field is the
 URL. For example
 
-    Personal website of Greg Anders	https://gpanders.com
-                                   ^ literal tab character (\t)
+    Personal website of Gregory Anders	https://gpanders.com
+                                      ^ literal tab character (\t)
 
 Why a tab? Traditionally, CSV files use commas to separate field values (hence
 the C in CSV); however, page titles and descriptions can contain basically any

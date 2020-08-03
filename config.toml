@@ -1,6 +1,6 @@
 baseURL = "https://gpanders.com/"
 languageCode = "en-us"
-author = "Greg Anders"
+author = "Gregory Anders"
 title = "g.p. anders"
 theme = "hugo-flex"
 enableGitInfo = true
@@ -12,7 +12,7 @@ pygmentsUseClasses = true
 [params]
   opengraph = true
   css = ["css/syntax/igor.css", "css/syntax/monokai.css"]
-  description = "Personal website for Greg Anders"
+  description = "Personal website for Gregory Anders"
   footer = 'Content on this site is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.'
   width = "65rem"
 
