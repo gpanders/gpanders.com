@@ -238,7 +238,6 @@ nav {
 @media only screen and (min-width: 800px) {
   .Sidebar {
     border-top: 0;
-    border-left: 1px solid var(--border-color);
     margin: 0;
     grid-column: 2;
   }
