@@ -8,6 +8,12 @@
   status = 301
 
 [[headers]]
+  for = "/.well-known/matrix/*"
+  [headers.values]
+    Content-Type = "application/json"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
   for = "/*"
   [headers.values]
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-8S1XWfApyYBGTRzR9CQ2UBCcYX34oUCUVY/1zndCEd4='; img-src 'self' https://stats.gpanders.com/count"
