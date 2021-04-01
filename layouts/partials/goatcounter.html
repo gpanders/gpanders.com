@@ -1,4 +1,0 @@
-{{ with resources.Get "js/count.js" | fingerprint }}
-  <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" data-goatcounter="https://stats.gpanders.com/count"></script>
-  <noscript><img aria-hidden="true" alt="" role="none" src="https://stats.gpanders.com/count?p={{ $.Page.RelPermalink }}&t={{ $.Page.Title }}"></noscript>
-{{ end }}
