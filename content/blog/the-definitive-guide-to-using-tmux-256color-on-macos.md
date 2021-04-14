@@ -9,7 +9,7 @@ version does not contain a terminfo entry for `tmux-256color`, the preferred
 `TERM` value when using `tmux`.
 
 If you installed `tmux` via Homebrew or MacPorts, then you will also have a
-newer version of ncurses (6.2) present on your system installed by your package
+newer version of ncurses (6.X) present on your system installed by your package
 manager. This is the version of ncurses that `tmux` itself was built against,
 which is why you can use
 
@@ -80,7 +80,7 @@ $ /usr/bin/tic -x tmux-256color.src
 This will install the terminfo database entry under `$HOME/.terminfo`. This
 will still work; however, now *all* programs on your machine will use this
 terminfo database entry, even if they were linked against the fully functional
-6.2 version of ncurses provided by your package manager. This is an unfortunate
+6.X version of ncurses provided by your package manager. This is an unfortunate
 tradeoff, but as of this writing I don't know any way around it.
 
 After that, you should be able to correctly use `tmux-256color` as your TERM
