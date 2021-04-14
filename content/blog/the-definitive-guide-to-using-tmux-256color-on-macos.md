@@ -54,7 +54,7 @@ or
 
     pairs#32768
 
-If your are on a macOS version prior to Catalina, you can install this new
+If you are on a macOS version prior to Catalina, you can install this new
 terminfo entry into the system database `/usr/share/terminfo`. This will ensure
 that programs linked against the old version of ncurses will use this entry,
 while programs installed by your package manager will continue to use the entry
@@ -83,7 +83,7 @@ terminfo database entry, even if they were linked against the fully functional
 6.2 version of ncurses provided by your package manager. This is an unfortunate
 tradeoff, but as of this writing I don't know any way around it.
 
-After that, you should be able to correcty use `tmux-256color` as your TERM
+After that, you should be able to correctly use `tmux-256color` as your TERM
 variable. You can check that everything is working by running a few programs
 that make use of `ncurses` and terminal colors, such as `htop`, `man`, `ls -G`,
 etc.
