@@ -20,3 +20,8 @@ pygmentsUseClasses = true
   name = "Blog"
   url = "/blog"
   weight = 1
+
+[[menu.nav]]
+  name = "Notes"
+  url = "https://notes.gpanders.com"
+  weight = 2
