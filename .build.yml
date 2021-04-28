@@ -1,26 +1,24 @@
-image: alpine/edge
+image: nixos/unstable
 packages:
-    - yarn
-    - hugo
-sources:
-    - https://git.sr.ht/~gpanders/gpanders.com
+  - nixos.hugo
+  - nixos.zip
+  - nixos.curl
 secrets:
-    - 71f0c0eb-4596-440c-954e-d2710c8f75db
-environment:
-    PATH: ~/.local/bin:/bin:/usr/bin:/sbin:/usr/sbin
+  - b8cb4b17-4157-4870-9b81-10a3fa0d7b91
 triggers:
-    - action: email
-      condition: failure
-      to: Gregory Anders <pub@gpanders.com>
+  - action: email
+    condition: failure
+    to: Gregory Anders <greg@gpanders.com>
 tasks:
-    - setup: |
-        cd gpanders.com
-        yarn global add --prefix ~/.local netlify-cli
-    - build: |
-        . ~/.env
-        cd gpanders.com
-        netlify build
-    - deploy: |
-        . ~/.env
-        cd gpanders.com
-        netlify deploy --prod
+  - build: |
+      cd gpanders.com
+      hugo --minify
+      zip -r site.zip netlify.toml public
+  - deploy: |
+      set +x
+      . ~/.env
+      curl -H 'Content-Type: application/zip' \
+           -H "Authorization: Bearer $TOKEN" \
+           --data-binary "@gpanders.com/site.zip" \
+           https://api.netlify.com/api/v1/sites/$SITE/deploys >/dev/null
+      set -x
