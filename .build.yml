@@ -13,7 +13,9 @@ tasks:
   - build: |
       cd gpanders.com
       hugo --minify
-      zip -r site.zip netlify.toml public
+      zip site.zip netlify.toml
+      cd public
+      zip -r ../site.zip .
   - deploy: |
       set +x
       . ~/.env
