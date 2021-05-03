@@ -16,16 +16,11 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-8S1XWfApyYBGTRzR9CQ2UBCcYX34oUCUVY/1zndCEd4='; img-src 'self' https://stats.gpanders.com/count"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-8S1XWfApyYBGTRzR9CQ2UBCcYX34oUCUVY/1zndCEd4='"
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "SAMEORIGIN"
 
 [[headers]]
-  for = "/blog/caching-ldap-queries-in-mutt/"
-  [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-8S1XWfApyYBGTRzR9CQ2UBCcYX34oUCUVY/1zndCEd4='; img-src 'self' https://stats.gpanders.com/count; script-src 'self' https://gist.github.com; style-src 'self' 'unsafe-inline' https://github.githubassets.com"
-
-[[headers]]
   for = "/blog/introducing-ijq/"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-8S1XWfApyYBGTRzR9CQ2UBCcYX34oUCUVY/1zndCEd4='; img-src 'self' https://stats.gpanders.com/count https://asciinema.org"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-8S1XWfApyYBGTRzR9CQ2UBCcYX34oUCUVY/1zndCEd4='"

@@ -17,7 +17,36 @@ future recipients can be found in the aliases file, which is significantly
 faster.
 
 The following script does exactly this:
-{{< gist gpanders e700b59c49d26528a93246a4c3c8facf >}}
+
+```bash
+#!/bin/bash
+# Query lbdbq and save results to Mutt alias file
+
+set -e
+
+# Mutt aliases file to save results to
+ALIASES="$HOME/.cache/mutt/aliases"
+
+# Only save email addresses from $DOMAIN. Leave empty to save all email addresses
+DOMAIN="example.com"
+
+query_and_cache() {
+    results=$(lbdbq "$@" 2>/dev/null)
+
+    printf '%s\n' "$results"
+
+    # Remove first line from results
+    results=$(sed '1d' <<< "$results")
+
+    # Format results like mutt aliases
+    sed -E $'s/^([[:alnum:]_.]+)@([[:alnum:]_.]+)\t([[:alnum:] -]+)/alias \\1 \\1@\\2 (\\3)/' <<< "$results" | awk -v domain="$DOMAIN" '$3 ~ domain {$2=tolower($2);print}' >> "$ALIASES"
+
+    # Sort and remove duplicates
+    sort -u -o "$ALIASES" "$ALIASES"
+
+}
+query_and_cache "$@"
+```
 
 The script queries your LDAP server using `lbdbq` and returns those "raw"
 results to Mutt so that you can make your selection. However, it also reformats
