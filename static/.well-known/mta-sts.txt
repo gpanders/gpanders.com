@@ -1,0 +1,5 @@
+version: STSv1
+mode: testing
+max_age: 86400
+mx: fb.mail.gandi.net
+mx: spool.mail.gandi.net
