@@ -26,7 +26,7 @@ resulting JSON object to another file or process.
 
 Here's a quick video:
 
-[![asciicast](https://asciinema.org/a/333292.svg)](https://asciinema.org/a/333292)
+[![asciicast](https://asciinema.org/a/396956.svg)](https://asciinema.org/a/396956)
 
 You can get `ijq` over on [sourcehut][].
 
