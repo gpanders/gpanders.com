@@ -5,20 +5,17 @@ tags: [macOS, pushbroom]
 ---
 
 **Update (6/18/2019):** Since writing this post I have released a tool called
-[pushbroom](https://github.com/gpanders/pushbroom) that should make all of this
-easier. If you have [Homebrew](https://brew.sh) installed simply run
-
-    brew install gpanders/tap/pushbroom
-
-from the Terminal. Follow the instructions on the screen to setup the
-configuration file and start the pushbroom service.
+[pushbroom][1] that should make all of this
+easier and a bit more robust.
 
 <!--more-->
 
 The original solution in the post below is, frankly, a rather unsophisticated
-way of solving this problem. If you don't want to use pushbroom,
-[Thoughtbot](https://thoughtbot.com/blog/example-writing-a-launch-agent-for-apples-launchd)
-has another solution that utilizes Apple's launchd utility.
+way of solving this problem. If you don't want to use [pushbroom][1],
+[Thoughtbot][2] has another solution that utilizes Apple's launchd utility.
+
+[1]: https://sr.ht/~gpanders/pushbroom
+[2]: https://thoughtbot.com/blog/example-writing-a-launch-agent-for-apples-launchd
 
 ---
 
