@@ -22,22 +22,43 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+}
+
+/* This ensures the width of the viewport remains the same with or without
+ * scrollbars */
+html {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   line-height: 1.5;
-  margin: 0;
-  padding: 0;
+  margin: auto;
+  padding: 2rem;
   background: var(--main-bg-color);
   color: var(--main-fg-color);
+  display: grid;
+  grid: "sidebar content" "footer footer" / 20ch auto;
+  grid-gap: 2rem;
+  max-width: {{ site.Params.width }};
+}
+
+@media only screen and (max-width: 800px) {
+  body {
+    grid: "sidebar" "content" "footer" / auto;
+  }
 }
 
 main {
-  margin: auto;
-  display: grid;
-  grid-template-columns: auto;
-  grid-auto-columns: 20rem;
-  grid-gap: 2em;
-  max-width: {{ site.Params.width }};
+  grid-area: content;
+  overflow: auto;
+}
+
+aside > *, article > * {
+  margin-top: 0;
 }
 
 a {
@@ -108,260 +129,145 @@ th, td {
   overflow: visible;
 }
 
-nav {
-  border-bottom: 1px solid var(--border-color);
+article > h1 {
+  line-height: 1;
 }
 
-.Banner {
-  display: grid;
-  margin: auto;
-  max-width: {{ site.Params.width }};
-  line-height: 2;
-  text-align: center;
+.p-name {
+  font-weight: bold;
 }
 
-.Banner-menu {
-  list-style: none;
-  display: grid;
-  align-items: baseline;
-  margin: 0;
-  padding: 0;
-  grid-row: 2;
-}
-
-.Banner-title {
-  grid-row: 1;
+.heading {
   margin: 0;
 }
 
-.Banner-item {
-  grid-row: 1;
+.heading ~ .heading {
+  margin-top: 1em;
 }
 
-.Banner-link {
-  color: var(--strong-color);
-  padding: 0.5rem 1rem;
+.heading > a {
+  color: var(--main-fg-color);
 }
 
-.Banner-search {
-  grid-row: 2;
-  grid-column: 1 / {{ len site.Menus.nav | add 1 }};
-}
-
-@media only screen and (min-width: 600px) {
-  .Banner {
-    grid-template-columns: 1fr auto;
-    text-align: left;
-  }
-
-  .Banner-menu {
-    grid-row: 1;
-  }
-
-  .Banner-search {
-    grid-row: 1;
-  }
-}
-
-.Content {
-  padding: 1em;
-  overflow: auto;
-}
-
-.Heading {
-  margin-bottom: 0;
-}
-
-.Subheading {
+.subheading {
   font-size: 14px;
   color: var(--subtle-color);
   margin: 0;
 }
 
-.Tags {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 1.5rem 0;
-  padding: 0;
-}
-
-.Tags-item {
+.tags-item {
   border-radius: 0.2rem;
   margin: 0.2rem;
   padding: 0 0.3rem;
 }
 
-.Tags-link {
+.tags-link {
   color: var(--link-color);
 }
 
-.Pagination {
-  border: none;
-  display: grid;
-  justify-content: space-between;
-  margin-top: 2em;
+.sidebar {
+  grid-area: sidebar;
 }
 
-.Pagination a {
-  font-size: 1rem;
-}
-
-.Pagination a[rel="prev"] {
-  grid-column: 1;
-}
-
-.Pagination a[rel="next"] {
-  grid-column: 2;
-}
-
-.Home-posts {
-  padding-right: 2em;
-}
-
-.Sidebar {
-  padding: 1em;
-  border-top: 1px solid var(--border-color);
-}
-
-.Sidebar ul {
+.sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.Sidebar li {
+.sidebar li {
   margin: 1.25em 0;
 }
 
-@media only screen and (min-width: 800px) {
-  .Sidebar {
-    border-top: 0;
-    margin: 0;
-    grid-column: 2;
+.sidebar a {
+  color: var(--main-fg-color);
+}
+
+@media only screen and (max-width: 800px) {
+  .sidebar {
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
   }
 }
 
-.Footer {
+footer {
+  grid-area: footer;
   text-align: center;
   margin: 0;
   padding: 1em;
   color: var(--subtle-color);
-  border-top: 1px solid var(--border-color);
 }
 
-.Project-list {
-  margin: 0;
-}
-
-.Project-list dt {
-  font-weight: 500;
-  margin-top: 1em;
-}
-
-.Project-list a {
-  color: var(--main-fg-color);
-}
-
-.Project-list dd {
-  font-size: 0.8rem;
+.lastmod {
   color: var(--subtle-color);
-  margin: 0;
-}
-
-.List-header {
-  border-bottom: 1px solid var(--border-color);
-}
-
-.List {
-  list-style: none;
-  padding: 0;
-}
-
-.List-item {
-  margin: 2em 0;
-}
-
-.List-link {
-  margin: 0;
-}
-
-.List-link a {
-  color: var(--main-fg-color);
-}
-
-.Lastmod {
   font-size: 14px;
-  color: var(--subtle-color);
   text-align: center;
   margin: 2em 0 1em;
 }
 
-.Lastmod a {
+.lastmod a {
   color: var(--subtle-color);
 }
 
-.Search-form {
-  padding: 0.5rem 1rem;
+.search-form {
+  padding: 0;
+  display: flex;
   position: relative;
-  min-width: 15rem;
 }
 
-.Search-input {
+@media only screen and (max-width: 800px) {
+  .search-form {
+    justify-content: center;
+  }
+}
+
+.search-input input {
   border-radius: 5px;
   border: 1px solid var(--border-color);
   padding: 0 0.5em;
+  margin: 0;
   font-size: 0.9rem;
   line-height: 1.8;
-  width: 100%;
-  box-sizing: border-box;
   background: var(--search-bg-color);
   color: var(--main-fg-color);
 }
 
-.Search-input:focus {
+.search-input input:focus {
   border-color: var(--link-color);
   box-shadow: 0 0 2px var(--link-color);
 }
 
-.Search-icon {
-  position: absolute;
-  right: 1.5em;
-  top: 0.5em;
-  cursor: pointer;
+.search-icon {
+  display: flex;
+  align-items: center;
 }
 
-.Search-icon svg {
-  fill: #ccc;
-  vertical-align: text-bottom;
+.search-icon input {
+  margin-left: -2em;
 }
 
-.Search-icon input {
-  display: none;
-}
-
-.Search-results {
-  display: none;
+.search-results {
+  display: flex;
+  flex-direction: column;
   list-style: none;
   padding: 0;
   position: absolute;
+  top: 2em;
   border: 1px solid var(--border-color);
   border-radius: 0.25em;
-  width: calc(100% - 2rem - 2px);
   background: var(--search-bg-color);
 }
 
-@media only screen and (min-width: 800px) {
-  .Search-results {
-    width: 300px;
+@media only screen and (max-width: 800px) {
+  .search-results {
+    max-width: 100%;
   }
 }
 
-.Search-results li {
+.search-results li {
   padding: 0.5em;
+  margin: 0;
   font-size: 14px;
-  border-top: 1px solid var(--border-color);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -369,15 +275,15 @@ nav {
   text-align: left;
 }
 
-.Search-results li:first-of-type {
-  border-top: none;
+.search-results li + li {
+  border-top: 1px solid var(--border-color);
 }
 
-.Search-results li.selected {
+.search-results li.selected {
   background: var(--link-color);
   color: var(--main-bg-color);
 }
 
-.Search-results li a {
+.search-results li a {
   color: inherit;
 }

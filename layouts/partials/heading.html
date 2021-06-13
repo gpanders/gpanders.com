@@ -1,10 +1,2 @@
-<header>
-  <h2 class="Heading p-name"><a class="u-url u-uid" href="{{ .RelPermalink }}" rel="bookmark">{{ .Title }}</a></h2>
-  <p class="Subheading">
-    {{ with .PublishDate | default nil }}
-    <time class="dt-published" datetime="{{ .Format "2006-01-02T15:04:05Z07:00" }}">
-      {{ .Format "January 2, 2006" }}
-    </time>
-    {{ end }}
-  </p>
-</header>
+<h1 class="heading p-name"><a class="u-url u-uid" href="{{ .RelPermalink }}" rel="bookmark">{{ .Title }}</a></h1>
+{{ partial "subheading.html" . }}

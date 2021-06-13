@@ -1,9 +1,0 @@
-<ul>
-{{ range where (where .Site.RegularPages "Section" "projects") ".Params.featured" "eq" true }}
-<li>
-  <div class="Project-link"><a href="{{ with .Params.href }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ .Title }}</a></div>
-  <div class="Project-desc">{{ .Summary }}</div>
-</li>
-{{ end }}
-</ul>
-

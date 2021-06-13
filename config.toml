@@ -2,7 +2,6 @@ baseURL = "https://gpanders.com/"
 languageCode = "en-us"
 author = "Gregory Anders"
 title = "g.p. anders"
-theme = "hugo-flex"
 enableGitInfo = true
 pluralizeListTitles = false
 pygmentsUseClasses = true
@@ -10,18 +9,26 @@ pygmentsUseClasses = true
 [taxonomies]
 
 [params]
-  opengraph = true
   css = ["css/syntax/light.css", "css/syntax/dark.css"]
   description = "Personal website for Gregory Anders"
-  footer = 'Content on this site is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> license.'
   width = "65rem"
 
 [[menu.nav]]
   name = "Blog"
-  url = "/blog"
+  url = "/"
   weight = 1
 
 [[menu.nav]]
   name = "Notes"
   url = "https://notes.gpanders.com"
   weight = 2
+
+[[menu.nav]]
+  name = "Projects"
+  url = "/projects"
+  weight = 3
+
+[[menu.nav]]
+  name = "About"
+  url = "/about"
+  weight = 4

@@ -1,0 +1,7 @@
+<p class="subheading">
+  {{ with .PublishDate | default nil }}
+  <time class="dt-published" datetime="{{ .Format "2006-01-02T15:04:05Z07:00" }}">
+    {{ .Format "January 2, 2006" }}
+  </time>
+  {{ end }}
+</p>

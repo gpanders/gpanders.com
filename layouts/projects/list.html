@@ -1,14 +1,19 @@
 {{ define "main" }}
 
-{{ partial "heading.html" . }}
 {{ .Content }}
-<ul class="List">
-  {{ range .Pages }}
-  <li class="List-item">
-    <h2 class="List-link"><a href="{{ with .Params.href }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ .Title }}</a></h2>
-    <p>{{ .Summary }}</p>
-  </li>
+
+{{ range where .Pages ".Params.featured" "eq" true  }}
+  <p class="heading p-name"><a href="{{ .Param "href" }}">{{ .Title }}</a></p>
+  {{ if .Content }}
+    <details>
+      <summary class="subheading">{{ .Summary }}</summary>
+      <p>{{ .Content }}</p>
+    </details>
+  {{ else }}
+    {{ with .Summary }}
+      <p class="subheading">{{ . }}</p>
+    {{ end }}
   {{ end }}
-</ul>
+{{ end }}
 
 {{ end }}

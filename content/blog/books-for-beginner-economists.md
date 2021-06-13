@@ -43,7 +43,7 @@ Check out these books from your local library or use the links above to buy
 them on Amazon. If you do read any of these books, I'd love to [hear what you
 think!](mailto:contact@gpanders.com).
 
-[Naked Economics]: https://amzn.to/3ahxQbU
-[Undercover Economist]: https://amzn.to/2xnRshj
-[Thinking Fast]: https://amzn.to/2Kc3U6k
-[Nudge]: https://amzn.to/2Ve0TZG
+[Naked Economics]: https://www.amazon.com/Naked-Economics-Undressing-Dismal-Science/dp/0393356493
+[Undercover Economist]: https://www.penguinrandomhouse.com/books/75341/the-undercover-economist-by-tim-harford/
+[Thinking Fast]: https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman/dp/0374533555
+[Nudge]: https://www.amazon.com/Nudge-Improving-Decisions-Health-Happiness/dp/014311526X

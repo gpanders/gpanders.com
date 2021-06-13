@@ -1,31 +1,22 @@
-<section class="Sidebar">
-  <div class="h-card">
-    <h2 class="p-name"><a class="u-url" href="{{ "" | absURL }}">Gregory Anders</a></h2>
-    <div class="p-note">
-      <p>Electrical and computer engineer and open source software enthusiast.</p>
-      <p>I use this site to write about things I learn or find interesting.</p>
-    </div>
-    <h3>Email</h3>
-    <p class="u-email"><a rel="me" href="mailto:contact@gpanders.com">contact@gpanders.com</a></p>
-    </h4>
-    <h3>PGP</h3>
-    <p class="u-key"><a href="/publickey.txt">56E93C2FB6B08BDB</a></p>
-    <h3>Questions or comments?</h3>
-    <p>Send a message to my <a href="https://lists.sr.ht/~gpanders/public-inbox">public inbox</a>.</p>
-    <h3>Other places to find me</h3>
-    <ul>
-      <li><a rel="me" href="https://git.sr.ht/~gpanders">sourcehut</a></li>
-      <li><a rel="me" href="https://github.com/gpanders">GitHub</a></li>
-      <li><a rel="me" href="https://www.goodreads.com/user/show/23021370-gregory">Goodreads</a></li>
-      <li><a rel="me" href="https://news.ycombinator.com/user?id=gpanders">Hacker News</a></li>
+<aside class="sidebar">
+  <p class="h-card p-name"><a class="u-url" href="{{ "" | absURL }}">Gregory Anders</a></p>
+  <form class="search-form" role="search" action="https://duckduckgo.com/" method="GET" accept-charset="UTF-8">
+    <input type="hidden" name="sites" value="{{ .Site.BaseURL }}">
+    <label class="search-input">
+      <input name="q" aria-label="Search" placeholder="Search…" tabindex="0" autocomplete="off" autocapitalize="off" required>
+    </label>
+    <label class="search-icon">
+      <input type="image" src="/search.svg" alt="Search" aria-label="Submit">
+    </label>
+    <ul class="search-results" style="display: none"></ul>
+  </form>
+  <nav>
+  {{- range site.Menus.nav -}}
+    <ul class="nav-menu">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ .URL | absURL }}">{{ .Name }}</a>
+      </li>
     </ul>
-  </div>
-
-  <h3>Featured Projects</h3>
-  <dl class="Project-list">
-    {{ range where (where .Site.RegularPages "Section" "projects") ".Params.featured" "eq" true }}
-    <dt><a href="{{ with .Params.href }}{{ . }}{{ else }}{{ .RelPermalink }}{{ end }}">{{ .Title }}</a></dt>
-    <dd>{{ .Summary }}</dd>
-    {{ end }}
-  </dl>
-</section>
+  {{- end -}}
+  </nav>
+</aside>

@@ -3,24 +3,21 @@
 
 <head>
   {{ partial "meta.html" . }}
-  {{ partial "title.html" . }}
+  <title>
+    {{- if eq .Title site.Title -}}
+      {{ .Title }}
+    {{- else -}}
+      {{ with .Title }}{{ . }} | {{ end }}{{ site.Title }}
+    {{- end -}}
+  </title>
   {{ partial "link.html" . }}
-  {{ partial "load_site_assets.html" . }}
-  {{ block "load_page_assets" . }}
-    {{ with .Content }}{{ end }}
-  {{ end }}
   {{ partial "assets.html" . }}
 </head>
 
 <body>
-  {{ partialCached "banner.html" . }}
+  {{ partialCached "sidebar.html" . }}
   <main>
-    <section class="Content">
-      {{ block "main" . }}{{ end }}
-    </section>
-    {{ if ne .Kind "section" }}
-      {{ partialCached "sidebar.html" . }}
-    {{ end }}
+    {{ block "main" . }}{{ end }}
   </main>
   {{ partialCached "footer.html" . }}
 </body>

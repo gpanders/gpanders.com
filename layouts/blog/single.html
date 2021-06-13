@@ -1,12 +1,13 @@
 {{ define "main" }}
 
 <article class="h-entry">
-  {{ partial "heading.html" . }}
+  <h1 class="heading p-name"><a class="u-url u-uid" href="{{ .RelPermalink }}" rel="bookmark">{{ .Title }}</a></h1>
+  {{ partial "subheading.html" . }}
   <div class="e-content">
-  {{ .Content }}
+    {{ .Content }}
   </div>
   {{ with .GitInfo }}
-  <p class="Lastmod">Last modified by <a class="p-author h-card" href="{{ "" | absURL }}">{{ .AuthorName }}</a> on <time class="dt-updated" datetime="{{ .AuthorDate.Format "2006-01-02T00:00:00Z00:00" }}">{{ .AuthorDate.Format "January 2, 2006" }}</time></p>
+  <p class="lastmod"><a href="https://git.sr.ht/~gpanders/gpanders.com/commit/{{ .Hash }}">Last modified on <time class="dt-updated" datetime="{{ .AuthorDate.Format "2006-01-02T00:00:00Z00:00" }}">{{ .AuthorDate.Format "January 2, 2006" }}</time></a></p>
   {{ end }}
 </article>
 

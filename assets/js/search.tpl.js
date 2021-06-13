@@ -32,11 +32,11 @@
 
 {{ $searchData := resources.Get "js/search-data.tpl.js" | resources.ExecuteAsTemplate "js/search-data.js" . | minify | fingerprint }}
 
-(function() {
-  const icon = document.querySelector('.Search-icon');
-  const form = document.querySelector('.Search-form');
-  const input = document.querySelector('.Search-input');
-  const results = document.querySelector('.Search-results');
+(() => {
+  const icon = document.querySelector('.search-icon > input');
+  const form = document.querySelector('.search-form');
+  const input = document.querySelector('.search-input > input');
+  const results = document.querySelector('.search-results');
 
   if (!form || !input || !results) {
     return
@@ -45,22 +45,22 @@
   // The search icon acts as the submit button when Javascript is not enabled.
   // However, when Javascript *is* enabled form submission is disabled in favor
   // of selecting one of the search items directly. In order to avoid
-  // confusion, remove the 'cursor: pointer' style directive on the icon.
-  icon.style.cursor = 'auto';
+  // confusion, set the cursor style to 'default'.
+  icon.style.cursor = 'default';
 
   let timer = undefined;
   form.addEventListener('submit', submit);
   form.addEventListener('keydown', navigate);
-  form.addEventListener('blur', function() {
-    timer = setTimeout(function() { clearResults(); }, 20);
+  form.addEventListener('blur', () => {
+    timer = setTimeout(() => clearResults(), 20);
   }, true);
-  form.addEventListener('focus', function() { if (timer) clearTimeout(timer); }, true);
+  form.addEventListener('focus', () => { if (timer) clearTimeout(timer); }, true);
 
   input.addEventListener('focus', init);
   input.addEventListener('keyup', search);
 
   // Close search results on escape
-  document.addEventListener('keyup', function(e) { if (e.keyCode === {{ $KEY_ESC }}) clearResults(); });
+  document.addEventListener('keyup', e => { if (e.keyCode === {{ $KEY_ESC }}) clearResults(); });
 
   function init() {
     input.removeEventListener('focus', init); // init once
@@ -79,7 +79,7 @@
     while (results.firstChild) {
       results.removeChild(results.firstChild);
     }
-    results.style.display = '';
+    results.style.display = 'none';
   }
 
   function submit(event) {
@@ -151,12 +151,12 @@
       return;
     }
 
-    window.searchIndex.search(input.value, 10, function(hits) {
-      hits.forEach(function(hit) {
+    window.searchIndex.search(input.value, 10, hits => {
+      hits.forEach(hit => {
         let li = createResultItem(hit);
         results.appendChild(li);
       });
-      results.style.display = 'block';
+      results.style.display = '';
     });
   }
 
@@ -169,7 +169,7 @@
     li.addEventListener('focus', select);
     li.addEventListener('mouseleave', deselect);
     li.addEventListener('click', submit);
-    li.addEventListener('keyup', function(e) { if (e.keyCode === {{ $KEY_RETURN }}) submit(e); });
+    li.addEventListener('keyup', e => { if (e.keyCode === {{ $KEY_RETURN }}) submit(e); });
 
     a.tabIndex = -1;
     a.href = page.href;
