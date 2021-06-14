@@ -1,17 +1,17 @@
 {{ define "main" }}
 
-{{ .Content }}
-
-{{ range where .Pages ".Params.featured" "eq" true  }}
-  <p class="heading p-name"><a href="{{ .Param "href" }}">{{ .Title }}</a></p>
-  {{ if .Content }}
-    <details>
-      <summary class="subheading">{{ .Summary }}</summary>
-      <p>{{ .Content }}</p>
-    </details>
-  {{ else }}
-    {{ with .Summary }}
-      <p class="subheading">{{ . }}</p>
+{{ range .Site.Data.projects }}
+  {{ if .featured }}
+    <p class="heading p-name"><a href="{{ .href }}">{{ .title }}</a></p>
+    {{ if .description }}
+      <details>
+        <summary class="subheading">{{ .summary }}</summary>
+        <p>{{ .description | markdownify }}</p>
+      </details>
+    {{ else }}
+      {{ with .summary }}
+        <p class="subheading">{{ . }}</p>
+      {{ end }}
     {{ end }}
   {{ end }}
 {{ end }}

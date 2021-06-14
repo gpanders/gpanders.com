@@ -1,10 +1,14 @@
 baseURL = "https://gpanders.com/"
 languageCode = "en-us"
-author = "Gregory Anders"
 title = "g.p. anders"
 enableGitInfo = true
 pluralizeListTitles = false
 pygmentsUseClasses = true
+copyright = "Content on this site is licensed CC BY-SA 4.0"
+
+[author]
+  name = "Gregory Anders"
+  homepage = "https://gpanders.com"
 
 [taxonomies]
 

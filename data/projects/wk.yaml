@@ -1,0 +1,15 @@
+title: wk
+summary: Command line tool to manage a personal wiki
+href: https://git.sr.ht/~gpanders/wk
+featured: true
+description: >
+  `wk` is a simple command line tool inspired by the Zettelkasten note-taking
+  system for managing a personal wiki or collection of notes.
+
+  This program has undergone multiple rewrites: it serves as my test program for
+  experimenting in different languages. Over the course of its life, it has been
+  written in bash, Python, Zig, and Nim.
+
+  This is the tool I use to manage my own [collection of notes][notes].
+
+  [notes]: https://notes.gpanders.com
