@@ -1,8 +1,18 @@
 {
-    "m.homeserver": {
-        "base_url": "https://andg.ems.host"
-    },
-    "m.identity_server": {
-        "base_url": "https://vector.im"
-    }
+	"m.homeserver": {
+		"base_url": "https://matrix.gpanders.com"
+	}
+,
+	"m.identity_server": {
+		"base_url": "https://matrix.gpanders.com"
+	}
+	,
+	"io.element.e2ee": {
+		"default": true,
+		"secure_backup_required": false,
+		"secure_backup_setup_methods": []
+	},
+	"im.vector.riot.e2ee": {
+		"default": true
+	}
 }
