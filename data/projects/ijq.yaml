@@ -11,6 +11,4 @@ description: >
   `ijq` the filtered JSON is written to `stdout` which allows you to consume it
   later in the pipeline.
 
-  Check out [a demo][asciicast]!
-
-  [asciicast]: https://asciinema.org/a/396956
+  Check out [a demo](https://asciinema.org/a/396956)!

@@ -10,6 +10,4 @@ description: >
   experimenting in different languages. Over the course of its life, it has been
   written in bash, Python, Zig, and Nim.
 
-  This is the tool I use to manage my own [collection of notes][notes].
-
-  [notes]: https://notes.gpanders.com
+  This is the tool I use to manage my own [collection of notes](https://notes.gpanders.com).
