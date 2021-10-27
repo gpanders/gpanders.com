@@ -1,0 +1,7 @@
+title: nvim-parinfer
+summary: parinfer plugin for Neovim
+href: https://github.com/gpanders/nvim-parinfer
+featured: true
+description: >
+  A Neovim plugin that provides the
+  [parinfer](https://shaunlebron.github.io/parinfer/) algorithm.
