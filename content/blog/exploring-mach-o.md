@@ -623,7 +623,7 @@ allow us to use Zig's much better type system.
 pub const MachHeader64 = struct {
     magic: u32,
     cputype: CpuType,
-    cpusubtype: CpuSubType,
+    cpusubtype: u32,
     filetype: Filetype,
     ncmds: u32,
     sizeofcmds: u32,
@@ -632,7 +632,9 @@ pub const MachHeader64 = struct {
 };
 ```
 
-Now we need to define the `CpuType`, `CpuSubType`, and `Filetype` enums.
+Now we need to define the `CpuType` and `Filetype` enums (the enum values of
+`cpusubtype` depend on the value of `cputype`. For simplicity, we'll just parse
+this as a raw number rather than defining an actual enum).
 
 This part is a bit tedious. We simply need to copy the `#define`s from
 `loader.h` into our Zig file and transform them into valid Zig syntax. This is
@@ -675,14 +677,6 @@ const CpuType = enum(u32) {
     i860 = machine.CPU_TYPE_I860,
     powerpc = machine.CPU_TYPE_POWERPC,
     powerpc64 = machine.CPU_TYPE_POWERPC | machine.CPU_ARCH_ABI64,
-};
-
-const CpuSubType = enum(u32) {
-    // @bitCast here is necessary to convert CPU_SUBTYPE_ANY (-1) to
-    // unsigned int (all 1's)
-    any = @bitCast(u32, machine.CPU_SUBTYPE_ANY),
-    little_endian = machine.CPU_SUBTYPE_LITTLE_ENDIAN,
-    big_endian = machine.CPU_SUBTYPE_BIG_ENDIAN,
 };
 
 const Flags = packed struct {
@@ -780,14 +774,14 @@ pub fn parseEnum(self: *Parser, comptime T: type) !T) {
 
 Once again, we check to make sure our byte slice has enough data in it. This
 time, we convert our bytes into the "tag" type of our enum, which we get using
-the `std.meta.Tag` standard library function. For the `CpuType` and
-`CpuSubType` enums we defined earlier, this is `u32`. Once we convert the bytes
-into the tag type, we can convert the tag value into an enum value using
-`std.meta.intToEnum`. This will convert a number like `7` into an enum value
-like `x86`. If the enum doesn't have a value corresponding to the given tag
-value, `intToEnum` returns an error. In that case, we print a helpful error
-message, and return the same error from our function. Note that this *should
-not* happen, and indicates a bug in our parser.
+the `std.meta.Tag` standard library function. For the `CpuType` enum we defined
+earlier, this is `u32`. Once we convert the bytes into the tag type, we can
+convert the tag value into an enum value using `std.meta.intToEnum`. This will
+convert a number like `7` into an enum value like `x86`. If the enum doesn't
+have a value corresponding to the given tag value, `intToEnum` returns an
+error. In that case, we print a helpful error message, and return the same
+error from our function. Note that this *should not* happen, and indicates a
+bug in our parser.
 
 It's also a good idea to encapsulate the parsing logic for our `MachHeader64`
 struct within the struct definition itself. Let's add a `parse` method to that
@@ -820,7 +814,7 @@ pub fn parse(parser: *Parser) !MachHeader64 {
     }
 
     const cputype = try parser.parseEnum(CpuType);
-    const cpusubtype = try parser.parseEnum(CpuSubType);
+    const cpusubtype = try parser.parseLiteral(u32);
     const filetype = try parser.parseEnum(Filetype);
     const ncmds = try parser.parseLiteral(u32);
     const sizeofcmds = try parser.parseLiteral(u32);
@@ -865,17 +859,7 @@ program at once):
 
 ```console
 $ zig build run -- ../exit
-MachHeader64{ .magic = 4277009103, .cputype = CpuType.arm64, .cpusubtype = CpuSubTy
-pe.little_endian, .filetype = Filetype.execute, .ncmds = 16, .sizeofcmds = 744, .fl
-ags = Flags{ .noundefs = true, .incrlink = false, .dyldlink = true, .bindatload = f
-alse, .prebound = false, .split_segs = false, .lazy_init = false, .twolevel = true,
- .force_flat = false, .nomultidefs = false, .nofixprebinding = false, .prebindable
-= false, .allmodsbound = false, .subsections_via_symbols = false, .canonical = fals
-e, .weak_defines = false, .binds_to_weak = false, .allow_stack_execution = false, .
-root_safe = false, .setuid_safe = false, .no_reexported_dylibs = false, .pie = true
-, .dead_strippable_dylib = false, .has_tlv_descriptors = false, .no_heap_execution
-= false, .app_extension_safe = false, .nlist_outofsync_with_dyldinfo = false, .sim_
-support = false, .dylib_in_cache = false, ._ = 0 }, .reserved = 0 }
+MachHeader64{ .magic = 4277009103, .cputype = CpuType.arm64, .cpusubtype = 0, .filetype = Filetype.execute, .ncmds = 16, .sizeofcmds = 744, .fl ags = Flags{ .noundefs = true, .incrlink = false, .dyldlink = true, .bindatload = f alse, .prebound = false, .split_segs = false, .lazy_init = false, .twolevel = true, .force_flat = false, .nomultidefs = false, .nofixprebinding = false, .prebindable = false, .allmodsbound = false, .subsections_via_symbols = false, .canonical = fals e, .weak_defines = false, .binds_to_weak = false, .allow_stack_execution = false, . root_safe = false, .setuid_safe = false, .no_reexported_dylibs = false, .pie = true , .dead_strippable_dylib = false, .has_tlv_descriptors = false, .no_heap_execution = false, .app_extension_safe = false, .nlist_outofsync_with_dyldinfo = false, .sim_ support = false, .dylib_in_cache = false, ._ = 0 }, .reserved = 0 }
 ```
 
 Woof, that's not pretty. This "raw" representation is good for debugging, but
@@ -900,7 +884,7 @@ pub const MachHeader64 = struct {
         _ = options;
         try std.fmt.format(writer, "magic: 0x{x}\n", .{value.magic});
         try std.fmt.format(writer, "cputype: {}\n", .{value.cputype});
-        try std.fmt.format(writer, "cpusubtype: {}\n", .{value.cpusubtype});
+        try std.fmt.format(writer, "cpusubtype: 0x{x}\n", .{value.cpusubtype});
         try std.fmt.format(writer, "filetype: {}\n", .{value.filetype});
         try std.fmt.format(writer, "ncmds: {d}\n", .{value.ncmds});
         try std.fmt.format(writer, "sizeofcmds: {d}\n", .{value.sizeofcmds});
@@ -931,7 +915,7 @@ Now when we rebuild and run we should see
 $ zig build run -- ../exit
 magic: 0xfeedfacf
 cputype: CpuType.arm64
-cpusubtype: CpuSubType.little_endian
+cpusubtype: 0x0
 filetype: Filetype.execute
 ncmds: 16
 sizeofcmds: 744
@@ -942,11 +926,10 @@ Much nicer. This gives us a much better view into the data contained within our
 Mach-O file.
 
 We see our old friend `feedfacf`, as well as a few things that we already know,
-such as the CPU type (`arm64`), the CPU subtype (`little_endian`), and the
-filetype (`execute`, indicating this file is an executable). Following that we
-see that this Mach-O has 16 load commands which take up 744 total bytes.
-Finally, this Mach-O file has the `NOUNDEFS`, `DYLDLINK`, `TWOLEVEL`, and `PIE`
-flags set:
+such as the CPU type (`arm64`) and the filetype (`execute`, indicating this
+file is an executable). Following that we see that this Mach-O has 16 load
+commands which take up 744 total bytes. Finally, this Mach-O file has the
+`NOUNDEFS`, `DYLDLINK`, `TWOLEVEL`, and `PIE` flags set:
 
 ```c
 #define	MH_NOUNDEFS	0x1		/* the object file has no undefined
@@ -1089,7 +1072,7 @@ const MachHeader64 = struct {
         }
 
         const cputype = try parser.parse(CpuType);
-        const cpusubtype = try parser.parse(CpuSubType);
+        const cpusubtype = try parser.parse(u32);
         const filetype = try parser.parse(Filetype);
         const ncmds = try parser.parse(u32);
         const sizeofcmds = try parser.parse(u32);
@@ -1132,7 +1115,7 @@ Let's take a look at our header again:
 $ zig-out/bin/macho ../exit
 magic: 0xfeedfacf
 cputype: CpuType.arm64
-cpusubtype: CpuSubType.little_endian
+cpusubtype: 0x0
 filetype: Filetype.execute
 ncmds: 16
 sizeofcmds: 744
@@ -1331,7 +1314,7 @@ If we try to build and run this, we hit our first error:
 $ zig build run -- ../exit
 magic: 0xfeedfacf
 cputype: CpuType.arm64
-cpusubtype: CpuSubType.little_endian
+cpusubtype: 0x0
 filetype: Filetype.execute
 ncmds: 16
 sizeofcmds: 744
@@ -1429,7 +1412,7 @@ Let's build and run:
 $ zig build run -- ../exit
 magic: 0xfeedfacf
 cputype: CpuType.arm64
-cpusubtype: CpuSubType.little_endian
+cpusubtype: 0x0
 filetype: Filetype.execute
 ncmds: 16
 sizeofcmds: 744
@@ -1477,7 +1460,7 @@ Let's try again:
 $ zig build run -- ../exit
 magic: 0xfeedfacf
 cputype: CpuType.arm64
-cpusubtype: CpuSubType.little_endian
+cpusubtype: 0x0
 filetype: Filetype.execute
 ncmds: 16
 sizeofcmds: 744
@@ -1647,7 +1630,7 @@ segments and sections!
 $ zig build run -- ../exit
 magic: 0xfeedfacf
 cputype: CpuType.arm64
-cpusubtype: CpuSubType.little_endian
+cpusubtype: 0x0
 filetype: Filetype.execute
 ncmds: 16
 sizeofcmds: 744
@@ -1929,7 +1912,7 @@ out to only the relevant parts):
 $ zig-out/bin/macho zig-out/bin/macho
 magic: 0xfeedfacf
 cputype: CpuType.arm64
-cpusubtype: CpuSubType.little_endian
+cpusubtype: 0x0
 filetype: Filetype.execute
 ncmds: 17
 sizeofcmds: 1784
@@ -2071,7 +2054,7 @@ And run `macho` on it:
 $ zig-out/bin/macho ../print
 magic: 0xfeedfacf
 cputype: CpuType.arm64
-cpusubtype: CpuSubType.little_endian
+cpusubtype: 0x0
 filetype: Filetype.execute
 ncmds: 18
 sizeofcmds: 1208
