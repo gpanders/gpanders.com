@@ -3,7 +3,7 @@
   command = "hugo"
 
 [build.environment]
-  HUGO_VERSION = "0.84.1"
+  HUGO_VERSION = "0.92.0"
 
 [[redirects]]
   from = "/posts/*"
