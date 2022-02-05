@@ -26,7 +26,7 @@ version of ncurses into macOS's terminfo database. First, create a copy of the
 current `tmux-256color` terminfo entry from the version of curses installed by
 your package manager:
 
-```bash
+```console
 # MacPorts
 $ /opt/local/bin/infocmp -x tmux-256color > ~/tmux-256color.src
 
@@ -54,34 +54,35 @@ or
 
     pairs#32768
 
-If you are on a macOS version prior to Catalina, you can install this new
-terminfo entry into the system database `/usr/share/terminfo`. This will ensure
-that programs linked against the old version of ncurses will use this entry,
-while programs installed by your package manager will continue to use the entry
-from the newer version of ncurses. To do this, simply run
+Prior to macOS Catalina, it was possible to install this new terminfo entry
+directly into the system database `/usr/share/terminfo`. However, as of
+Catalina we can no longer do this since the root volume (of which
+`/usr/share/terminfo` is a part) is read-only. There are, apparently,
+workarounds to make the root volume writable, so if you want to go that route
+you can. Instead, we can install the terminfo entry to a local database under
+`$HOME`:
 
-```bash
-$ sudo /usr/bin/tic -x tmux-256color.src
+```console
+$ /usr/bin/tic -x -o $HOME/.local/share/terminfo tmux-256color.src
 ```
 
-Be sure to use `/usr/bin/tic` and not just `tic`: this will use the system
-version of ncurses to compile the database entry, which is required for system
-programs linked against that version of ncurses work properly.
+Be sure to explicitly use `/usr/bin/tic` to ensure that the entry is compiled
+with the builtin ncurses. This will install the terminfo database entry under
+`$HOME/.local/share/terminfo`. ncurses uses the `TERMINFO_DIRS` environment
+variable to specify a location to search for terminfo entries when not found in
+the primary database (see `man 5 terminfo`). We can take advantage of this to
+have the macOS 5.7 version of ncurses search in a directory of our choice when
+it doesn't find `tmux-256color` under `/usr/bin/terminfo`, while the 6.X version
+provided by the package manager will still use its own version[^2].
 
-Unfortunately, if you are on Catalina or later this will not work since the
-root volume (of which `/usr/share/terminfo` is a part) is read-only. There are,
-apparently, workarounds to make the root volume writable, so if you want to go
-that route you can. Otherwise, simply run the command above without `sudo`:
+Simply set the `TERMINFO_DIRS` environment variable in your shell startup file
+(e.g. `.bashrc`, `.zshrc`, etc.) to use that directory (note that we append
+this value to the existing value, if any, similar to how we append values to
+`$PATH`):
 
-```bash
-$ /usr/bin/tic -x tmux-256color.src
+```console
+$ export TERMINFO_DIRS=$TERMINFO_DIRS:$HOME/.local/share/terminfo
 ```
-
-This will install the terminfo database entry under `$HOME/.terminfo`. This
-will still work; however, now *all* programs on your machine will use this
-terminfo database entry, even if they were linked against the fully functional
-6.X version of ncurses provided by your package manager. This is an unfortunate
-tradeoff, but as of this writing I don't know any way around it.
 
 After that, you should be able to correctly use `tmux-256color` as your TERM
 variable. You can check that everything is working by running a few programs
@@ -90,3 +91,9 @@ etc.
 
 [^1]: See Thomas Dickey's comment
   [here](https://github.com/tmux/tmux/issues/2262#issuecomment-719985206).
+
+[^2]: An earlier version of this article installed the terminfo entry into
+`$HOME/.terminfo`, which is a suboptimal solution as even the updated 6.X
+version of ncurses would use the terminfo entry with reduced colors. The use of
+`TERMINFO_DIRS` was suggested to me by Carlo Cabrera, and provides the best of
+both worlds. Thanks Carlo for the tip!
