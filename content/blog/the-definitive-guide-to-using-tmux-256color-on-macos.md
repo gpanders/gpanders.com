@@ -35,7 +35,7 @@ $ /usr/local/opt/ncurses/bin/infocmp -x tmux-256color > ~/tmux-256color.src
 ```
 
 Now, modify the `tmux-256color.src` file to change the `pairs` value from
-65536 to 32768. This must be done because of a bug in ncurses 5.7 that
+65536 to 32767. This must be done because of a bug in ncurses 5.7 that
 interprets `pairs#65536` as `pairs#0`[^1].
 
 Before:
@@ -48,11 +48,7 @@ or
 
 After:
 
-    pairs#0x8000
-
-or
-
-    pairs#32768
+    pairs#32767
 
 Prior to macOS Catalina, it was possible to install this new terminfo entry
 directly into the system database `/usr/share/terminfo`. However, as of
