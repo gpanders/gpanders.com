@@ -94,9 +94,10 @@ code {
   font-size: 85%;
 }
 
-a > code, p > code {
+a > code, p > code, li > code {
   padding: 2px 4px;
   background: var(--code-bg-color);
+  white-space: pre;
 }
 
 blockquote {
