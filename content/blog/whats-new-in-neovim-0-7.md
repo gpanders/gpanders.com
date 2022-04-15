@@ -1,15 +1,15 @@
 ---
 title: "What's New in Neovim 0.7"
-date: 2022-04-15T07:36:00-06:00
-draft: true
+date: 2022-04-15T07:14:00-06:00
+tags: [neovim]
 ---
 
 Neovim 0.7 was just released, bringing with it lots of new features (and of
 course plenty of bug fixes). You can find the full release notes
-[here][release notes], but in this post I'll cover some of the more exciting
-new additions.
+[here][release notes], but in this post I'll cover just a few of the new
+additions.
 
-[release notes]: #
+[release notes]: https://github.com/neovim/neovim/releases/tag/v0.7.0
 
 ## Table of Contents
 
@@ -17,8 +17,8 @@ new additions.
 * [Distinguishing modifier keys](#distinguishing-modifier-keys)
 * [Global statusline](#global-statusline)
 * [filetype.lua](#filetypelua)
-* [Remote TUI](#remote-tui)
-* [Looking ahead to 0.8](#looking-ahead-to-0-8)
+* [Client-server communication](#client-server-communication)
+* [Looking ahead to 0.8](#looking-ahead-to-08)
 
 ## Lua everywhere!
 
@@ -103,8 +103,9 @@ vim.keymap.set("n", "<leader>H", function() print("Hello world!") end)
 The help docs contain much more information: run `:h vim.keymap.set` in Neovim
 to learn more.
 
-Finally, users can now use the API function `nvim_set_hl` to modify highlight
-groups, opening the door to pure-Lua colorschemes.
+Finally, users can now use the API function `nvim_set_hl` to modify global
+highlight groups (the equivalent of using `:hi`), opening the door to pure-Lua
+colorschemes.
 
 ## Distinguishing modifier keys
 
@@ -115,32 +116,28 @@ terminal. For example, `<Tab>` and `<C-I>` use the same representation, as do
 `<CR>` and `<C-M>`. This has long meant that it is not possible to separately
 map `<C-I>` and `<Tab>`: mapping one necessarily maps both.
 
-This has long been a point of frustration and there are multiple solutions in
+This has long been a point of annoyance and there are multiple solutions in
 the wild to address it. Neovim uses Paul Evans' [libtermkey][], which in turn
 makes use of Evans' own [fixterms][] proposal for encoding modifier keys in an
 unambiguous way. As long as the terminal emulator controlling Neovim sends
 keys encoded in this way, Neovim can correctly interpret them.
 
-Neovim 0.7 now both sends the [escape sequence][CSI PR] that signals to the
-controlling terminal that it understands this special encoding and correctly
-[distinguishes these modifier key combos][vget] in its own input processing.
-This causes supporting terminal emulators to use the encoding that
-differentiates modifier keys from other keys, meaning users can now map e.g.
-`<Tab>` and `<C-I>` separately.
+Neovim 0.7 now correctly [distinguishes these modifier key combos][vget] in
+its own input processing, so users can now map e.g. `<Tab>` and `<C-I>`
+separately. In addition, Neovim sends an [escape sequence][CSI PR] on startup
+that signals to the controlling terminal emulator that it supports this style
+of key encoding. Some terminal emulators (such as iTerm2, foot, and tmux) use
+this sequence to programatically enable the different encoding.
 
-A note of warning that this cuts both ways! If you have been mapping `<C-I>`
-or `<C-M>` *intentionally* as an alias to `<Tab>` or `<CR>` (respectively),
-this will no longer work. The fix is easy, however; simply modify your mapping
-to use the actual key you want to use.
+A note of warning: this cuts both ways! You may find that existing mappings to
+`<Tab>` or `<C-I>` (or `<CR>`/`<C-M>`) no longer work. The fix is easy,
+however; simply modify your mapping to use the actual key you want to use.
 
-In addition to disambiguating these key pairs, this also enables new mappings
-such as `<C-;>` and `<C-1>`.
+In addition to disambiguating these modifier pairs, this also enables new
+key mappings that were not possible before, such as `<C-;>` and `<C-1>`.
 
-Note for tmux users: regardless of your terminal emulator's support for this
-feature, tmux itself is still limited. tmux can use some of the new keys such
-as `<C-;>` if you enable the `extended-keys` option, but as of this writing it
-is unable to disambiguate `<Tab>` and `<C-I>`. See [this issue][tmux issue]
-for more information.
+Support for this depends largely on the terminal you are using, so this will
+not affect all users.
 
 [libtermkey]: http://www.leonerd.org.uk/code/libtermkey/
 [fixterms]: http://www.leonerd.org.uk/hacks/fixterms/
@@ -199,7 +196,7 @@ ways to opt-in to this feature:
    matching and provides all of the performance benefits outlined above, with
    the (small) risk of missed filetype detection.
 
-In addition to performance benefits, `filetype.lua` also makes it easier to
+In addition to performance benefits, `filetype.lua` also makes it easy to
 add custom filetypes. Simply create a new file `~/.config/nvim/filetype.lua`
 and call `vim.filetype.add` to create new matching rules. For example:
 
@@ -239,10 +236,10 @@ vim.filetype.add({
 ```
 
 We are bringing `filetype.lua` closer to full parity with `filetype.vim` every
-day. Our goal at this time is to make it the default in the 0.8 release (with
-the ability to opt-out to the traditional `filetype.vim`).
+day. The goal is to make it the default in Neovim 0.8 (with the ability to
+opt-out to the traditional `filetype.vim`).
 
-## Remote TUI
+## Client-server communication
 
 Neovim 0.7 brings some of the features of [neovim-remote][] into the core
 editor. You can now use `nvim --remote` to open a file in an already running
@@ -273,10 +270,6 @@ there are some things already brewing that you *might* see in Neovim 0.8:
 * [Anti-conceal][]
 * [Fully remote TUI][remote tui]
 * And more...
-
-Thanks for reading and I hope you enjoy some of the new features in Neovim
-0.7! As always, you can ask for help on [Discourse][] or [Matrix][], or
-file a bug on the GitHub issue tracker.
 
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [Anti-conceal]: https://github.com/neovim/neovim/pull/9496
