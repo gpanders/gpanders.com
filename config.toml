@@ -1,4 +1,4 @@
-baseURL = "https://gpanders.com/"
+baseURL = "https://gpanders.com"
 languageCode = "en-us"
 title = "g.p. anders"
 enableGitInfo = true
