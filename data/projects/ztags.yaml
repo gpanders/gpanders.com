@@ -1,0 +1,11 @@
+title: ztags
+summary: Generate tags files for Zig source code
+href: https://git.sr.ht/~gpanders/ztags
+featured: true
+description: >
+  `ztags` generates tags files for Zig source code. Unlike
+  [ctags](https://ctags.io/), it does not use regular expressions but instead
+  analyzes the abstract syntax tree (AST) of the source.
+
+  This is a great companion tool (or alternative) to the [Zig Language
+  Server](https://github.com/zigtools/zls).

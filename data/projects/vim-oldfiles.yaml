@@ -1,7 +1,6 @@
 title: vim-oldfiles
 summary: Improve Vim's native recent file history
 href: https://github.com/gpanders/vim-oldfiles
-featured: true
 description: >
   `vim-oldfiles` is a simple Vim plugin that aims to enhance native Vim
   functionality in a way that fits into the Vim paradigm. It improves Vim's
