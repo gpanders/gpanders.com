@@ -68,8 +68,8 @@ with the builtin ncurses. This will install the terminfo database entry under
 variable to specify a location to search for terminfo entries when not found in
 the primary database (see `man 5 terminfo`). We can take advantage of this to
 have the macOS 5.7 version of ncurses search in a directory of our choice when
-it doesn't find `tmux-256color` under `/usr/bin/terminfo`, while the 6.X version
-provided by the package manager will still use its own version[^2].
+it doesn't find `tmux-256color` under `/usr/share/terminfo`, while the 6.X
+version provided by the package manager will still use its own version[^2].
 
 Simply set the `TERMINFO_DIRS` environment variable in your shell startup file
 (e.g. `.bashrc`, `.zshrc`, etc.) to use that directory (note that we append
