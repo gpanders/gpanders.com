@@ -4,6 +4,12 @@ date: 2021-04-14
 tags: [tmux, macos, terminal]
 ---
 
+**UPDATE**: macOS 14 (Sonoma) updated its bundled ncurses version to
+6.0. This version ships with a `tmux-256color` entry by default, so
+the workaround below is no longer needed.
+
+---
+
 macOS ships with an old and very out-of-date version of ncurses (5.7). This
 version does not contain a terminfo entry for `tmux-256color`, the preferred
 `TERM` value when using `tmux`.
