@@ -7,11 +7,6 @@ pygmentsUseClasses = true
 copyright = "Content on this site is licensed CC BY-SA 4.0"
 timeZone = "UTC"
 
-[author]
-  name = "Gregory Anders"
-  email = "contact@gpanders.com"
-  homepage = "https://gpanders.com"
-
 [taxonomies]
 
 [params]
@@ -19,14 +14,19 @@ timeZone = "UTC"
   description = "Personal website for Gregory Anders"
   width = "65rem"
 
+[params.author]
+  name = "Gregory Anders"
+  email = "contact@gpanders.com"
+  homepage = "https://gpanders.com"
+
 [[menu.nav]]
   name = "Blog"
   url = "/"
   weight = 1
 
 [[menu.nav]]
-  name = "Projects"
-  url = "/projects"
+  name = "Talks"
+  url = "/talks"
   weight = 2
 
 [[menu.nav]]
