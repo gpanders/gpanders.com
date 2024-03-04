@@ -143,9 +143,11 @@ sequence sets foreground and background colors for all printed text. The first
 escape sequence in the example `\e[1;32m` enables the **bold** attribute (`1`)
 and sets the foreground color to {{< color green >}}green{{< /color >}}
 (`32`). The second escape sequence `\e[0;4;31m` first clears any existing
-styles (`0`), then enables underline (`4`), and finally sets the foreground
-text color to {{< color red >}}red{{< /color >}} (`31`). Finally, the last
-escape sequence `\e[0m` resets all styles back to their defaults.
+styles (`0`), then enables the
+{{< html >}}<span style="text-decoration:underline;">underline</span>{{< /html >}}
+attribute (`4`), and finally sets the foreground text color to
+{{< color red >}}red{{< /color >}} (`31`). Finally, the last escape sequence
+`\e[0m` resets all styles back to their defaults.
 
 Another use case for simple CSI sequences is redrawing text on the screen on
 an already existing line (e.g. for a progress bar or text that updates itself
