@@ -4,12 +4,13 @@ date: 2024-02-17T21:36:42-06:00
 unlisted: true
 ---
 
-_This is a companion article to a [talk I gave][talk] at Neovimconf 2023 last
-December._
+_This is a companion article to [my talk][talk] at Neovimconf 2023_.
 
 [talk]: https://vimeo.com/896237832?share=copy
 
 * * *
+
+{{< toc >}}
 
 I have been using Vim/Neovim as my full time text editor for close to 10 years.
 I've spent a lot of time in the terminal and have become very aware of the
@@ -26,21 +27,21 @@ editor [3][so1] [years][so2] [in][so3] a row).
 It's only been in the last couple of years that I've begun to dig deep into
 the inner workings of how terminal emulators, and the applications that run
 inside of them, really work. I've learned that there is a lot of innovation
-and create problem solving happening in this space, even though the underlying
-technology is over half a century old[^1].
+and creative problem solving happening in this space, even though the
+underlying technology is over half a century old[^1].
 
 I've also found that many people who use terminal based tools (including
 shells like Bash and editors like Vim) know very little about terminals
 themselves, or some of the modern features and capabilities they can support.
 
 In this article, we'll discuss some of the problems that terminal based
-applications have historically had to deal with (and what the modern
-solutions are) as well as some of those cool new features that modern terminal
-emulators support.
+applications have historically had to deal with (and what the modern solutions
+are) as well as some features that modern terminal emulators support that you
+may not be aware of.
 
 But first, a (very) brief history lesson.
 
-### Background & History
+## Background & History
 
 Most terminal emulators today can directly trace their roots back to the DEC
 VT100. The VT100 was not the first video terminal, nor was it the last, but it
@@ -53,12 +54,13 @@ them. They could move the cursor around the screen to create interactive
 interfaces. They could use color, and clear and redraw their displays quickly
 without feeding out reams of paper.
 
-However, each brand of video terminal had its own unique way of doing things
-using unique, proprietary escape codes (a sequence of bytes beginning with the
-escape `0x1b` character). This made it difficult for terminal based
-application to take advantage of these features. Libraries and helper programs
-(e.g. `termcap`) were created to help ameliorate these issues (we still live
-with (and suffer from) the descendant of these early libraries, `terminfo`).
+Different video terminals had their own unique way of doing things using
+unique, proprietary escape codes (a sequence of bytes beginning with the
+escape `0x1b` character). This made life difficult for applications because
+they had to know which of these sequences to use. Libraries and helper
+programs (e.g. `termcap`) were created to help ameliorate these issues (we
+still live with the descendant of these early libraries,
+`terminfo`).
 
 Eventually, formal standards were created, such as ECMA-48 and ANSI X3.64
 (from which the term "[ANSI escape codes][ansi]" derives), which defined a set
@@ -80,15 +82,15 @@ eventually Xterm itself became the new _de facto_ standard.
 [ansi]: https://en.wikipedia.org/wiki/ANSI_escape_code
 [xterm]: https://en.wikipedia.org/wiki/Xterm
 
-### Terminal Emulator Basics
+## Terminal Emulator Basics
 
 Terminal based applications write two kinds of data to the terminal emulator:
 printable text that is displayed to the user, and control codes, which modify
 the terminal emulator's state. Control codes are either single bytes in the C0
-character set (bytes `0x00` through `0x1F`) or sequences of bytes that begin
+character set (bytes `0x00` through `0x1f`) or sequences of bytes that begin
 with the escape character (`0x1b`). These sequences are most commonly referred
 to as "escape sequences", and it is these sequences that do the bulk of the
-heavy lifting in creating interactive, modern terminal applications.
+heavy lifting in terminal applications.
 
 Most control codes from the C0 character set are not used today, but
 regardless of experience with terminals or terminal applications, most
@@ -109,13 +111,14 @@ OSC sequences are those which begin with the prefix `ESC ]` and are typically
 used for things that modify or interact with the user's environment outside of
 the terminal emulator itself (hence the name "Operating System Command").
 Examples are reading from or writing to the system clipboard, changing the
-title of the terminal emulator's window, or requesting desktop notifications.
+title of the terminal emulator's window, or sending desktop notifications.
 
 Xterm maintains a list of all of the control sequences it supports on its
-[website][ctlseqs], which is as close as it gets to a canonical source. Not
-that this list may not contain some control sequences used by other, modern
-terminal emulators for features which Xterm does not support (e.g. the Kitty
-keyboard protocol, which we'll discuss later).
+[website][ctlseqs], which, along with [vt100.net](https://vt100.net), forms an
+informal pseudo-specification for VT100 emulators. Note that this list may not
+contain some control sequences used by other, modern terminal emulators for
+features which Xterm does not support (e.g. the Kitty keyboard protocol, which
+we'll discuss later).
 
 [ctlseqs]: https://invisible-island.net/xterm/ctlseqs/ctlseqs.html
 
@@ -129,6 +132,16 @@ printf '\e[1;32mHello \e[0;4;31mworld!\n\e[0m'
 This command will print the text "Hello world!", with "Hello" in green, bold
 text and "world!" in red, underlined text.
 
+The escape sequences used here are of the form `CSI <parameters> m`, which is
+so common it has its own name: Select Graphic Rendition (SGR). The SGR escape
+sequence sets foreground and background colors for all printed text. The first
+escape sequence in the example `\e[1;32m` enables the **bold** attribute (`1`)
+and sets the foreground color to {{< color green >}}green{{< /color >}}
+(`32`). The second escape sequence `\e[0;4;31m` first clears any existing
+styles (`0`), then enables underline (`4`), and finally sets the foreground
+text color to {{< color red >}}red{{< /color >}} (`31`). Finally, the last
+escape sequence `\e[0m` resets all styles back to their defaults.
+
 Another use case for simple CSI sequences is redrawing text on the screen on
 an already existing line (e.g. for a progress bar or text that updates itself
 over time). Hint: look at `\r`, `CSI A`, and `CSI K`.
@@ -138,23 +151,23 @@ but occasionally the terminal emulator sends escape sequences to the
 application. Usually this is done in response to a query from the application
 (for instance, to determine if a certain mode is set).
 
-### Problems & Solutions
+## Problems & Solutions
 
 Terminal emulators are descended from old, legacy technologies, which brings
 with it its fair share of problems. Many of these problems have been (mostly)
 solved, or at least ameliorated, while others are still active areas of
 innovation and research.
 
-#### Key Encoding
+### Key Encoding
 
 Terminal emulators and terminal applications communicate through a stream of
 bytes. When a user presses a key the terminal sends the byte representation of
 the character associated with that key. The old video terminals only supported
 ASCII so this was, generally, fairly straightforward.
 
-Modifier keys like `Ctrl` and `Alt` complicated this situation a bit. `Alt`
-modified keys were encoded by prefixing the character with an `Esc`. But this
-has a problem: including an extra `Esc` byte for the `Alt` modifier introduces
+Modifier keys like `Ctrl` and `Alt` complicate this situation. `Alt` modified
+keys are encoded by prefixing the character with an `Esc`. But this has a
+problem: including an extra `Esc` byte for the `Alt` modifier introduces
 ambiguity between `Alt` modified key presses and two separate key presses:
 when an application sees `Esc C`, is that `Alt-C` or did the user press `Esc`
 and then press `C`? Applications usually solve this by measuring the amount of
@@ -163,15 +176,16 @@ defined interval, it is considered an `Alt` modified key press (Vim uses the
 `ttimeoutlen` option, tmux uses the `escape-time` option).
 
 `Ctrl` modified keys are an even bigger problem. When `Ctrl` is used as a
-modifier, the shifted[^2] version of the key has the 7th bit masked off. For
-example, `C` is `0x43` and after masking the 7th bit the byte becomes `0x03`.
+modifier, the shifted[^3] version of the key has the 7th bit masked off (for
+example, `C` is `0x43` and after masking the 7th bit the byte becomes `0x03`).
 This means that not only can the `Shift` modifier not be used in conjunction
 with `Ctrl`, but that certain `Ctrl` modified keys are completely
 indistinguishable from other control codes.
 
 For instance, when you press the `Return` key the terminal emulator sends the
 byte `\r` (`0x0d`) to the application. But if you press `Ctrl-M` then the
-terminal emulator also sends the byte `0x0d` to the application. From the
+terminal emulator also sends the byte `0x0d` to the application (`M` is `0x4d`
+in ASCII, so when the 7th bit is masked out, it becomes `0x0d`). From the
 application's perspective, there is literally no way to distinguish these two
 events.
 
@@ -180,17 +194,17 @@ and `Ctrl-M` could not be used in terminal applications like Vim. There have
 been a few attempts to solve this problem: the first came from Xterm in 2006
 through the [modifyOtherKeys][] option. Paul Evans (author of `libvterm` and
 `libtickit`) introduced an alternate key encoding using the `CSI u` escape
-sequence in an essay which is today colloquially known as
-["fixterms"][fixterms]. The `CSI u` encoding proposed by Evans was extended by
-Kovid Goyal, the author of the kitty terminal emulator, in what is today known
-as the [kitty keyboard protocol][kkp].
+sequence in an [essay][fixterms] which is sometimes colloquially referred to
+as "fixterms". The `CSI u` encoding proposed by Evans was extended by Kovid
+Goyal, the author of the kitty terminal emulator, in what has become known as
+the [kitty keyboard protocol][kkp].
 
 What all of these solutions have in common is that key presses are sent to the
 terminal application encoded as escape sequences. This eliminates any
 ambiguity for modified keys and enables certain modifier combinations (such as
 `Ctrl + Shift` that are not possible using "legacy" encoding). The `CSI u`
 encoding proposed by Evans and adapted by kitty encodes a modified key press
-like `Ctrl-m` as `\e[109;5u`. The encoding of unmodified key presses like
+like `Ctrl-M` as `\e[109;5u`. The encoding of unmodified key presses like
 `Return` depend on which "level" of the kitty keyboard protocol is enabled.
 Applications can opt-in to different levels to ease adoption (for instance,
 Neovim uses only the first level, "Disambiguate escape keys"). See the [kitty
@@ -209,13 +223,13 @@ _not_ discussed...) are solved.
 [fixterms]: http://www.leonerd.org.uk/hacks/fixterms/
 [kkp]: https://sw.kovidgoyal.net/kitty/keyboard-protocol/
 
-#### Decorations
+### Decorations
 
 Xterm has supported 256 user specified colors since [1999][xterm-111]. These
 colors could be changed at runtime using an escape sequence (OSC 4), which can
 be used to great effect (see ["8 Bit & '8 Bitish' Graphics-Outside the
-Box"][8bit] by Mark Ferrari for an incredible demonstration, or try
-`notcurses-demo j` from [notcurses][]).
+Box"][8bit] by Mark Ferrari for an incredible demonstration, or install
+[notcurses][] and run `notcurses-demo j` in your terminal).
 
 [xterm-111]: https://invisible-island.net/xterm/xterm.log.html#xterm_111
 [8bit]: https://www.youtube.com/watch?v=aMcJ1Jvtef0
@@ -223,16 +237,19 @@ Box"][8bit] by Mark Ferrari for an incredible demonstration, or try
 
 Within the last decade or so, 24 bit color (sometimes referred to as
 "truecolor" or "RGB color") has become widely supported by terminal emulators
-which allows terminal emulators to use any arbitrary colors they want. This
-enables terminal UIs a much greater degree of flexibility in using whatever
-color palettes they want.
+which allows terminal applications to use whatever arbitrary colors they want.
+This provides terminal UIs a much greater degree of flexibility and creative
+freedom.
 
 Modern terminals also support other kinds of "rich" text markup, such as
 strikethrough and various types of underlines. For instance, text editors like
-Vim and Neovim can add a red squiggly line under misspelled words (as seen in
-many graphical rich text editors).
+Vim and Neovim can add a
+{{< html >}}<span style="text-decoration:underline;text-decoration-style:wavy;text-decoration-color:red;text-decoration-skip-ink:none;">red squiggly line</span>{{< /html >}}
+under misspelled words (as seen in many graphical rich text editors).
 
-![A screenshot of a terminal emulator displaying different text markup styles](/img/terminal_styles.png "So many styles!")
+{{< figure src="/img/terminal_styles.png"
+           alt="A screenshot of a terminal emulator displaying different text markup styles"
+           caption="Examples of markup styles supported by modern terminal emulators" >}}
 
 It is also possible to display images and even videos inline inside of
 terminal emulators. There are (at least) three different ways to do this
@@ -240,7 +257,8 @@ terminal emulators. There are (at least) three different ways to do this
 graphics protocol][kitty graphics]) and support among terminal emulators
 varies. Unfortunately this means that terminal applications are in a bit of an
 awkward situation, as they must either implement support for all of the image
-protocols, or only support a subset of terminals.
+protocols, or only support a subset of terminals. For this reason, use of
+images in terminal applications is still relatively uncommon.
 
 [sixels]: https://github.com/saitoha/libsixel
 [iterm images]: https://iterm2.com/documentation-images.html
@@ -251,13 +269,13 @@ to the efforts of terminal emulators, but also to the creativity and talent of
 terminal application and library authors. As an example, see some of the
 fantastic work that [charm.sh](https://charm.sh) has done in creating
 delightful, interactive terminal based user interfaces that rival (and in some
-cases, surpass!) graphical UIs in similar tools.
+cases, surpass!) graphical UIs for similar tools.
 
-#### Capability Determination
+### Capability Determination
 
 Terminal emulators do not all support the same features. In some cases, the
 same feature is implemented in different ways. Terminal applications need some
-way to know features the terminal they're running in support and how to
+way to know which features the terminal they're running in support and how to
 properly use those features.
 
 Today this is primarily done using a distributed database of "terminfo" files.
@@ -283,14 +301,15 @@ terminfo entry and the user is met with cryptic warnings like `WARNING:
 terminal is not fully functional` and applications not functioning properly.
 
 To circumvent this issue, many terminals use `xterm-256color` as their `$TERM`
-value, essentially claiming to be Xterm even though they are not. This creates
-a vicious cycle, as terminal applications hardcode special cases for
-`xterm-256color`, which incentivizes terminals to claim to be
-`xterm-256color`, which incentivizes applications to special case
-`xterm-256color`, which.... you get it. The problem is exacerbated by common,
-but bad, advice to users facing problems with terminal applications to simply
-override `$TERM` to be `xterm-256color` (a short term hack that will sometimes
-workaround the immediate problem, but creates other problems of its own).
+value, essentially claiming to be Xterm even though they are not, piggybacking
+on Xterm's ubiquity. This creates a vicious cycle, as terminal applications
+often hardcode special cases for `xterm-256color`, which incentivizes
+terminals to claim to be `xterm-256color`, which incentivizes applications to
+special case `xterm-256color`, which.... you get it. The problem is
+exacerbated by common, but bad, advice to users facing problems with terminal
+applications to simply override `$TERM` to be `xterm-256color` (a short term
+hack that will sometimes workaround the immediate problem, but creates other
+problems of its own).
 
 Unfortunately there are no easy fixes for this, but there is hope. The
 vast majority of escape sequences used by applications today are common across
@@ -312,7 +331,7 @@ this direction, terminfo will become increasingly unnecessary.
 
 [vaxis]: https://git.sr.ht/~rockorager/vaxis
 
-#### System Integration
+### System Integration
 
 One of the many advantages of software terminal emulators over hardware video
 terminals is that they are one piece of a larger, integrated computing system.
@@ -388,10 +407,10 @@ Neovim recently added builtin support for using OSC 52 and it will be enabled
 for users by default (if the terminal emulator supports it) in the forthcoming
 0.10 release.
 
-### Conclusion
+## Conclusion
 
-It's true that terminals, as an application platform, are idiosyncratic and
-quirky. But their portability, ubiquity, and relative ease of use (for
+While it's true that terminals, as an application platform, are idiosyncratic and
+quirky, their portability, ubiquity, and relative ease of use (for
 application authors) makes them increasingly popular for many developers, even
 in the face of an increasing number of alternatives.
 
@@ -401,7 +420,7 @@ is old: downright ancient by the standards of modern tech. But, instead of a
 flaw, I consider this a strength: it gives me confidence that while individual
 terminal emulators may come and go, the underlying platform will endure.
 
-### References & Further Reading
+## References & Further Reading
 
 * [The TTY demystified](http://www.linusakesson.net/programming/tty/)
 * [What happens when you press a key in your terminal?](https://jvns.ca/blog/2022/07/20/pseudoterminals/)
@@ -411,10 +430,10 @@ terminal emulators may come and go, the underlying platform will endure.
 
 [^1]: This depends on your exact definition of "underlying technology". Here,
     I'm referring to the use of teletype machines (TTYs) connected to a
-    computer. But teletypes themselves were created well over a century ago,
-    and there are still traces of their design in the inner workings of
-    terminal emulators.
-[^2]: Technically, it uses whichever version of the key, shifted or unshifted,
+    digital computer. But teletypes themselves were created well over a
+    century ago, and there are still traces of their design in the inner
+    workings of terminal emulators.
+[^3]: Technically, it uses whichever version of the key, shifted or unshifted,
     falls in the range `[0x20, 0x5f]`. For alphabetic characters, this is the
     shifted (uppercase) letter, but for keys like `[` or `-` it uses the
     unshifted variant.
