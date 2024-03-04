@@ -10,8 +10,6 @@ _This is a companion article to [my talk][talk] at Neovimconf 2023_.
 
 * * *
 
-{{< toc >}}
-
 I have been using Vim/Neovim as my full time text editor for close to 10 years.
 I've spent a lot of time in the terminal and have become very aware of the
 many flaws and idiosyncrasies of this bizarre platform. But I also think it
@@ -39,7 +37,7 @@ applications have historically had to deal with (and what the modern solutions
 are) as well as some features that modern terminal emulators support that you
 may not be aware of.
 
-But first, a (very) brief history lesson.
+But first, some (very) brief history.
 
 ## Background & History
 
@@ -48,6 +46,13 @@ VT100. The VT100 was not the first video terminal, nor was it the last, but it
 was the most popular (at the time). And as we've learned from history many
 times since, what becomes popular creates the _de facto_ standard for
 everything that comes after.
+
+{{< figure src="/img/DEC_VT100_terminal.jpg"
+           alt="DEC VT100"
+           caption="DEC VT100"
+           width="75%"
+           attr="Jason Scott, CC BY 2.0 via Wikimedia Commons"
+           attrlink="https://commons.wikimedia.org/wiki/File:DEC_VT100_terminal.jpg" >}}
 
 Video terminals were an improvement on the teletype machines that preceded
 them. They could move the cursor around the screen to create interactive
@@ -176,7 +181,7 @@ defined interval, it is considered an `Alt` modified key press (Vim uses the
 `ttimeoutlen` option, tmux uses the `escape-time` option).
 
 `Ctrl` modified keys are an even bigger problem. When `Ctrl` is used as a
-modifier, the shifted[^3] version of the key has the 7th bit masked off (for
+modifier, the shifted[^2] version of the key has the 7th bit masked off (for
 example, `C` is `0x43` and after masking the 7th bit the byte becomes `0x03`).
 This means that not only can the `Shift` modifier not be used in conjunction
 with `Ctrl`, but that certain `Ctrl` modified keys are completely
@@ -266,10 +271,10 @@ images in terminal applications is still relatively uncommon.
 
 It is important to note that advances in terminal based UIs are not only due
 to the efforts of terminal emulators, but also to the creativity and talent of
-terminal application and library authors. As an example, see some of the
-fantastic work that [charm.sh](https://charm.sh) has done in creating
-delightful, interactive terminal based user interfaces that rival (and in some
-cases, surpass!) graphical UIs for similar tools.
+terminal application and library authors. For example, see some of the
+fantastic work that [charm.sh](https://charm.sh) has done creating delightful,
+interactive terminal based user interfaces that rival (and in some cases,
+surpass!) graphical UIs for similar tools.
 
 ### Capability Determination
 
@@ -290,7 +295,7 @@ macOS][tmux] for many years because the version of ncurses packaged with macOS
 was so old that it did not even include the `tmux-256color` terminfo entry at
 all!
 
-[tmux]: http://localhost:1313/blog/the-definitive-guide-to-using-tmux-256color-on-macos/
+[tmux]: {{% relref "blog/the-definitive-guide-to-using-tmux-256color-on-macos" %}}
 
 This is also a problem for newer terminals which have not yet been added to
 the ncurses terminfo database. Terminal emulators can (and often do) ship
@@ -425,6 +430,9 @@ terminal emulators may come and go, the underlying platform will endure.
 * [The TTY demystified](http://www.linusakesson.net/programming/tty/)
 * [What happens when you press a key in your terminal?](https://jvns.ca/blog/2022/07/20/pseudoterminals/)
 * [A history of the tty](https://computer.rip/2024-02-25-a-history-of-the-tty.html)
+* [Understanding ASCII (and terminals)](https://bestasciitable.com)
+* [Comprehensive keyboard handling in terminals][kkp]
+* [Fix Keyboard Input on Terminals - Please][fixterms]
 
 <!------>
 
@@ -433,7 +441,7 @@ terminal emulators may come and go, the underlying platform will endure.
     digital computer. But teletypes themselves were created well over a
     century ago, and there are still traces of their design in the inner
     workings of terminal emulators.
-[^3]: Technically, it uses whichever version of the key, shifted or unshifted,
+[^2]: Technically, it uses whichever version of the key, shifted or unshifted,
     falls in the range `[0x20, 0x5f]`. For alphabetic characters, this is the
     shifted (uppercase) letter, but for keys like `[` or `-` it uses the
     unshifted variant.

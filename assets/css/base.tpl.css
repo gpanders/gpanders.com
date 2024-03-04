@@ -130,6 +130,10 @@ th, td {
   overflow: visible;
 }
 
+figure:has(img) {
+  text-align: center;
+}
+
 figcaption {
   text-align: center;
   font-size: smaller;
