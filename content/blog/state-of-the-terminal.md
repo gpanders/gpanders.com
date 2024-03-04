@@ -1,6 +1,6 @@
 ---
 title: "State of the Terminal"
-date: 2024-02-17T21:36:42-06:00
+date: 2024-03-04
 unlisted: true
 ---
 
