@@ -185,6 +185,17 @@ sequence in an essay which is today colloquially known as
 Kovid Goyal, the author of the kitty terminal emulator, in what is today known
 as the [kitty keyboard protocol][kkp].
 
+What all of these solutions have in common is that key presses are sent to the
+terminal application encoded as escape sequences. This eliminates any
+ambiguity for modified keys and enables certain modifier combinations (such as
+`Ctrl + Shift` that are not possible using "legacy" encoding). The `CSI u`
+encoding proposed by Evans and adapted by kitty encodes a modified key press
+like `Ctrl-m` as `\e[109;5u`. The encoding of unmodified key presses like
+`Return` depend on which "level" of the kitty keyboard protocol is enabled.
+Applications can opt-in to different levels to ease adoption (for instance,
+Neovim uses only the first level, "Disambiguate escape keys"). See the [kitty
+documentation][kkp] for more details.
+
 The kitty keyboard protocol has been widely adopted by modern terminal
 emulators and terminal applications. Terminals which support the kitty
 keyboard protocol (to some degree) include Wezterm, Alacritty, kitty, foot,
@@ -200,14 +211,47 @@ _not_ discussed...) are solved.
 
 #### Decorations
 
-**TODO**: Terminal emulators have come a long way 
+Xterm has supported 256 user specified colors since [1999][xterm-111]. These
+colors could be changed at runtime using an escape sequence (OSC 4), which can
+be used to great effect (see ["8 Bit & '8 Bitish' Graphics-Outside the
+Box"][8bit] by Mark Ferrari for an incredible demonstration, or try
+`notcurses-demo j` from [notcurses][]).
 
-- colored/shaped underlines
-- bold/italic/strikethrough
-- link to that 8 bit video of the changing color palette!!
-- notcurses demo
-- charm.sh
-- images
+[xterm-111]: https://invisible-island.net/xterm/xterm.log.html#xterm_111
+[8bit]: https://www.youtube.com/watch?v=aMcJ1Jvtef0
+[notcurses]: https://github.com/dankamongmen/notcurses
+
+Within the last decade or so, 24 bit color (sometimes referred to as
+"truecolor" or "RGB color") has become widely supported by terminal emulators
+which allows terminal emulators to use any arbitrary colors they want. This
+enables terminal UIs a much greater degree of flexibility in using whatever
+color palettes they want.
+
+Modern terminals also support other kinds of "rich" text markup, such as
+strikethrough and various types of underlines. For instance, text editors like
+Vim and Neovim can add a red squiggly line under misspelled words (as seen in
+many graphical rich text editors).
+
+![A screenshot of a terminal emulator displaying different text markup styles](/img/terminal_styles.png "So many styles!")
+
+It is also possible to display images and even videos inline inside of
+terminal emulators. There are (at least) three different ways to do this
+([sixels][], the [iTerm2 image protocol][iterm images], and the [kitty
+graphics protocol][kitty graphics]) and support among terminal emulators
+varies. Unfortunately this means that terminal applications are in a bit of an
+awkward situation, as they must either implement support for all of the image
+protocols, or only support a subset of terminals.
+
+[sixels]: https://github.com/saitoha/libsixel
+[iterm images]: https://iterm2.com/documentation-images.html
+[kitty graphics]: https://sw.kovidgoyal.net/kitty/graphics-protocol/
+
+It is important to note that advances in terminal based UIs are not only due
+to the efforts of terminal emulators, but also to the creativity and talent of
+terminal application and library authors. As an example, see some of the
+fantastic work that [charm.sh](https://charm.sh) has done in creating
+delightful, interactive terminal based user interfaces that rival (and in some
+cases, surpass!) graphical UIs in similar tools.
 
 #### Capability Determination
 
@@ -346,7 +390,16 @@ for users by default (if the terminal emulator supports it) in the forthcoming
 
 ### Conclusion
 
-**TODO**
+It's true that terminals, as an application platform, are idiosyncratic and
+quirky. But their portability, ubiquity, and relative ease of use (for
+application authors) makes them increasingly popular for many developers, even
+in the face of an increasing number of alternatives.
+
+Terminal emulators are not static: they continue to evolve and innovate to
+solve users' problems and improve users' experience. The underlying technology
+is old: downright ancient by the standards of modern tech. But, instead of a
+flaw, I consider this a strength: it gives me confidence that while individual
+terminal emulators may come and go, the underlying platform will endure.
 
 ### References & Further Reading
 
