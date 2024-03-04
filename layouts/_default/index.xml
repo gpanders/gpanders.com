@@ -16,6 +16,7 @@
     {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
     {{- end -}}
     {{ range where .Site.RegularPages "Section" "blog" }}
+    {{ if not .Params.unlisted }}
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
@@ -26,6 +27,7 @@
       <category>{{ . }}</category>
       {{- end }}
     </item>
+    {{- end }}
     {{- end }}
   </channel>
 </rss>

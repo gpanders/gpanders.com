@@ -1,8 +1,10 @@
 {{ define "main" }}
 
 {{ range where site.RegularPages "Section" "blog" }}
+{{ if not .Params.unlisted }}
 <p class="heading p-name"><a class="u-url u-uid" href="{{ .RelPermalink }}" rel="bookmark">{{ .Title }}</a></p>
 {{ partial "subheading.html" . }}
+{{ end }}
 {{ end }}
 
 {{ end }}
