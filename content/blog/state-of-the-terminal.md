@@ -209,7 +209,7 @@ the [kitty keyboard protocol][kkp].
 What all of these solutions have in common is that key presses are sent to the
 terminal application encoded as escape sequences. This eliminates any
 ambiguity for modified keys and enables certain modifier combinations (such as
-`Ctrl + Shift` that are not possible using "legacy" encoding). The `CSI u`
+`Ctrl + Shift`) that are not possible using "legacy" encoding. The `CSI u`
 encoding proposed by Evans and adapted by kitty encodes a modified key press
 like `Ctrl-M` as `\e[109;5u`. The encoding of unmodified key presses like
 `Return` depend on which "level" of the kitty keyboard protocol is enabled.
@@ -314,9 +314,10 @@ often hardcode special cases for `xterm-256color`, which incentivizes
 terminals to claim to be `xterm-256color`, which incentivizes applications to
 special case `xterm-256color`, which.... you get it. The problem is
 exacerbated by common, but bad, advice to users facing problems with terminal
-applications to simply override `$TERM` to be `xterm-256color` (a short term
-hack that will sometimes workaround the immediate problem, but creates other
-problems of its own).
+applications to simply override `$TERM` to be `xterm-256color` (even the
+[Xterm FAQ][xterm_generic-id] itself warns against this).
+
+[xterm_generic-id]: https://invisible-island.net/ncurses/ncurses.faq.html#xterm_generic-id
 
 Unfortunately there are no easy fixes for this, but there is hope. The
 vast majority of escape sequences used by applications today are common across
@@ -416,8 +417,8 @@ for users by default (if the terminal emulator supports it) in the forthcoming
 
 ## Conclusion
 
-While it's true that terminals, as an application platform, are idiosyncratic and
-quirky, their portability, ubiquity, and relative ease of use (for
+While it's true that terminals, as an application platform, are idiosyncratic
+and quirky, their portability, ubiquity, and relative ease of use (for
 application authors) makes them increasingly popular for many developers, even
 in the face of an increasing number of alternatives.
 
