@@ -1,7 +1,6 @@
 ---
 title: "State of the Terminal"
-date: 2024-03-04
-unlisted: true
+date: 2024-03-12
 ---
 
 _This is a companion article to [my talk][talk] at Neovimconf 2023_.
