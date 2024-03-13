@@ -133,20 +133,25 @@ straight from your shell. Try running the following command from any shell:
 printf '\e[1;32mHello \e[0;4;31mworld!\n\e[0m'
 ```
 
-This command will print the text "Hello world!", with "Hello" in green, bold
-text and "world!" in red, underlined text.
+This command will print the text "Hello world!", with "Hello" in
+{{< html >}}<span style="color:green;font-weight:bold;">green, bold</span>{{< /html >}}
+text and "world!" in
+{{< html >}}<span style="color:red;text-decoration:underline;">red, underlined</span>{{< /html >}}
+text.
 
 The escape sequences used here are of the form `CSI <parameters> m`, which is
 so common it has its own name: Select Graphic Rendition (SGR). The SGR escape
 sequence sets foreground and background colors for all printed text. The first
 escape sequence in the example `\e[1;32m` enables the **bold** attribute (`1`)
-and sets the foreground color to {{< color green >}}green{{< /color >}}
+and sets the foreground color to
+{{< html >}}<span style="color:green;">green</span>{{< /html >}}
 (`32`). The second escape sequence `\e[0;4;31m` first clears any existing
 styles (`0`), then enables the
 {{< html >}}<span style="text-decoration:underline;">underline</span>{{< /html >}}
 attribute (`4`), and finally sets the foreground text color to
-{{< color red >}}red{{< /color >}} (`31`). Finally, the last escape sequence
-`\e[0m` resets all styles back to their defaults.
+{{< html >}}<span style="color:red;">red</span>{{< /html >}}
+(`31`). Finally, the last escape sequence `\e[0m` resets all styles back to
+their defaults.
 
 Another use case for simple CSI sequences is redrawing text on the screen on
 an already existing line (e.g. for a progress bar or text that updates itself
@@ -174,12 +179,12 @@ ASCII so this was, generally, fairly straightforward.
 Modifier keys like `Ctrl` and `Alt` complicate this situation. `Alt` modified
 keys are encoded by prefixing the character with an `Esc`. But this has a
 problem: including an extra `Esc` byte for the `Alt` modifier introduces
-ambiguity between `Alt` modified key presses and two separate key presses:
-when an application sees `Esc C`, is that `Alt-C` or did the user press `Esc`
-and then press `C`? Applications usually solve this by measuring the amount of
-time between `Esc` and the next character. If the time is less than some
-defined interval, it is considered an `Alt` modified key press (Vim uses the
-`ttimeoutlen` option, tmux uses the `escape-time` option).
+ambiguity between `Alt` modified key presses and two separate key presses.
+When an application sees `Esc C`, should it interpret it as `Alt-C` or did the
+user press `Esc` and then press `C`? Applications usually solve this by
+measuring the amount of time between `Esc` and the next character. If the time
+is less than some defined interval, it is considered an `Alt` modified key
+press (Vim uses the `ttimeoutlen` option, tmux uses the `escape-time` option).
 
 `Ctrl` modified keys are an even bigger problem. When `Ctrl` is used as a
 modifier, the shifted[^2] version of the key has the 7th bit masked off (for
@@ -216,14 +221,17 @@ Applications can opt-in to different levels to ease adoption (for instance,
 Neovim uses only the first level, "Disambiguate escape keys"). See the [kitty
 documentation][kkp] for more details.
 
-The kitty keyboard protocol has been widely adopted by modern terminal
-emulators and terminal applications. Terminals which support the kitty
-keyboard protocol (to some degree) include Wezterm, Alacritty, kitty, foot,
-Ghostty, and iTerm2. Applications which support the kitty keyboard protocol
-(to some degree) include Vim, Neovim, Helix, kakoune, and nushell. This means
-that when using one of these applications in one of these terminals, all of
-the key encoding problems discussed above (as well as some others which were
-_not_ discussed...) are solved.
+Sending key presses as escape sequences requires that terminal applications
+are able to recognize and parse those sequences, so it is not something that
+"just works" out of the box. However, the kitty keyboard protocol has been
+widely adopted by both modern terminal emulators and terminal applications.
+Terminals which support the kitty keyboard protocol (to some degree) include
+Wezterm, Alacritty, kitty, foot, Ghostty, and iTerm2. Applications which
+support the kitty keyboard protocol (to some degree) include Vim, Neovim,
+Helix, kakoune, and nushell. This means that when using one of these
+applications in one of these terminals, all of the key encoding problems
+discussed above (as well as some others which were _not_ discussed...) are
+solved.
 
 [modifyOtherKeys]: https://invisible-island.net/xterm/modified-keys.html
 [fixterms]: http://www.leonerd.org.uk/hacks/fixterms/
@@ -311,16 +319,16 @@ value, essentially claiming to be Xterm even though they are not, piggybacking
 on Xterm's ubiquity. This creates a vicious cycle, as terminal applications
 often hardcode special cases for `xterm-256color`, which incentivizes
 terminals to claim to be `xterm-256color`, which incentivizes applications to
-special case `xterm-256color`, which.... you get it. The problem is
-exacerbated by common, but bad, advice to users facing problems with terminal
-applications to simply override `$TERM` to be `xterm-256color` (even the
+special case `xterm-256color`, which... and so on. The problem is
+exacerbated by common (bad) advice to users facing problems with terminal
+applications to simply override `$TERM` to be `xterm-256color` (the
 [Xterm FAQ][xterm_generic-id] itself warns against this).
 
 [xterm_generic-id]: https://invisible-island.net/ncurses/ncurses.faq.html#xterm_generic-id
 
-Unfortunately there are no easy fixes for this, but there is hope. The
-vast majority of escape sequences used by applications today are common across
-most (if not all) modern terminal emulators. This makes terminfo less
+Unfortunately there are no easy fixes for these problems, but there is hope.
+The vast majority of escape sequences used by applications today are common
+across most (if not all) modern terminal emulators. This makes terminfo less
 necessary since applications can _usually_ safely assume that a given escape
 sequence will "just work".
 
@@ -393,7 +401,7 @@ forward their X connection to the remote server, allowing Vim on the remote
 server to copy text to the X clipboard on the local system. And while this
 does _work_, it has its own problems (users must use a version of Vim compiled
 against X11, with the optional `+clipboard` feature enabled, and use X11 as
-their window manager, and remember to forward the X connection to the remote
+their display server, and remember to forward the X connection to the remote
 system).
 
 A better solution is to copy data to the clipboard through the terminal
@@ -401,8 +409,8 @@ emulator directly. An application running in the terminal can use the OSC 52
 escape sequence to write a Base64 encoded string to the terminal emulator. The
 terminal then decodes the string and copies the data into the system
 clipboard. The terminal emulator does not know or care whether the application
-that sent the sequence is running in a remote SSH session or not, which means
-this works from _any_ editor on _any_ system with zero dependencies.
+that sent the sequence is running remotely or not, which means this works on
+_any_ system with zero dependencies.
 
 Pasting (reading) from the clipboard has serious security implications,
 because any program in the terminal (even ones on remote servers) can request
@@ -421,6 +429,17 @@ and quirky, their portability, ubiquity, and relative ease of use (for
 application authors) makes them increasingly popular for many developers, even
 in the face of an increasing number of alternatives.
 
+This article is not exhaustive, but it is not meant to be. There are other
+challenges that both terminal emulator and terminal application authors face
+that are not discussed here, as well as other areas of innovation and creative
+exploration. Some examples: [better grapheme clustering][graphemes],
+[synchronized output][sync] to avoid "flickering" in redraw-heavy UIs, and
+[custom shaders][shaders] to create arbitrary visual effects.
+
+[graphemes]: https://mitchellh.com/writing/grapheme-clusters-in-terminals
+[sync]: https://gist.github.com/christianparpart/d8a62cc1ab659194337d73e399004036
+[shaders]: https://twitter.com/mitchellh/status/1724649962397646900
+
 Terminal emulators are not static: they continue to evolve and innovate to
 solve users' problems and improve users' experience. The underlying technology
 is old: downright ancient by the standards of modern tech. But, instead of a
@@ -435,6 +454,7 @@ terminal emulators may come and go, the underlying platform will endure.
 * [Understanding ASCII (and terminals)](https://bestasciitable.com)
 * [Comprehensive keyboard handling in terminals][kkp]
 * [Fix Keyboard Input on Terminals - Please][fixterms]
+* [Grapheme Clusters and Terminal Emulators][graphemes]
 
 <!------>
 
