@@ -107,18 +107,18 @@ changes:
 ```go
 filterInput.SetChangedFunc(func(text string) {
 	go app.QueueUpdateDraw(func() {
-			errorView.Clear()
-			doc.filter = text
-			outputView.ScrollToBeginning()
-			_, err := doc.WriteTo(outputView)
-			if err != nil {
-					exitErr, ok := err.(*exec.ExitError)
-					if ok {
-							fmt.Fprint(tview.ANSIWriter(errorView), string(exitErr.Stderr))
-					}
-
-					return
+		errorView.Clear()
+		doc.filter = text
+		outputView.ScrollToBeginning()
+		_, err := doc.WriteTo(outputView)
+		if err != nil {
+			exitErr, ok := err.(*exec.ExitError)
+			if ok {
+				fmt.Fprint(tview.ANSIWriter(errorView), string(exitErr.Stderr))
 			}
+
+			return
+		}
 	})
 })
 ```
