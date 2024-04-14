@@ -20,7 +20,7 @@ As I said, it's a big release, and I won't write about everything, but these
 are some of the highlights.
 
 [release notes]: TBD
-[0.7]: {{< relref "blog/whats-new-in-neovim-0.7" >}}
+[0.7]: {{< relref "blog/whats-new-in-neovim-0-7" >}}
 
 ## Table of Contents
 
