@@ -63,21 +63,12 @@ does, hopefully, improve the default experience for many people.
 
 ### LSP and Diagnostics Mappings
 
-Nvim 0.10 adds [default mappings][#28500] and options for some common LSP
-functions (these are in addition to the existing defaults mentioned in `:h
-lsp-defaults`):
+Nvim 0.10 creates a new [default mapping][#24331] (in addition to the existing
+defaults mentioned in `:h lsp-defaults`):
 
 * `K` in Normal mode maps to `vim.lsp.buf.hover()` unless `'keywordprg'` is
   already set to a non-default value. Use this to view information about the
   function or variable under the cursor.
-* `crn` in Normal mode maps to `vim.lsp.buf.rename()`. Use this to rename the
-  identifier under the cursor.
-* `crr` in Normal mode and `<C-R>r` (or `<C-R><C-R>`) in Visual mode maps to
-  `vim.lsp.buf.code_action()`.
-* `gr` in Normal mode maps to `vim.lsp.buf.references()`. Use this to find
-  references to the identifier under the cursor.
-* `<C-S>` in Insert mode maps to `vim.lsp.buf.signature_help()`. Use this to
-  display the signature of a function in a floating window.
 
 In addition, there are new [default mappings][#16230] for navigating diagnostics:
 
@@ -88,30 +79,25 @@ In addition, there are new [default mappings][#16230] for navigating diagnostics
   `vim.diagnostic.open_float()`. Use this to view information about any
   diagnostics under the cursor in a floating window.
 
-The `cr` prefix has the mnemonic of "**c**ode **r**efactor". This slots in
-nicely alongside Tim Pope's [vim-abolish][] plugin which also provides some
-`cr` prefixed mappings to change the "case" style of identifiers (e.g.
-`snake_case` to `PascalCase`).
-
-`gr` and the diagnostics mappings override builtin mappings. These builtin
-mappings are not often used, but if you _do_ use them you can delete the new
-default mappings with `vim.keymap.del()` or `:unmap`.
+The diagnostics mappings override builtin mappings. These builtin mappings are
+not often used, but if you _do_ use them you can delete the new default
+mappings with `vim.keymap.del()` or `:unmap`.
 
 The intention behind providing more default mappings is to make it easier to
-get started with LSP in Neovim. You may also notice that the instructions in
-the [nvim-lspconfig][] repo have been substantially pared down and reduced.
-The hope is that most users should be able to get up and running with useful
-LSP features with little to no configuration and without needing to write a
-bunch of Lua code.
+get started with LSP in Neovim. The hope is that most users should be able to
+get up and running with useful LSP features with little to no configuration
+and without needing to write a bunch of Lua code. We have plans to add more
+defaults in future releases, though as you might imagine this is a fraught
+exercise. It is quite difficult to change default behavior in a tool as
+extensible and customizable as Nvim without breaking users'
+[workflows](https://xkcd.com/1172/).
 
 Two features which many users rely on for their LSP experience are snippets
 support and completion. Both of these features are on the roadmap to be
-included in Nvim core (related: [#27339][], [#25696][], [#25670][]) which
+included in Nvim core (see [#27339][], [#25696][], and [#25670][]) which
 will, hopefully, make the experience of using LSP in Neovim even smoother in
 the future.
 
-[vim-abolish]: https://github.com/tpope/vim-abolish
-[#28500]: https://github.com/neovim/neovim/pull/28500
 [#16230]: https://github.com/neovim/neovim/pull/16230
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [#27339]: https://github.com/neovim/neovim/pull/27339
