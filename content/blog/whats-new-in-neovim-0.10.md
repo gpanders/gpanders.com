@@ -306,3 +306,10 @@ Thanks for reading and for using Neovim! Hopefully the next update will come a
 little sooner.
 
 [Neovim matrix room]: https://matrix.to/#/#neovim:matrix.org
+
+# One Last Thing
+
+The Neovim project now has a merch [store](https://store.neovim.io/)! If you
+didn't know that you needed a Neovim branded hoodie or mug, now you do. All
+proceeds raised from the store are used to fund project needs and sponsor
+full-time development work.
