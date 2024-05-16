@@ -91,7 +91,7 @@ extensible and customizable as Nvim without breaking users'
 [workflows](https://xkcd.com/1172/).
 
 Two features which many users rely on for their LSP experience are snippets
-support and completion. Both of these features are on the roadmap to be
+support and autocompletion. Both of these features are on the roadmap to be
 included in Nvim core (see [#27339][], [#25696][], and [#25670][]) which
 will, hopefully, make the experience of using LSP in Neovim even smoother in
 the future.
