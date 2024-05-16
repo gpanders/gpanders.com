@@ -33,7 +33,7 @@ are some of the highlights.
 ### Colorscheme
 
 Nvim has been in need of a new default colorscheme for a long time. While the
-default colors have some charm and nostalgia, there are serious accessbility
+default colors have some charm and nostalgia, there are serious accessibility
 and aesthetic issues, particular when using Nvim is a diff viewer. The
 screenshot below shows the default colorscheme before Nvim 0.10:
 
@@ -298,7 +298,7 @@ Neovim user, I encourage you to get involved, whether that is through
 contributing directly to the Neovim project or a plugin, or simply
 participating in community spaces such as the [Neovim Matrix room][]. If you
 have pain points or frustrations when using Neovim, please let us know. Many
-of us on the core maintainance team have been using Vim/Nvim for so long that
+of us on the core maintenance team have been using Vim/Nvim for so long that
 we've forgotten what it's like to be a beginner and, speaking for myself at
 least, this can leave blind spots on how things can be improved.
 
