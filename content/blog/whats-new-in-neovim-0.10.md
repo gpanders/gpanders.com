@@ -15,7 +15,7 @@ Like [last time][0.7], in this post I'll cover a subset of the new features.
 As I said, it's a big release, and I won't write about everything, but these
 are some of the highlights.
 
-[release notes]: https://neovim.io/doc/user/news.html
+[release notes]: https://neovim.io/doc/user/news-0.10.html
 [0.7]: {{< relref "blog/whats-new-in-neovim-0-7" >}}
 
 ## Table of Contents
