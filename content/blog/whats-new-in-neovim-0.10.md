@@ -1,32 +1,28 @@
 ---
 title: "What's New in Neovim 0.10"
-date: 2024-05-07
+date: 2024-05-16
 tags: [neovim]
-draft: true
 ---
 
 Neovim 0.10 was the longest release cycle since the heady days of the 0.5
 release. There are a ton of new features in this release (as well as some
-breaking changes, so be sure to check the full [release notes][]!)
-
-Also be sure to check out `:h news` when upgrading! This is a builtin version
-of the release notes that was updated (by hand) continuously throughout the
-release cycle. The news file includes information on new features,
-deprecations, and breaking changes. I especially urge plugin authors to read
-this file carefully.
+breaking changes), so be sure to check the full [release notes][]. You can
+view the release notes directly in Nvim with `:h news`. The news file includes
+information on new features, deprecations, and breaking changes. I especially
+urge plugin authors to read this file carefully.
 
 Like [last time][0.7], in this post I'll cover a subset of the new features.
 As I said, it's a big release, and I won't write about everything, but these
 are some of the highlights.
 
-[release notes]: TBD
+[release notes]: https://neovim.io/doc/user/news.html
 [0.7]: {{< relref "blog/whats-new-in-neovim-0-7" >}}
 
 ## Table of Contents
 
 * [Defaults](#defaults)
 * [Builtin commenting](#builtin-commenting)
-* [Terminal UI enhancements](#terminal-enhancements)
+* [Terminal UI enhancements](#terminal-ui-enhancements)
 * [LSP inlay hints](#lsp-inlay-hints)
 * [Tree-sitter query editor](#tree-sitter-query-editor)
 * [Miscellaneous](#miscellaneous)
@@ -37,9 +33,9 @@ are some of the highlights.
 ### Colorscheme
 
 Nvim has been in need of a new default colorscheme for a long time. While the
-default colors indeed have some charm and nostalgia, there are serious
-accessbility and aesthetic issues, particular when using Nvim is a diff
-viewer. The screenshot below shows the default colorscheme before Nvim 0.10:
+default colors have some charm and nostalgia, there are serious accessbility
+and aesthetic issues, particular when using Nvim is a diff viewer. The
+screenshot below shows the default colorscheme before Nvim 0.10:
 
 {{< figure src="/img/nvim-colorscheme-old.png"
            alt="Neovim's default colorscheme before 0.10" >}}
@@ -50,27 +46,29 @@ Nvim 0.10 now ships with a new default colorscheme, which you can see below:
            alt="Neovim's new default colorscheme" >}}
 
 The new default colorscheme was heroically contributed by [Evgeni
-Chasnovski][@echasnovski], who endured endless bikeshedding and successfully
-navigated the treacherous waters of Opinion. There were many constraints
-imposed on the design of the colorscheme, which you can read in the
-[PR][#26334] (and the many follow up PRs and issues linked therein). It is
-quite literally impossible to please _everyone_ with a single colorscheme, and
-there is no expectation that we have achieved that, but the new colorscheme
-does, hopefully, improve the default experience for many people.
+Chasnovski][@echasnovski], who endured seemingly endless bikeshedding and
+successfully navigated the treacherous waters of such a subjective change.
+There were many constraints imposed on the design of the colorscheme, which
+you can read in the [PR][#26334] (and the many follow up PRs and issues linked
+therein). It is quite literally impossible to please _everyone_ with a single
+colorscheme, and there is no expectation that we have achieved that, but the
+new colorscheme does, hopefully, improve the default experience for many
+people.
 
 [@echasnovski]: https://github.com/echasnovski
 [#26334]: https://github.com/neovim/neovim/pull/26334
 
 ### LSP and Diagnostics Mappings
 
-Nvim 0.10 creates a new [default mapping][#24331] (in addition to the existing
-defaults mentioned in `:h lsp-defaults`):
+Nvim 0.10 adds a new [default mapping][#24331]: `K` in Normal mode maps to
+`vim.lsp.buf.hover()` whenever a buffer attaches to an LSP client, unless
+`'keywordprg'` is already set to a non-default value. Use this to view
+information about the function or variable under the cursor. This in addition
+to the existing defaults mentioned in `:h lsp-defaults` which were added in
+the previous release.
 
-* `K` in Normal mode maps to `vim.lsp.buf.hover()` unless `'keywordprg'` is
-  already set to a non-default value. Use this to view information about the
-  function or variable under the cursor.
-
-In addition, there are new [default mappings][#16230] for navigating diagnostics:
+In addition, there are new [default mappings][#16230] for navigating
+diagnostics:
 
 * `[d` and `]d` in Normal mode map to `vim.diagnostic.goto_prev()` and
   `vim.diagnostic.goto_next()`, respectively. Use these to navigate between
@@ -98,6 +96,7 @@ included in Nvim core (see [#27339][], [#25696][], and [#25670][]) which
 will, hopefully, make the experience of using LSP in Neovim even smoother in
 the future.
 
+[#24331]: https://github.com/neovim/neovim/pull/24331
 [#16230]: https://github.com/neovim/neovim/pull/16230
 [nvim-lspconfig]: https://github.com/neovim/nvim-lspconfig
 [#27339]: https://github.com/neovim/neovim/pull/27339
@@ -167,8 +166,8 @@ get an experience much closer to the rendered output:
 {{< figure src="/img/nvim-readme.png"
            alt="Screenshot of the Neovim README opened in Nvim" >}}
 
-Note that the underlined words in the screenshot are clickable link text, just
-as you would find in a web browser.
+In the screenshot above, the underlined words are clickable link text, just as
+you would find in a web browser.
 
 ### Automatic truecolor detection
 
@@ -217,10 +216,13 @@ new queries a breeze. Example:
 {{< figure src="/img/nvim-query-editor.png"
            alt="Screenshot of the :EditQuery command in Nvim" >}}
 
-Notice that the text that is matched by the query is highlighted in the source
-buffer and that the text **identifier** (the capture group I used in my query)
-is floating on the line next to the match. As I update my query in the editor,
-the corresponding highlights in the source buffer change in real time.
+In the screenshot above, the query editor is open in the top-right window, the
+tree inspector is in the bottom-right window, and the source buffer is in the
+left window. Notice that the text that is matched by the query in the query
+editor is highlighted in the source buffer and that the text **initializer**
+(the capture group used in the query) is floating on the line next to the
+match. As the query is updated in the editor, the corresponding highlights in
+the source buffer change in real time.
 
 The query editor can be opened by pressing `o` in the `:InspectTree` window,
 with the `:EditQuery` command, or by calling `vim.treesitter.query.edit()`
@@ -250,38 +252,17 @@ more that I personally think are worth mentioning:
   on macOS or `xdg-open` on Linux). For instance, pressing `gx` on a URL will
   open that URL in your browser.
 
-* The LSP client capability `workspace/didChangeWatchedFiles` is enabled by
-  default. This may cause performance issues on Linux due to limitations with
-  the file watching API in libuv. For best results on Linux, install
-  `fswatch`. If installed, Nvim will use `fswatch` to implement the file
-  watching capability automatically.
+* Tree-sitter based syntax highlighting is enabled by default for Lua, Vimdoc
+  (`:help`), and Tree-sitter queries (to revert to traditional regex
+  based syntax highlighting, create a `FileType` autocommand or `ftplugin`
+  with `vim.treesitter.stop()` for the respective filetype).
 
-* `Q` and `@` in Visual mode will execute the last record/executed macro for
+* `Q` and `@` in Visual mode will execute the last recorded/executed macro for
   all visually selected lines.
 
 * Users using a terminal emulator that supports the Kitty keyboard protocol
   can create mappings using the "super" and "meta" modifiers with the `<D-`
   and `<T-` prefixes, respectively (e.g. `<D-S>` is `Cmd+S` on macOS).
-
-<!--
-## New 'winfixbuf' option
-
-It often happens that a Nvim user or contributor first adds a new feature to
-Vim (Nvim's "upstream") and, if it is accepted in Vim, ports it to Nvim.
-That is what happened with the `'winfixbuf'` feature, which was implemented
-first in [Vim][vim#13903] and later ported to [Nvim][nvim#27738], both by the
-same contributor (GitHub user [@ColinKennedy][]).
-
-This feature forces a buffer to "stick" to a certain window and displays an
-error if any command or motion would cause the window's buffer to change. This
-is useful for things like terminal windows, when you may want a single window
-to only ever display a `:terminal` buffer, or for special "status" windows
-created by plugins (e.g. vim-fugitive's `:Git` command).
-
-[vim#13903]: https://github.com/vim/vim/pull/13903
-[nvim#27738]: https://github.com/neovim/neovim/pull/27738
-[@ColinKennedy]: https://github.com/ColinKennedy
--->
 
 ## Roadmap
 
