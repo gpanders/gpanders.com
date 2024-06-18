@@ -5,7 +5,7 @@ date: 2024-03-12
 
 _This is a companion article to [my talk][talk] at Neovimconf 2023_.
 
-[talk]: https://vimeo.com/896237832?share=copy
+[talk]: https://www.youtube.com/watch?v=N7QX9XlLljM
 
 * * *
 
