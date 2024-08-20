@@ -5,13 +5,14 @@ type: about
 
 Hi, I'm Gregory.
 
-I work as an embedded software engineer for [Reliable Robotics][reliable]
-enabling safety-enhancing advanced autopilot.
-Before that, I worked at [Sandia National Labs][sandia] on [heterogenous
-computing platforms][patent] for satellite payloads.
+I'm a systems and embedded software engineer currently working at Cloudflare.
+I previously worked for [Reliable Robotics][reliable] enabling
+safety-enhancing advanced autopilot and [Sandia National Labs][sandia]
+building [heterogenous compute platforms][patent] for satellite payloads.
 
 I'm a core maintainer of [Neovim][neovim], a fork of the popular Vim text
-editor.
+editor and the "most loved" editor [3][so1] [years][so2] [in][so3] a
+row according to the StackOverflow developer survey.
 
 You can find me on [GitHub][github], [Mastodon][mastodon],
 [Sourcehut][sourcehut] or as `gpanders` everywhere online (Matrix, IRC,
@@ -27,8 +28,11 @@ feedback, or questions!
 
 [reliable]: https://reliable.co
 [sandia]: https://www.sandia.gov
-[patent]: https://ppubs.uspto.gov/dirsearch-public/print/downloadPdf/11314508
+[patent]: https://patents.google.com/patent/US11314508B1
 [neovim]: https://neovim.io
+[so1]: https://survey.stackoverflow.co/2021/#section-most-loved-dreaded-and-wanted-collaboration-tools
+[so2]: https://survey.stackoverflow.co/2022/#section-most-loved-dreaded-and-wanted-integrated-development-environment
+[so3]: https://survey.stackoverflow.co/2023/#section-admired-and-desired-integrated-development-environment
 [source]: https://git.sr.ht/~gpanders/gpanders.com
 [ko-fi]: https://ko-fi.com/gpanders
 [projects]: /projects
