@@ -15,7 +15,7 @@ editor and the "most loved" editor [3][so1] [years][so2] [in][so3] a
 row according to the StackOverflow developer survey.
 
 You can find me on [GitHub][github], [Mastodon][mastodon],
-[Sourcehut][sourcehut] or as `gpanders` everywhere online (Matrix, IRC,
+[Bluesky][bluesky], or as `gpanders` everywhere online (Matrix, IRC,
 etc).
 
 This site is built with Hugo. It is [open source][source], ad-free, and
@@ -35,7 +35,6 @@ feedback, or questions!
 [so3]: https://survey.stackoverflow.co/2023/#section-admired-and-desired-integrated-development-environment
 [source]: https://git.sr.ht/~gpanders/gpanders.com
 [ko-fi]: https://ko-fi.com/gpanders
-[projects]: /projects
-[sourcehut]: https://sr.ht/~gpanders
+[bluesky]: https://bsky.app/profile/gpanders.com
 [github]: https://github.com/gpanders
 [mastodon]: https://hachyderm.io/@gpanders
