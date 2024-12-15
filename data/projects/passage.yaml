@@ -1,6 +1,6 @@
 title: passage
 summary: Command line password manager without PGP
-href: https://sr.ht/~gpanders/passage
+href: https://codeberg.org/gpanders/passage
 featured: true
 description: >
   `passage` is a command-line password manager in the spirit of

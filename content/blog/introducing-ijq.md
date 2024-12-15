@@ -33,4 +33,4 @@ You can get `ijq` over on [sourcehut][].
 [jq]: https://stedolan.github.io/jq/
 [vim-jqplay]: https://github.com/bfrg/vim-jqplay
 [jqplay]: https://jqplay.org
-[sourcehut]: https://sr.ht/~gpanders/ijq/
+[sourcehut]: https://codeberg.org/gpanders/ijq/

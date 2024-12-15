@@ -23,7 +23,7 @@ have a stable 1.0 release. While at this point the language itself is fairly
 stable, the standard library often has breaking changes. I'll do my best to
 keep the code in this article up-to-date, but be warned that it may not work by
 the time you read it. You can find the full source code on
-[sourcehut](https://git.sr.ht/~gpanders/macho).
+[sourcehut](https://codeberg.org/gpanders/macho).
 
 First things first, let's bootstrap an executable:
 

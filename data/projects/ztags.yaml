@@ -1,6 +1,6 @@
 title: ztags
 summary: Generate tags files for Zig source code
-href: https://git.sr.ht/~gpanders/ztags
+href: https://codeberg.org/gpanders/ztags
 featured: true
 description: >
   `ztags` generates tags files for Zig source code. Unlike

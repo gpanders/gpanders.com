@@ -14,7 +14,7 @@ The original solution in the post below is, frankly, a rather unsophisticated
 way of solving this problem. If you don't want to use [pushbroom][1],
 [Thoughtbot][2] has another solution that utilizes Apple's launchd utility.
 
-[1]: https://sr.ht/~gpanders/pushbroom
+[1]: https://codeberg.org/gpanders/pushbroom
 [2]: https://thoughtbot.com/blog/example-writing-a-launch-agent-for-apples-launchd
 
 ---

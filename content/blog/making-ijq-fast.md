@@ -12,7 +12,7 @@ recording I am displaying my key presses to show just how unresponsive
 ijq is:
 
 [issue report]: https://todo.sr.ht/~gpanders/ijq/10
-[ijq]: https://sr.ht/~gpanders/ijq/
+[ijq]: https://codeberg.org/gpanders/ijq/
 
 {{< video src="/media/ijq_old_and_slow.mp4" type="video/mp4" >}}
 
@@ -180,7 +180,7 @@ This change was added (by [me][1d73d4c]) over 3 years ago, because it
 implementation (no doubt that it did: when everything is on the main thread
 there are no race conditions).
 
-[1d73d4c]: https://git.sr.ht/~gpanders/ijq/commit/1d73d4c407023340cad50dc995122856bbe881b5
+[1d73d4c]: https://codeberg.org/gpanders/ijq/commit/1d73d4c407023340cad50dc995122856bbe881b5
 
 The second important problem is in the `WriteTo` implementation above. This
 function uses the [`CombinedOutput`][CombinedOutput] function to get both
@@ -204,7 +204,7 @@ to redraw the application when the output view changes. With this change ijq
 immediately becomes more responsive. User input is never blocked on the jq
 process.
 
-[ef1dc6b]: https://git.sr.ht/~gpanders/ijq/commit/ef1dc6b182f8e6ca81da0b83ec9bee4c5c3f428e
+[ef1dc6b]: https://codeberg.org/gpanders/ijq/commit/ef1dc6b182f8e6ca81da0b83ec9bee4c5c3f428e
 
 This is suboptimal though, because a new jq process is spawned on every input
 change. We should be able to cancel old processes when the input changes, and

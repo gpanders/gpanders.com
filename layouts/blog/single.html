@@ -7,7 +7,7 @@
     {{ .Content }}
   </div>
   {{ with .GitInfo }}
-  <p class="lastmod"><a href="https://git.sr.ht/~gpanders/gpanders.com/commit/{{ .Hash }}">Last modified on <time class="dt-updated" datetime="{{ .AuthorDate.Format "2006-01-02T00:00:00Z00:00" }}">{{ .AuthorDate.Format "January 2, 2006" }}</time></a></p>
+  <p class="lastmod"><a href="https://codeberg.org/gpanders/gpanders.com/commit/{{ .Hash }}">Last modified on <time class="dt-updated" datetime="{{ .AuthorDate.Format "2006-01-02T00:00:00Z00:00" }}">{{ .AuthorDate.Format "January 2, 2006" }}</time></a></p>
   {{ end }}
 </article>
 

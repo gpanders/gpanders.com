@@ -118,7 +118,7 @@ soon), but you can also use something like [The Archive][] or [nvALT][].
 
 [Zettelkasten.de]: https://zettelkasten.de/
 [MultiMarkdown]: https://fletcherpenney.net/multimarkdown/
-[wk]: https://sr.ht/~gpanders/wk/
+[wk]: https://codeberg.org/gpanders/wk/
 [The Archive]: https://zettelkasten.de/the-archive/
 [no-categories]: https://zettelkasten.de/posts/no-categories/
 [nvALT]: https://brettterpstra.com/projects/nvalt/

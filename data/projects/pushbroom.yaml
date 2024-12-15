@@ -1,6 +1,6 @@
 title: pushbroom
 summary: Sweep your filesystem clear of clutter
-href: https://sr.ht/~gpanders/pushbroom
+href: https://codeberg.org/gpanders/pushbroom
 featured: true
 description: >
   `pushbroom` is a simple script that automatically removes old files from

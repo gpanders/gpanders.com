@@ -1,6 +1,6 @@
 title: wk
 summary: Command line tool to manage a personal wiki
-href: https://git.sr.ht/~gpanders/wk
+href: https://codeberg.org/gpanders/wk
 featured: true
 description: >
   `wk` is a simple command line tool inspired by the Zettelkasten note-taking

@@ -162,4 +162,4 @@ You can also find the full implementation [on sourcehut][].
 [options Hugo suggests]: https://gist.github.com/eddiewebb/735feb48f50f0ddd65ae5606a1cb41ae
 [regexp escape]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
 [contact me]: mailto:contact@gpanders.com
-[on sourcehut]: https://git.sr.ht/~gpanders/gpanders.com/tree/6542d722c52a07efdf5096ac5a4278456c3d9a79/assets/js/search.js
+[on sourcehut]: https://codeberg.org/gpanders/gpanders.com/src/commit/6542d722c52a07efdf5096ac5a4278456c3d9a79/assets/js/search.js

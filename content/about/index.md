@@ -33,7 +33,7 @@ feedback, or questions!
 [so1]: https://survey.stackoverflow.co/2021/#section-most-loved-dreaded-and-wanted-collaboration-tools
 [so2]: https://survey.stackoverflow.co/2022/#section-most-loved-dreaded-and-wanted-integrated-development-environment
 [so3]: https://survey.stackoverflow.co/2023/#section-admired-and-desired-integrated-development-environment
-[source]: https://git.sr.ht/~gpanders/gpanders.com
+[source]: https://codeberg.org/gpanders/gpanders.com
 [ko-fi]: https://ko-fi.com/gpanders
 [bluesky]: https://bsky.app/profile/gpanders.com
 [github]: https://github.com/gpanders

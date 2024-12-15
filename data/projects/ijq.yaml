@@ -1,6 +1,6 @@
 title: ijq
 summary: Interactive jq
-href: https://sr.ht/~gpanders/ijq/
+href: https://codeberg.org/gpanders/ijq/
 featured: true
 description: >
   `ijq` is a command-line utility that provides an interactive interface to `jq`,
