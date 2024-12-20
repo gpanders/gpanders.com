@@ -1,7 +1,6 @@
 ---
 title: "Ghostty Is Native—So What?"
-date: 2024-12-19T18:49:16-06:00
-unlisted: true
+date: 2024-12-20
 ---
 
 [Ghostty][ghostty] is a new terminal emulator by Mitchell Hashimoto. While a
