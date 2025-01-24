@@ -1,6 +1,6 @@
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'
+  Content-Security-Policy: default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
 
@@ -10,4 +10,4 @@
   Cache-Control: max-age=3600
 
 /blog/introducing-ijq
-  Content-Security-Policy: default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' https://asciinema.org
+  Content-Security-Policy: default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' https://asciinema.org
