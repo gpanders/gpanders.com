@@ -78,7 +78,7 @@ Use `:checkhealth lsp` to view LSP related diagnostics and to view all of your c
 
 ### Builtin auto-completion
 
-Another big feature coming to LSP in this release is builtin auto-completion. Neovim has long had manual completion (inherited from Vim) and in the prior release, we set the default [omnifunc][omnifunc] to use LSP completion sources, so users could manually trigger LSP completion using `<C-X><C-O>`. In this release we take this a step further by providing opt-in auto-completion from LSP sources. Credit goes to [Mathias Fußenegger](https://zignar.net) ([@mfussenegger](https://github.com/mfussenegger/) on GitHub) for writing the original implementation in his [nvim-lsp-compl](https://github.com/mfussenegger/nvim-lsp-compl) plugin.
+Another big feature coming to LSP in this release is builtin auto-completion. Neovim has long had manual completion (inherited from Vim) and in the prior release, we set the default [omnifunc][omnifunc] to use LSP completion sources, so users could manually trigger LSP completion using `<C-X><C-O>`. In this release we take this a step further by providing opt-in auto-completion from LSP sources. Credit goes to [Mathias Fußenegger](https://zignar.net) ([@mfussenegger](https://github.com/mfussenegger/) on GitHub) for writing the original implementation in his [nvim-lsp-compl](https://github.com/mfussenegger/nvim-lsp-compl) plugin and to Maria José Solano ([@MariaSolOs](https://github.com/MariaSolOs)) for porting to Neovim (and for various other improvements).
 
 Auto-completion can be enabled using the `vim.lsp.completion.enable()` function. Example:
 
