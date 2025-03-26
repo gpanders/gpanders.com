@@ -7,7 +7,7 @@ date: 2025-03-26
 
 [0.7]: https://gpanders.com/blog/whats-new-in-neovim-0-7/
 [0.10]: https://gpanders.com/blog/whats-new-in-neovim-0.10/
-[release notes]: https://neovim.io/doc/user/news.html
+[release notes]: https://neovim.io/doc/user/news-0.11.html
 
 ## Table of Contents
 
