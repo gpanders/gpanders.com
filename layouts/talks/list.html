@@ -3,8 +3,10 @@
 {{ range .Site.Data.talks }}
   <p class="heading p-name"><a href="{{ .href }}">{{ .title }}</a></p>
   <span class="subheading">
-    {{ .context }}
-    •
+    {{ if .context }}
+      {{ .context }}
+      •
+    {{ end }}
     {{ with .date | time.AsTime }}
     <time class="dt-published" datetime="{{ .Format "2006-01-02T15:04:05Z07:00" }}">
       {{ .Format "January 2, 2006" }}
