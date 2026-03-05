@@ -12,3 +12,6 @@
 
 /blog/introducing-ijq
   Content-Security-Policy: default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' https://asciinema.org
+
+/blog/the-birthday-problem
+  Content-Security-Policy: default-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-8S1XWfApyYBGTRzR9CQ2UBCcYX34oUCUVY/1zndCEd4='
