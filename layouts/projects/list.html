@@ -1,6 +1,6 @@
 {{ define "main" }}
 
-{{ range .Site.Data.projects }}
+{{ range hugo.Data.projects }}
   {{ if .featured }}
     <p class="heading p-name"><a href="{{ .href }}">{{ .title }}</a></p>
     {{ if .description }}

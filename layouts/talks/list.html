@@ -1,6 +1,6 @@
 {{ define "main" }}
 
-{{ range .Site.Data.talks }}
+{{ range hugo.Data.talks }}
   <p class="heading p-name"><a href="{{ .href }}">{{ .title }}</a></p>
   <span class="subheading">
     {{ if .context }}
