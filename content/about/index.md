@@ -14,10 +14,6 @@ I'm a core maintainer of [Neovim][neovim], a fork of the popular Vim text
 editor and the "most loved" editor [3][so1] [years][so2] [in][so3] a
 row according to the StackOverflow developer survey.
 
-You can find me on [GitHub][github], [Mastodon][mastodon],
-[Bluesky][bluesky], or as `gpanders` everywhere online (Matrix, IRC,
-etc).
-
 This site is built with Hugo. It is [open source][source], ad-free, and
 tracker-free. If you'd like to show your support or appreciation for my work,
 you can [buy me a coffee][ko-fi]!
@@ -33,7 +29,7 @@ feedback, or questions!
 [so1]: https://survey.stackoverflow.co/2021/#section-most-loved-dreaded-and-wanted-collaboration-tools
 [so2]: https://survey.stackoverflow.co/2022/#section-most-loved-dreaded-and-wanted-integrated-development-environment
 [so3]: https://survey.stackoverflow.co/2023/#section-admired-and-desired-integrated-development-environment
-[source]: https://codeberg.org/gpanders/gpanders.com
+[source]: https://github.com/gpanders/gpanders.com
 [ko-fi]: https://ko-fi.com/gpanders
 [bluesky]: https://bsky.app/profile/gpanders.com
 [github]: https://github.com/gpanders
