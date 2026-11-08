@@ -1,0 +1,69 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "plugins": ["eslint", "typescript", "unicorn", "oxc", "import", "promise"],
+    "categories": {
+        "correctness": "error",
+        "suspicious": "error",
+        "perf": "error"
+    },
+    "ignorePatterns": ["worker-configuration.d.ts", "*.tpl.js"],
+    "rules": {
+        "curly": ["error", "all"],
+        "eqeqeq": "error",
+        "no-var": "error",
+        "prefer-const": "error",
+        "no-param-reassign": "error",
+        "no-nested-ternary": "error",
+        "no-implicit-coercion": "error",
+        "no-empty": "error",
+        "no-console": ["error", { "allow": ["log", "warn", "error"] }],
+
+        "typescript/no-explicit-any": "error",
+        "typescript/no-non-null-assertion": "error",
+        "typescript/ban-ts-comment": "error",
+        "typescript/consistent-type-imports": "error",
+        "typescript/consistent-type-assertions": [
+            "error",
+            { "assertionStyle": "as", "objectLiteralTypeAssertions": "never" }
+        ],
+        "typescript/no-empty-object-type": "error",
+        "typescript/no-unsafe-function-type": "error",
+        "typescript/no-namespace": "error",
+        "typescript/no-inferrable-types": "error",
+        "typescript/prefer-ts-expect-error": "error",
+
+        "typescript/await-thenable": "error",
+        "typescript/no-floating-promises": "error",
+        "typescript/no-misused-promises": "error",
+        "typescript/require-await": "error",
+        "typescript/return-await": ["error", "always"],
+        "typescript/only-throw-error": "error",
+        "typescript/prefer-promise-reject-errors": "error",
+        "typescript/no-unsafe-argument": "error",
+        "typescript/no-unsafe-assignment": "error",
+        "typescript/no-unsafe-call": "error",
+        "typescript/no-unsafe-member-access": "error",
+        "typescript/no-unsafe-return": "error",
+        "typescript/no-unsafe-type-assertion": "error",
+        "typescript/no-unnecessary-type-assertion": "error",
+        "typescript/no-unnecessary-condition": "error",
+        "typescript/no-unnecessary-type-parameters": "error",
+        "typescript/no-redundant-type-constituents": "error",
+        "typescript/no-deprecated": "error",
+        "typescript/no-base-to-string": "error",
+        "typescript/restrict-template-expressions": "error",
+        "typescript/restrict-plus-operands": "error",
+        "typescript/strict-boolean-expressions": "error",
+        "typescript/switch-exhaustiveness-check": "error",
+        "typescript/prefer-nullish-coalescing": "error",
+        "typescript/prefer-optional-chain": "error",
+        "typescript/use-unknown-in-catch-callback-variable": "error",
+
+        "unicorn/throw-new-error": "error",
+        "unicorn/prefer-number-properties": "error",
+        "unicorn/no-useless-undefined": "error",
+
+        "import/no-cycle": "error",
+        "import/no-duplicates": "error"
+    }
+}

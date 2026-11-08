@@ -10,26 +10,26 @@ timeZone = "UTC"
 [taxonomies]
 
 [params]
-  css = ["css/syntax/light.css", "css/syntax/dark.css"]
-  description = "Personal website for Gregory Anders"
-  width = "65rem"
+css = ["css/syntax/light.css", "css/syntax/dark.css"]
+description = "Personal website for Gregory Anders"
+width = "65rem"
 
 [params.author]
-  name = "Gregory Anders"
-  email = "contact@gpanders.com"
-  homepage = "https://gpanders.com"
+name = "Gregory Anders"
+email = "contact@gpanders.com"
+homepage = "https://gpanders.com"
 
 [[menu.nav]]
-  name = "Blog"
-  url = "/"
-  weight = 1
+name = "Blog"
+url = "/"
+weight = 1
 
 [[menu.nav]]
-  name = "Talks"
-  url = "/talks"
-  weight = 2
+name = "Talks"
+url = "/talks"
+weight = 2
 
 [[menu.nav]]
-  name = "About"
-  url = "/about"
-  weight = 3
+name = "About"
+url = "/about"
+weight = 3

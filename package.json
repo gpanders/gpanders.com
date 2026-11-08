@@ -1,0 +1,12 @@
+{
+    "name": "gpanders.com",
+    "private": true,
+    "type": "module",
+    "devDependencies": {
+        "oxfmt": "^0.77.0",
+        "oxlint": "^1.92.0",
+        "typescript": "^7.0.2",
+        "wrangler": "^4.158.0"
+    },
+    "packageManager": "pnpm@12.18.0"
+}
