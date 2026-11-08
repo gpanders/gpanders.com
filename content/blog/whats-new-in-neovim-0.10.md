@@ -37,12 +37,12 @@ default colors have some charm and nostalgia, there are serious accessibility
 and aesthetic issues, particular when using Nvim is a diff viewer. The
 screenshot below shows the default colorscheme before Nvim 0.10:
 
-{{< figure src="/img/nvim-colorscheme-old.png"
+{{< figure src="/media/nvim-colorscheme-old.png"
            alt="Neovim's default colorscheme before 0.10" >}}
 
 Nvim 0.10 now ships with a new default colorscheme, which you can see below:
 
-{{< figure src="/img/nvim-colorscheme-new.png"
+{{< figure src="/media/nvim-colorscheme-new.png"
            alt="Neovim's new default colorscheme" >}}
 
 The new default colorscheme was heroically contributed by [Evgeni
@@ -163,7 +163,7 @@ browser.
 This means that users can view Markdown files with `:set conceallevel=2` and
 get an experience much closer to the rendered output:
 
-{{< figure src="/img/nvim-readme.png"
+{{< figure src="/media/nvim-readme.png"
            alt="Screenshot of the Neovim README opened in Nvim" >}}
 
 In the screenshot above, the underlined words are clickable link text, just as
@@ -182,7 +182,7 @@ connections and when inside a terminal multiplexer such as `tmux`.
 Nvim 0.10 now supports [LSP inlay hints][#23984] thanks to [Chinmay
 Dalal][@p00f]. A picture here will do more than my words can:
 
-{{< figure src="/img/nvim-inlay-hints.png"
+{{< figure src="/media/nvim-inlay-hints.png"
            alt="Screenshot of Nvim showing inlay hints" >}}
 
 The dark colored texts which display type annotations for variable declarations
@@ -204,7 +204,7 @@ didn't know already, Nvim bundles an "inspector" which allows you to view the
 abstract syntax tree of any source file with the `:InspectTree` command (so
 long as a Tree-sitter parser for the file's language is installed). Example:
 
-{{< figure src="/img/nvim-inspect-tree.png"
+{{< figure src="/media/nvim-inspect-tree.png"
            alt="Screenshot of the :InspectTree command in Nvim" >}}
 
 Thanks to [Maria José Solano][@MariaSolOs], Nvim 0.10 adds a powerful
@@ -213,7 +213,7 @@ editor allows you to write queries and see the matches in a source buffer in
 real time. Being able to create and modify queries interactively makes writing
 new queries a breeze. Example:
 
-{{< figure src="/img/nvim-query-editor.png"
+{{< figure src="/media/nvim-query-editor.png"
            alt="Screenshot of the :EditQuery command in Nvim" >}}
 
 In the screenshot above, the query editor is open in the top-right window, the

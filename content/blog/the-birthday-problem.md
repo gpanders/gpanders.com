@@ -101,7 +101,7 @@ Looking at the graph below, you'll see that the probability creeps up slowly
 until it gets to around 10 people, where it begins to climb rapidly and then
 taper off again around 40.
 
-![Birthday Problem](/img/birthday_problem_plot.png)
+![Birthday Problem](/media/birthday_problem_plot.png)
 
 For the mathematically inclined, the formula used to calculate this is
 

@@ -1,0 +1,95 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: gpanders/gpanders.com
+  branch: master
+
+site_url: https://gpanders.com
+display_url: https://gpanders.com
+
+media_folder: static/media
+public_folder: /media
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  - name: blog
+    label: Blog
+    label_singular: Post
+    folder: content/blog
+    create: true
+    extension: md
+    format: yaml-frontmatter
+    slug: "{{slug}}"
+    preview_path: "/blog/{{slug}}/"
+    sortable_fields: [date, title]
+    view_filters:
+      - label: Drafts
+        field: draft
+        pattern: true
+    fields:
+      - { name: title, label: Title, widget: string }
+      - name: date
+        label: Date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        picker_utc: true
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: featured, label: Featured, widget: boolean, required: false }
+      - { name: draft, label: Draft, widget: boolean, required: false }
+      - name: body
+        label: Body
+        widget: markdown
+        modes: [raw, rich_text]
+
+  - name: pages
+    label: Pages
+    files:
+      - name: about
+        label: About
+        file: content/about/index.md
+        format: yaml-frontmatter
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: type, label: Type, widget: hidden, default: about }
+          - { name: body, label: Body, widget: markdown, modes: [raw, rich_text] }
+
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: data/projects
+    create: true
+    extension: yaml
+    format: yaml
+    identifier_field: title
+    slug: "{{title}}"
+    fields:
+      - { name: title, label: Name, widget: string }
+      - { name: summary, label: Summary, widget: string, required: false }
+      - { name: href, label: URL, widget: string }
+      - { name: featured, label: Featured, widget: boolean, required: false }
+      - { name: description, label: Description, widget: markdown, required: false }
+
+  - name: talks
+    label: Talks
+    label_singular: Talk
+    folder: data/talks
+    create: true
+    extension: yaml
+    format: yaml
+    slug: "{{slug}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - name: date
+        label: Date
+        widget: datetime
+        date_format: YYYY-MM-DD
+        time_format: false
+        picker_utc: true
+      - { name: context, label: Event, widget: string, required: false }
+      - { name: href, label: URL, widget: string }

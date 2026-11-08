@@ -61,12 +61,12 @@ of system interactions.
 Ghostty uses native tabs which have the same look and feel as tabs found in
 applications like Safari, Preview, Finder, and Terminal.app.
 
-{{< figure src="/img/ghostty-tabs.png" >}}
+{{< figure src="/media/ghostty-tabs.png" >}}
 
 This also means that native features like pressing `Shift+⌘+\` open the tab
 overview, just as in other applications.
 
-{{< figure src="/img/ghostty-tab-overview.png" >}}
+{{< figure src="/media/ghostty-tab-overview.png" >}}
 
 ## Proxy Icon
 
@@ -95,7 +95,7 @@ Terminal.app support this feature. Ghostty automatically enables
 it when you're typing a password—though it can also be enabled manually. Note
 the icon in the upper right corner of the window:
 
-{{< figure src="/img/ghostty-secure-keyboard.png" >}}
+{{< figure src="/media/ghostty-secure-keyboard.png" >}}
 
 ## Window Restoration
 

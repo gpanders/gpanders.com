@@ -46,7 +46,7 @@ was the most popular (at the time). And as we've learned from history many
 times since, what becomes popular creates the _de facto_ standard for
 everything that comes after.
 
-{{< figure src="/img/DEC_VT100_terminal.jpg"
+{{< figure src="/media/DEC_VT100_terminal.jpg"
            alt="DEC VT100"
            caption="DEC VT100"
            width="75%"
@@ -261,7 +261,7 @@ Vim and Neovim can add a
 {{< html >}}<span style="text-decoration:underline;text-decoration-style:wavy;text-decoration-color:red;text-decoration-skip-ink:none;">red squiggly line</span>{{< /html >}}
 under misspelled words (as seen in many graphical rich text editors).
 
-{{< figure src="/img/terminal_styles.png"
+{{< figure src="/media/terminal_styles.png"
            alt="A screenshot of a terminal emulator displaying different text markup styles"
            caption="Examples of markup styles supported by modern terminal emulators" >}}
 

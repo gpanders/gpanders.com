@@ -33,3 +33,12 @@ weight = 2
 name = "About"
 url = "/about"
 weight = 3
+
+[module]
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "node_modules/@sveltia/cms/dist"
+    target = "static/_admin"
+    files = ["sveltia-cms.js"]

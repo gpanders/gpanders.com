@@ -224,9 +224,9 @@ Unfortunately, even after getting the web server configured, I had another
 problem. The default Gitweb web page is a bit... utilitarian, to phrase it
 mildly. 
 
-![Default Gitweb home page](/img/gitweb-1.png)
+![Default Gitweb home page](/media/gitweb-1.png)
 
-![Default Gitweb project page](/img/gitweb-2.png)
+![Default Gitweb project page](/media/gitweb-2.png)
 
 Gitweb uses a Perl CGI script to generate the HTML, which means unless you want
 to manually modify that script your basically stuck with the HTML that Gitweb

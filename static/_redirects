@@ -1,1 +1,2 @@
 /posts/* /blog/:splat 301
+/img/* /media/:splat 301
