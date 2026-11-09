@@ -1,0 +1,30 @@
+{{- /*
+  Markdown images: ![alt](src "caption")
+
+  - A video file (.mp4, .webm, .mov) renders as a <video> player.
+  - An image on its own line renders as a <figure>; its title, if any, becomes
+    the caption and may contain Markdown (e.g. an attribution link).
+  - An image inside a paragraph renders as a plain <img>.
+
+  Requires markup.goldmark.parser.wrapStandAloneImageWithinParagraph = false.
+*/ -}}
+{{- $src := .Destination -}}
+{{- $ext := path.Ext (urls.Parse $src).Path | strings.ToLower -}}
+{{- $isVideo := in (slice ".mp4" ".webm" ".mov") $ext -}}
+{{- if $isVideo -}}
+  <figure>
+    <video controls preload="metadata" src="{{ $src }}"{{ with .PlainText }} aria-label="{{ . }}"{{ end }}></video>
+    {{- with .Title }}
+    <figcaption>{{ . | markdownify }}</figcaption>
+    {{- end }}
+  </figure>
+{{- else if .IsBlock -}}
+  <figure>
+    <img src="{{ $src }}" alt="{{ .PlainText }}" loading="lazy">
+    {{- with .Title }}
+    <figcaption>{{ . | markdownify }}</figcaption>
+    {{- end }}
+  </figure>
+{{- else -}}
+  <img src="{{ $src }}" alt="{{ .PlainText }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy">
+{{- end -}}

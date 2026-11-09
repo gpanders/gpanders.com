@@ -16,27 +16,24 @@ briefly into the math behind it.
 
 <!--more-->
 
-The probability that two people in a group of {{< katex >}}N{{< /katex >}}
+The probability that two people in a group of \(N\)
 people share a birthday is the inverse of the statement that everybody in the
 room has a unique birthday.  Both of these cannot be true, and if one of these
 statements is false, the other must be true. Therefore, if we find the
-probability of one of these statements (call that probability {{< katex >}}p{{<
-/katex >}}), the probability of the other is {{< katex >}}1 - p{{< /katex >}}.
+probability of one of these statements (call that probability \(p\)), the probability of the other is \(1 - p\).
 Therefore, we can find the probability that at least 2 people share a birthday
 by finding the probability that everyone in that room has a unique birthday,
 and subtracting that number from 1. Following so far?
 
-So what is the probability that in a room of {{< katex >}}N{{< /katex >}}
+So what is the probability that in a room of \(N\)
 people, everyone has a unique birthday?  Let's do an example where we have only
 5 people. There are 366 possible birthdays (including February 29), so the
 first person in this group of 5 people can have any of those 366 birthdays,
 which we represent as a fraction:
 
-{{< katex display >}}
-
-    P(\text{Unique birthday with 1 person}) = \frac{366}{366} = 1
-
-{{< /katex >}}
+$$
+P(\text{Unique birthday with 1 person}) = \frac{366}{366} = 1
+$$
 
 This can be read in English as _"The probability that someone has a unique
 birthday in a group of 1 people is 100%"_. This is obvious: if there is only
@@ -48,24 +45,20 @@ day as the first person, so there are 365 options for Person 2's birthday.
 Therefore, if we have 2 people, the probability that they have different
 birthdays is
 
-{{< katex display >}}
-
-    P(\text{Unique birthdays with 2 people}) =
-      \frac{366}{366} \cdot \frac{365}{366} = 0.997
-
-{{< /katex >}}
+$$
+P(\text{Unique birthdays with 2 people}) =
+\frac{366}{366} \cdot \frac{365}{366} = 0.997
+$$
 
 This pattern continues for every additional person. Therefore, in the event
 that we have 5 people in a room, the probability that they all have different
 birthdays is
 
-{{< katex display >}}
-
-    P(\text{Unique birthdays with 5 people}) = \frac{366}{366} \cdot
-    \frac{365}{366} \cdot \frac{364}{366} \cdot \frac{363}{366} \cdot
-    \frac{362}{366} = 0.973
-
-{{< /katex >}}
+$$
+P(\text{Unique birthdays with 5 people}) = \frac{366}{366} \cdot
+\frac{365}{366} \cdot \frac{364}{366} \cdot \frac{363}{366} \cdot
+\frac{362}{366} = 0.973
+$$
 
 Hopefully you're beginning to see a pattern here.
 
@@ -73,14 +66,12 @@ Now, to find the probability that, in a room of 5 people, at least 2 of them
 have the same birthday (that is, there are _not_ all unique birthdays), we
 simply subtract the number above from 1
 
-{{< katex display >}}
-
-    \begin{aligned}
-       & P(\text{2 or more people have the same birthday}) \\
-       &= 1 - P(\text{Unique birthdays with 5 people}) = 0.027
-    \end{aligned}
-
-{{< /katex >}}
+$$
+\begin{aligned}
+& P(\text{2 or more people have the same birthday}) \\
+&= 1 - P(\text{Unique birthdays with 5 people}) = 0.027
+\end{aligned}
+$$
 
 As you might expect, this number is pretty small (about 2.7%). So how many
 people do we need to have in a room in order for there to be a 50% chance that
@@ -105,11 +96,9 @@ taper off again around 40.
 
 For the mathematically inclined, the formula used to calculate this is
 
-{{< katex display >}}
-
-
-  1 - \frac{1}{366^N}\frac{366!}{(366-N)!}
-{{< /katex >}}
+$$
+1 - \frac{1}{366^N}\frac{366!}{(366-N)!}
+$$
 
 So, next time you're in a room with 23 or more people, test the math for
 yourself and see if anyone shares a birthday - and bonus points for you if you

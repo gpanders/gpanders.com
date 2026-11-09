@@ -9,6 +9,21 @@ timeZone = "UTC"
 
 [taxonomies]
 
+# Content is plain Markdown so it round-trips through the CMS. Render hooks in
+# layouts/_default/_markup handle figures, videos, links, and math.
+[markup.goldmark.renderer]
+unsafe = true # allow inline HTML, e.g. colored <span>s in state-of-the-terminal
+
+[markup.goldmark.parser]
+wrapStandAloneImageWithinParagraph = false
+
+[markup.goldmark.extensions.passthrough]
+enable = true
+
+[markup.goldmark.extensions.passthrough.delimiters]
+block = [['\[', '\]'], ['$$', '$$']]
+inline = [['\(', '\)']]
+
 [outputFormats.json]
 notAlternative = true
 

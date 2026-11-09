@@ -1,0 +1,14 @@
+{{- /*
+  Markdown links. Links to other posts are written as plain paths
+  ([part 2](/blog/exploring-mach-o-part-2/)); fail the build if one points to a
+  post that doesn't exist, as the old ref shortcode did.
+*/ -}}
+{{- $dest := .Destination -}}
+{{- $u := urls.Parse $dest -}}
+{{- if and (not $u.IsAbs) (strings.HasPrefix $u.Path "/blog/") -}}
+  {{- if not (site.GetPage (strings.TrimSuffix "/" $u.Path)) -}}
+    {{- errorf "%s: broken link to %q" .Page.File.Path $dest -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $dest | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text }}</a>
+{{- /* chomp trailing newline */ -}}

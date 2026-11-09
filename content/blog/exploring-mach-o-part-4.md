@@ -5,9 +5,7 @@ tags: [mach-o, macos, zig]
 ---
 
 *This is part 4 of a 4 part series exploring the structure of the Mach-O file
-format. Here are links to [part 1]({{< ref "/blog/exploring-mach-o-part-1"
->}}), [part 2]({{< ref "/blog/exploring-mach-o-part-2" >}}), and [part 3]({{<
-ref "/blog/exploring-mach-o-part-3" >}}).*
+format. Here are links to [part 1](/blog/exploring-mach-o-part-1/), [part 2](/blog/exploring-mach-o-part-2/), and [part 3](/blog/exploring-mach-o-part-3/).*
 
 When we started this series we didn't know anything about Mach-O other than
 some vague idea that it's a binary file format used by macOS. By now, we have a

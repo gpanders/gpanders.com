@@ -5,9 +5,7 @@ tags: [mach-o, macos, zig]
 ---
 
 *This is part 1 of a 4 part series exploring the structure of the Mach-O file
-format. Here are links to [part 2]({{< ref "/blog/exploring-mach-o-part-2"
->}}), [part 3]({{< ref "/blog/exploring-mach-o-part-3" >}}), and [part 4]({{<
-ref "/blog/exploring-mach-o-part-4" >}}).*
+format. Here are links to [part 2](/blog/exploring-mach-o-part-2/), [part 3](/blog/exploring-mach-o-part-3/), and [part 4](/blog/exploring-mach-o-part-4/).*
 
 I recently read a great article from [Amos over at
 fasterthanli.me][fasterthanli.me] that explored the ELF format for Linux
@@ -332,7 +330,7 @@ After the magic number are a few enums: `cpu_type_t`, `cpu_subtype_t`, and
 definitions of these enums in the `mach-o/loader.h` header file. But that's a
 bit tedious. Let's write some code.
 
-In [part 2]({{< ref "/blog/exploring-mach-o-part-2" >}}), we'll start on our
+In [part 2](/blog/exploring-mach-o-part-2/), we'll start on our
 own DIY parser to read through our Mach-O file.
 
 [^1]: Requires the [Command Line Tools for Xcode][command line tools].

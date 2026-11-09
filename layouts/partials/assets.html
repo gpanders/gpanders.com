@@ -28,6 +28,13 @@
   {{ minify $site_js | fingerprint | $.Page.Scratch.SetInMap "js" "base" }}
 {{ end }}
 
+{{- /* Rendering the content first lets render-passthrough.html record whether
+       the page has math, so only those pages load the KaTeX stylesheet. */}}
+{{- $noop := .WordCount }}
+{{- if .Store.Get "hasMath" }}
+  <link rel="stylesheet" href="{{ "katex/katex.min.css" | relURL }}">
+{{- end }}
+
 {{ range .Scratch.GetSortedMapValues "css" }}
   <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
 {{ end }}

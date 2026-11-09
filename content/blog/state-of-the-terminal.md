@@ -46,12 +46,7 @@ was the most popular (at the time). And as we've learned from history many
 times since, what becomes popular creates the _de facto_ standard for
 everything that comes after.
 
-{{< figure src="/media/DEC_VT100_terminal.jpg"
-           alt="DEC VT100"
-           caption="DEC VT100"
-           width="75%"
-           attr="Jason Scott, CC BY 2.0 via Wikimedia Commons"
-           attrlink="https://commons.wikimedia.org/wiki/File:DEC_VT100_terminal.jpg" >}}
+![DEC VT100](/media/DEC_VT100_terminal.jpg "DEC VT100 ([Jason Scott, CC BY 2.0 via Wikimedia Commons](https://commons.wikimedia.org/wiki/File:DEC_VT100_terminal.jpg))")
 
 Video terminals were an improvement on the teletype machines that preceded
 them. They could move the cursor around the screen to create interactive
@@ -134,9 +129,9 @@ printf '\e[1;32mHello \e[0;4;31mworld!\n\e[0m'
 ```
 
 This command will print the text "Hello world!", with "Hello" in
-{{< html >}}<span style="color:green;font-weight:bold;">green, bold</span>{{< /html >}}
+<span style="color:green;font-weight:bold;">green, bold</span>
 text and "world!" in
-{{< html >}}<span style="color:red;text-decoration:underline;">red, underlined</span>{{< /html >}}
+<span style="color:red;text-decoration:underline;">red, underlined</span>
 text.
 
 The escape sequences used here are of the form `CSI <parameters> m`, which is
@@ -144,12 +139,12 @@ so common it has its own name: Select Graphic Rendition (SGR). The SGR escape
 sequence sets foreground and background colors for all printed text. The first
 escape sequence in the example `\e[1;32m` enables the **bold** attribute (`1`)
 and sets the foreground color to
-{{< html >}}<span style="color:green;">green</span>{{< /html >}}
+<span style="color:green;">green</span>
 (`32`). The second escape sequence `\e[0;4;31m` first clears any existing
 styles (`0`), then enables the
-{{< html >}}<span style="text-decoration:underline;">underline</span>{{< /html >}}
+<span style="text-decoration:underline;">underline</span>
 attribute (`4`), and finally sets the foreground text color to
-{{< html >}}<span style="color:red;">red</span>{{< /html >}}
+<span style="color:red;">red</span>
 (`31`). Finally, the last escape sequence `\e[0m` resets all styles back to
 their defaults.
 
@@ -258,12 +253,10 @@ freedom.
 Modern terminals also support other kinds of "rich" text markup, such as
 strikethrough and various types of underlines. For instance, text editors like
 Vim and Neovim can add a
-{{< html >}}<span style="text-decoration:underline;text-decoration-style:wavy;text-decoration-color:red;text-decoration-skip-ink:none;">red squiggly line</span>{{< /html >}}
+<span style="text-decoration:underline;text-decoration-style:wavy;text-decoration-color:red;text-decoration-skip-ink:none;">red squiggly line</span>
 under misspelled words (as seen in many graphical rich text editors).
 
-{{< figure src="/media/terminal_styles.png"
-           alt="A screenshot of a terminal emulator displaying different text markup styles"
-           caption="Examples of markup styles supported by modern terminal emulators" >}}
+![A screenshot of a terminal emulator displaying different text markup styles](/media/terminal_styles.png "Examples of markup styles supported by modern terminal emulators")
 
 It is also possible to display images and even videos inline inside of
 terminal emulators. There are (at least) three different ways to do this
@@ -304,7 +297,7 @@ macOS][tmux] for many years because the version of ncurses packaged with macOS
 was so old that it did not even include the `tmux-256color` terminfo entry at
 all!
 
-[tmux]: {{% relref "blog/the-definitive-guide-to-using-tmux-256color-on-macos" %}}
+[tmux]: /blog/the-definitive-guide-to-using-tmux-256color-on-macos/
 
 This is also a problem for newer terminals which have not yet been added to
 the ncurses terminfo database. Terminal emulators can (and often do) ship

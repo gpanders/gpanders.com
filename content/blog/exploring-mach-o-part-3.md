@@ -5,9 +5,7 @@ tags: [mach-o, macos, zig]
 ---
 
 *This is part 3 of a 4 part series exploring the structure of the Mach-O file
-format. Here are links to [part 1]({{< ref "/blog/exploring-mach-o-part-1"
->}}), [part 2]({{< ref "/blog/exploring-mach-o-part-2" >}}), and [part 4]({{<
-ref "/blog/exploring-mach-o-part-4" >}}).*
+format. Here are links to [part 1](/blog/exploring-mach-o-part-1/), [part 2](/blog/exploring-mach-o-part-2/), and [part 4](/blog/exploring-mach-o-part-4/).*
 
 We left off with a basic parser that is able to parse the Mach-O header from
 our file. Now that the bones of our parser are fleshed out, it should be fairly
@@ -950,7 +948,7 @@ actual segments. We ignored most of the load commands, and our simple program
 only had two actual segments, so there wasn't much to look at. In a larger or
 more complex program, we would find a lot more.
 
-In the [next and final part]({{< ref "/blog/exploring-mach-o-part-4" >}}),
+In the [next and final part](/blog/exploring-mach-o-part-4/),
 we'll do a recap of what we learned and discuss some other things we could try
 if we wanted to dig further.
 

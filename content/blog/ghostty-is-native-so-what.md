@@ -61,12 +61,12 @@ of system interactions.
 Ghostty uses native tabs which have the same look and feel as tabs found in
 applications like Safari, Preview, Finder, and Terminal.app.
 
-{{< figure src="/media/ghostty-tabs.png" >}}
+![](/media/ghostty-tabs.png)
 
 This also means that native features like pressing `Shift+⌘+\` open the tab
 overview, just as in other applications.
 
-{{< figure src="/media/ghostty-tab-overview.png" >}}
+![](/media/ghostty-tab-overview.png)
 
 ## Proxy Icon
 
@@ -75,14 +75,14 @@ the current working directory of the terminal. You can use this like any other
 proxy icon in macOS: drag it into another application or right-click to
 interact with it.
 
-{{< video src="/media/ghostty_proxy_icon.mp4" type="video/mp4" >}}
+![](/media/ghostty_proxy_icon.mp4)
 
 ## Look Up
 
 Triple tap on the trackpad to use the macOS "look up" feature to find the
 definition of a word or preview a URL:
 
-{{< video src="/media/ghostty_look_up.mp4" type="video/mp4" >}}
+![](/media/ghostty_look_up.mp4)
 
 ## Secure Keyboard Entry
 
@@ -95,7 +95,7 @@ Terminal.app support this feature. Ghostty automatically enables
 it when you're typing a password—though it can also be enabled manually. Note
 the icon in the upper right corner of the window:
 
-{{< figure src="/media/ghostty-secure-keyboard.png" >}}
+![](/media/ghostty-secure-keyboard.png)
 
 ## Window Restoration
 
@@ -103,7 +103,7 @@ A cool feature of macOS is that application state can be serialized so that
 when you re-launch the application later, you can pick up right where you left
 off. Ghostty supports this too:
 
-{{< video src="/media/ghostty_window_restore.mp4" type="video/mp4" >}}
+![](/media/ghostty_window_restore.mp4)
 
 For now only the window position and tabs/splits are restored, not the actual
 terminal contents (like you see in Terminal.app). Restoring the terminal

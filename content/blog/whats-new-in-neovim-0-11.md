@@ -107,7 +107,7 @@ Users may find that the borders on their hover windows have vanished after updat
 
 The video below demonstrates how simple it is to set up LSP completely from scratch: no extra plugins required.
 
-{{< video src="/media/nvim_lsp_config.mp4" type="video/mp4" >}}
+![](/media/nvim_lsp_config.mp4)
 
 See [`:h lsp-quickstart`][lsp-quickstart] for details.
 
@@ -129,7 +129,7 @@ Incorrect display of emojis which use ZWJ or other modifiers was [another long s
 
 Neovim also supports DEC mode 2027 to indicate to the parent terminal that it supports proper grapheme clustering (rather than using legacy methods like `wcwidth`). For more info, see the [Terminal Unicode Core Specification](https://github.com/contour-terminal/terminal-unicode-core) and Mitchell Hashimoto's blog post on [Grapheme Clusters and Terminal Emulators](https://mitchellh.com/writing/grapheme-clusters-in-terminals).
 
-{{< video src="/media/nvim_multibyte.mp4" type="video/mp4" >}}
+![](/media/nvim_multibyte.mp4)
 
 ## Diagnostics
 
@@ -153,11 +153,7 @@ vim.diagnostic.config({
 
 GitHub user [@WhyNotHugo](https://github.com/WhyNotHugo) created a plugin called [lsp_lines.nvim](https://git.sr.ht/~whynothugo/lsp_lines.nvim) which shows diagnostics as separate "virtual lines" in a buffer. We [reached out to Hugo](https://lists.sr.ht/~whynothugo/lsp_lines.nvim/%3CD3FSJHV4IWFK.2P7DVELWNKS88@gpanders.com%3E) a while ago to ask if he'd be interested in collaborating to upstream this plugin to Neovim. He was supportive, but the effort stalled out. That is, until about 2 months ago when Maria José Solano ([@MariaSolOs](https://github.com/MariaSolOs)) picked up the torch and put together a [PR](https://github.com/neovim/neovim/pull/31959) adding this feature into Neovim core. Many thanks to Hugo for supporting this effort and for creating the original plugin in the first place, and to Maria for doing the work of porting!
 
-{{< figure src="/media/nvim-virtual-lines-3.png"
-           caption="New virtual lines diagnostic handler"
-           alt="Demonstration of the virtual lines diagnostic handler"
-           attr="@WhyNotHugo"
-           attrlink="https://github.com/neovim/neovim/pull/31959#issuecomment-2585354157" >}}
+![Demonstration of the virtual lines diagnostic handler](/media/nvim-virtual-lines-3.png "New virtual lines diagnostic handler ([@WhyNotHugo](https://github.com/neovim/neovim/pull/31959#issuecomment-2585354157))")
 
 To enable this feature, use
 

@@ -16,7 +16,7 @@ As I said, it's a big release, and I won't write about everything, but these
 are some of the highlights.
 
 [release notes]: https://neovim.io/doc/user/news-0.10.html
-[0.7]: {{< relref "blog/whats-new-in-neovim-0-7" >}}
+[0.7]: /blog/whats-new-in-neovim-0-7/
 
 ## Table of Contents
 
@@ -37,13 +37,11 @@ default colors have some charm and nostalgia, there are serious accessibility
 and aesthetic issues, particular when using Nvim is a diff viewer. The
 screenshot below shows the default colorscheme before Nvim 0.10:
 
-{{< figure src="/media/nvim-colorscheme-old.png"
-           alt="Neovim's default colorscheme before 0.10" >}}
+![Neovim's default colorscheme before 0.10](/media/nvim-colorscheme-old.png)
 
 Nvim 0.10 now ships with a new default colorscheme, which you can see below:
 
-{{< figure src="/media/nvim-colorscheme-new.png"
-           alt="Neovim's new default colorscheme" >}}
+![Neovim's new default colorscheme](/media/nvim-colorscheme-new.png)
 
 The new default colorscheme was heroically contributed by [Evgeni
 Chasnovski][@echasnovski], who endured seemingly endless bikeshedding and
@@ -163,8 +161,7 @@ browser.
 This means that users can view Markdown files with `:set conceallevel=2` and
 get an experience much closer to the rendered output:
 
-{{< figure src="/media/nvim-readme.png"
-           alt="Screenshot of the Neovim README opened in Nvim" >}}
+![Screenshot of the Neovim README opened in Nvim](/media/nvim-readme.png)
 
 In the screenshot above, the underlined words are clickable link text, just as
 you would find in a web browser.
@@ -182,8 +179,7 @@ connections and when inside a terminal multiplexer such as `tmux`.
 Nvim 0.10 now supports [LSP inlay hints][#23984] thanks to [Chinmay
 Dalal][@p00f]. A picture here will do more than my words can:
 
-{{< figure src="/media/nvim-inlay-hints.png"
-           alt="Screenshot of Nvim showing inlay hints" >}}
+![Screenshot of Nvim showing inlay hints](/media/nvim-inlay-hints.png)
 
 The dark colored texts which display type annotations for variable declarations
 are inlay hints. This text is not part of the actual source file in the
@@ -204,8 +200,7 @@ didn't know already, Nvim bundles an "inspector" which allows you to view the
 abstract syntax tree of any source file with the `:InspectTree` command (so
 long as a Tree-sitter parser for the file's language is installed). Example:
 
-{{< figure src="/media/nvim-inspect-tree.png"
-           alt="Screenshot of the :InspectTree command in Nvim" >}}
+![Screenshot of the :InspectTree command in Nvim](/media/nvim-inspect-tree.png)
 
 Thanks to [Maria José Solano][@MariaSolOs], Nvim 0.10 adds a powerful
 capability to the Tree-sitter inspector: [a query editor][#24703]. The query
@@ -213,8 +208,7 @@ editor allows you to write queries and see the matches in a source buffer in
 real time. Being able to create and modify queries interactively makes writing
 new queries a breeze. Example:
 
-{{< figure src="/media/nvim-query-editor.png"
-           alt="Screenshot of the :EditQuery command in Nvim" >}}
+![Screenshot of the :EditQuery command in Nvim](/media/nvim-query-editor.png)
 
 In the screenshot above, the query editor is open in the top-right window, the
 tree inspector is in the bottom-right window, and the source buffer is in the

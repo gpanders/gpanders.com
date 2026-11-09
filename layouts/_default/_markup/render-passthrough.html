@@ -1,0 +1,14 @@
+{{- /*
+  Math, rendered to HTML and MathML at build time. Write \( … \) for inline math
+  and $$ … $$ (or \[ … \]) on their own lines for display math. Pages that use
+  math load the KaTeX stylesheet (see partials/assets.html); no JavaScript.
+*/ -}}
+{{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") -}}
+{{- with try (transform.ToMath .Inner $opts) -}}
+  {{- with .Err -}}
+    {{- errorf "%s: unable to render math %q: %s" $.Page.File.Path $.Inner . -}}
+  {{- else -}}
+    {{- .Value -}}
+    {{- $.Page.Store.Set "hasMath" true -}}
+  {{- end -}}
+{{- end -}}

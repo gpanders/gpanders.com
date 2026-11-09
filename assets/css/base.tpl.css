@@ -437,6 +437,21 @@ img, video {
   color: var(--subtle);
 }
 
+.e-content figcaption a {
+  color: inherit;
+}
+
+.e-content figure video {
+  display: block;
+  width: 100%;
+}
+
+/* Display math (layouts/_default/_markup/render-passthrough.html) */
+.e-content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
 .e-content table {
   display: block;
   max-width: 100%;

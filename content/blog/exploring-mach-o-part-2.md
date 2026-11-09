@@ -5,9 +5,7 @@ tags: [mach-o, macos, zig]
 ---
 
 *This is part 2 of a 4 part series exploring the structure of the Mach-O file
-format. Here are links to [part 1]({{< ref "/blog/exploring-mach-o-part-1"
->}}), [part 3]({{< ref "/blog/exploring-mach-o-part-3" >}}), and [part 4]({{<
-ref "/blog/exploring-mach-o-part-4" >}}).*
+format. Here are links to [part 1](/blog/exploring-mach-o-part-1/), [part 3](/blog/exploring-mach-o-part-3/), and [part 4](/blog/exploring-mach-o-part-4/).*
 
 Last time, we created our own tiny Mach-O executable. This program doesn't do
 anything useful, it's simply the smallest executable we can use to examine what
@@ -809,7 +807,7 @@ std.debug.print("{}\n", .{header});
 This will come in handy as we move on to load commands and begin parsing a
 larger variety of data structures.
 
-Let's stop here for now. In [part 3]({{< ref "/blog/exploring-mach-o-part-3" >}}), we'll parse the load commands and see what else lies in store in Mach-O.
+Let's stop here for now. In [part 3](/blog/exploring-mach-o-part-3/), we'll parse the load commands and see what else lies in store in Mach-O.
 
 [^1]: Full disclosure: I first tried writing the parser in Rust. However, I
 found the experience pretty frustrating. I don't want to put all the blame on

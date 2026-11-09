@@ -14,13 +14,13 @@ ijq is:
 [issue report]: https://todo.sr.ht/~gpanders/ijq/10
 [ijq]: https://codeberg.org/gpanders/ijq/
 
-{{< video src="/media/ijq_old_and_slow.mp4" type="video/mp4" >}}
+![](/media/ijq_old_and_slow.mp4)
 
 In the rest of this post I'll talk about why ijq was performing so badly, and
 what I changed to fix it. The end result is that ijq is now, dare I say, not
 just usable, but downright snappy:
 
-{{< video src="/media/ijq_new_and_fast.mp4" type="video/mp4" >}}
+![](/media/ijq_new_and_fast.mp4)
 
 ## Background
 
