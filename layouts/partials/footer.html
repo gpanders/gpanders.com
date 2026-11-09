@@ -1,3 +1,4 @@
-<footer>
-  <small>This work by <a href="{{ "" | absURL }}">{{ .Site.Params.author.name }}</a> is licensed under <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></small>
+<footer class="site-footer">
+  <span>Content licensed <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></span>
+  {{ with site.Home.OutputFormats.Get "rss" }}<a href="{{ .RelPermalink }}">RSS feed</a>{{ end }}
 </footer>

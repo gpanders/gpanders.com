@@ -1,0 +1,28 @@
+{{- $page := . -}}
+<header class="site-header">
+  <div class="site-title">
+    <a class="h-card p-name u-url" href="{{ relURL "" }}">{{ site.Params.author.name }}</a>
+    {{ if .IsHome }}
+      {{ with site.Params.tagline }}<p class="site-tagline">{{ . }}</p>{{ end }}
+    {{ end }}
+  </div>
+  <div class="site-tools">
+    <nav class="site-nav" aria-label="Main">
+      {{- range site.Menus.nav }}
+        {{- $url := .URL | relURL | strings.TrimSuffix "/" }}
+        {{- $here := $page.RelPermalink | strings.TrimSuffix "/" }}
+        {{- $current := or (eq $url $here) (and (eq $url "") (eq $page.Section "blog")) }}
+        <a href="{{ .URL | relURL }}"{{ if $current }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+    {{- /* The dropdown is driven by assets/js/search.tpl.js; without JavaScript
+           the form submits to the results page served by the search Worker. */}}
+    <form class="search-form" role="search" action="{{ relURL "search/" }}" method="GET" accept-charset="UTF-8">
+      <label class="search-input">
+        <span class="visually-hidden">Search</span>
+        <input type="search" name="q" placeholder="Search" autocomplete="off" autocapitalize="off" required>
+      </label>
+      <ul class="search-results" style="display: none"></ul>
+    </form>
+  </div>
+</header>

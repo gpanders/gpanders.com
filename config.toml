@@ -18,7 +18,6 @@ home = ["HTML", "RSS", "JSON"]
 [params]
 css = ["css/syntax/light.css", "css/syntax/dark.css"]
 description = "Personal website for Gregory Anders"
-width = "65rem"
 
 [params.author]
 name = "Gregory Anders"

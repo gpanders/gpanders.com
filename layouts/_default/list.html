@@ -1,10 +1,14 @@
 {{ define "main" }}
 
-{{ range where site.RegularPages "Section" "blog" }}
-{{ if not .Params.unlisted }}
-<p class="heading p-name"><a class="u-url u-uid" href="{{ .RelPermalink }}" rel="bookmark">{{ .Title }}</a></p>
-{{ partial "subheading.html" . }}
-{{ end }}
-{{ end }}
+<ul class="entry-list">
+  {{ range where site.RegularPages "Section" "blog" }}
+    {{ if not .Params.unlisted }}
+      <li class="h-entry">
+        <time class="dt-published" datetime="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
+        <a class="p-name u-url u-uid" href="{{ .RelPermalink }}" rel="bookmark">{{ .Title }}</a>
+      </li>
+    {{ end }}
+  {{ end }}
+</ul>
 
 {{ end }}

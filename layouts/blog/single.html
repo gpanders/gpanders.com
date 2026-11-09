@@ -1,13 +1,15 @@
 {{ define "main" }}
 
-<article class="h-entry">
-  <h1 class="heading p-name"><a class="u-url u-uid" href="{{ .RelPermalink }}" rel="bookmark">{{ .Title }}</a></h1>
-  {{ partial "subheading.html" . }}
+<article class="h-entry post">
+  <header class="post-header">
+    <time class="dt-published" datetime="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
+    <h1 class="p-name"><a class="u-url u-uid" href="{{ .RelPermalink }}" rel="bookmark">{{ .Title }}</a></h1>
+  </header>
   <div class="e-content">
     {{ .Content }}
   </div>
   {{ with .GitInfo }}
-  <p class="lastmod"><a href="https://codeberg.org/gpanders/gpanders.com/commit/{{ .Hash }}">Last modified on <time class="dt-updated" datetime="{{ .AuthorDate.Format "2006-01-02T00:00:00Z00:00" }}">{{ .AuthorDate.Format "January 2, 2006" }}</time></a></p>
+  <p class="lastmod">Last edited <a href="https://github.com/gpanders/gpanders.com/commit/{{ .Hash }}"><time class="dt-updated" datetime="{{ .AuthorDate.Format "2006-01-02T15:04:05Z07:00" }}">{{ .AuthorDate.Format "2006-01-02" }}</time></a></p>
   {{ end }}
 </article>
 

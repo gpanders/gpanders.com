@@ -1,19 +1,21 @@
 {{ define "main" }}
 
-{{ range hugo.Data.projects }}
-  {{ if .featured }}
-    <p class="heading p-name"><a href="{{ .href }}">{{ .title }}</a></p>
-    {{ if .description }}
-      <details>
-        <summary class="subheading">{{ .summary }}</summary>
-        <p>{{ .description | markdownify }}</p>
-      </details>
-    {{ else }}
-      {{ with .summary }}
-        <p class="subheading">{{ . }}</p>
-      {{ end }}
+<ul class="project-list">
+  {{ range hugo.Data.projects }}
+    {{ if .featured }}
+      <li>
+        <a class="p-name" href="{{ .href }}">{{ .title }}</a>
+        {{ if .description }}
+          <details>
+            <summary class="entry-note">{{ .summary }}</summary>
+            <div class="e-content">{{ .description | markdownify }}</div>
+          </details>
+        {{ else }}
+          {{ with .summary }}<p class="entry-note">{{ . }}</p>{{ end }}
+        {{ end }}
+      </li>
     {{ end }}
   {{ end }}
-{{ end }}
+</ul>
 
 {{ end }}
