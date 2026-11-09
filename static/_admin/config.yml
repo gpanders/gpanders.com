@@ -37,9 +37,8 @@ collections:
       - name: date
         label: Date
         widget: datetime
-        date_format: YYYY-MM-DD
+        date_format: YYYY-MM-DDTHH:mm:ssZ
         time_format: true
-        picker_utc: true
       - { name: tags, label: Tags, widget: list, required: false }
       - { name: featured, label: Featured, widget: boolean, required: false }
       - { name: draft, label: Draft, widget: boolean, required: false }
