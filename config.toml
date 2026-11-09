@@ -9,6 +9,17 @@ timeZone = "UTC"
 
 [taxonomies]
 
+# search-index.json is bundled into the search Worker (src/index.ts) and is
+# excluded from the public assets by static/.assetsignore.
+[outputFormats.SearchIndex]
+mediaType = "application/json"
+baseName = "search-index"
+isPlainText = true
+notAlternative = true
+
+[outputs]
+home = ["HTML", "RSS", "SearchIndex"]
+
 [params]
 css = ["css/syntax/light.css", "css/syntax/dark.css"]
 description = "Personal website for Gregory Anders"

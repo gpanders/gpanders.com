@@ -1,0 +1,18 @@
+{{ define "main" }}
+
+{{- /*
+  Results page for the search Worker (src/index.ts). The Worker serves this
+  page for /search/?q=... and fills in the elements below by id, so keep the
+  ids in sync with it. Without a query it renders as an empty search form.
+*/ -}}
+<article class="search-page">
+  <h1>{{ .Title }}</h1>
+  <form class="search-page-form" role="search" action="{{ .RelPermalink }}" method="GET" accept-charset="UTF-8">
+    <input type="search" id="search-page-input" name="q" aria-label="Search" placeholder="Search…" autocomplete="off" required>
+    <button type="submit">Search</button>
+  </form>
+  <p id="search-summary" class="search-summary"></p>
+  <ol id="search-results" class="search-page-results"></ol>
+</article>
+
+{{ end }}

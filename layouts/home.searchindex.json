@@ -1,0 +1,17 @@
+{{- /*
+  Search index consumed by the search Worker (src/index.ts). One record per
+  listed blog post; the shape must match SearchDoc in src/search.ts.
+*/ -}}
+{{- $docs := slice -}}
+{{- range where site.RegularPages "Section" "blog" -}}
+  {{- if not .Params.unlisted -}}
+    {{- $docs = $docs | append (dict
+      "href" .RelPermalink
+      "title" .Title
+      "date" (.Date.Format "2006-01-02")
+      "tags" (.Params.tags | default slice)
+      "content" .Plain
+    ) -}}
+  {{- end -}}
+{{- end -}}
+{{- $docs | jsonify -}}

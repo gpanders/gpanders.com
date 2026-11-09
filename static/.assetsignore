@@ -1,0 +1,2 @@
+# Bundled into the search Worker instead of being served publicly.
+search-index.json

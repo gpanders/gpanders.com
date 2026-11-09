@@ -2,6 +2,12 @@
     "name": "gpanders.com",
     "private": true,
     "type": "module",
+    "scripts": {
+        "dev": "hugo --cleanDestinationDir -d public && wrangler dev",
+        "types": "wrangler types",
+        "check": "tsc && oxlint",
+        "test": "node --test 'src/**/*.test.ts'"
+    },
     "devDependencies": {
         "@sveltia/cms": "^0.261.0",
         "oxfmt": "^0.77.0",
