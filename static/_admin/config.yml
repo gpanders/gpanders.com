@@ -46,7 +46,7 @@ collections:
       - name: body
         label: Body
         widget: markdown
-        modes: [raw, rich_text]
+        modes: [rich_text, raw]
 
   - name: pages
     label: Pages
@@ -58,7 +58,7 @@ collections:
         fields:
           - { name: title, label: Title, widget: string }
           - { name: type, label: Type, widget: hidden, default: about }
-          - { name: body, label: Body, widget: markdown, modes: [raw, rich_text] }
+          - { name: body, label: Body, widget: markdown, modes: [rich_text, raw] }
 
   - name: projects
     label: Projects
