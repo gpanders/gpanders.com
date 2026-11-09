@@ -1,7 +1,6 @@
 <aside class="sidebar">
   <p class="h-card p-name"><a class="u-url" href="{{ relURL "" }}">{{ .Site.Params.author.name }}</a></p>
-  <form class="search-form" role="search" action="https://duckduckgo.com/" method="GET" accept-charset="UTF-8">
-    <input type="hidden" name="sites" value="{{ .Site.BaseURL }}">
+  <form class="search-form" role="search" action="{{ relURL "search/" }}" method="GET" accept-charset="UTF-8">
     <label class="search-input">
       <input name="q" aria-label="Search" placeholder="Search…" tabindex="0" autocomplete="off" autocapitalize="off" required>
     </label>

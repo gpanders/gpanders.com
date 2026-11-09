@@ -2,6 +2,15 @@
     "name": "gpanders.com",
     "private": true,
     "type": "module",
+    "scripts": {
+        "build": "hugo --cleanDestinationDir -d public",
+        "dev": "pnpm build && wrangler dev",
+        "check": "pnpm build && tsc && oxlint && oxfmt --check",
+        "test": "node --test 'src/**/*.test.ts'"
+    },
+    "dependencies": {
+        "minisearch": "^7.2.0"
+    },
     "devDependencies": {
         "@sveltia/cms": "^0.261.0",
         "oxfmt": "^0.77.0",

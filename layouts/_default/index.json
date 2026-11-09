@@ -1,0 +1,13 @@
+{{- $docs := slice -}}
+{{- range where site.RegularPages "Section" "blog" -}}
+  {{- if not .Params.unlisted -}}
+    {{- $docs = $docs | append (dict
+      "href" .RelPermalink
+      "title" .Title
+      "date" (.Date.Format "2006-01-02")
+      "tags" (.Params.tags | default slice)
+      "content" (.Plain | htmlUnescape)
+    ) -}}
+  {{- end -}}
+{{- end -}}
+{{- $docs | jsonify -}}

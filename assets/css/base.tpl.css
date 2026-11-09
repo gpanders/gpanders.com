@@ -287,7 +287,6 @@ footer {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--banner-link-color);
   text-align: left;
 }
 
@@ -302,6 +301,62 @@ footer {
 
 .search-results li a {
   color: inherit;
+}
+
+/* Full results page (/search/), filled in by the search Worker */
+.search-page-form {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+.search-page-form input {
+  flex: 1;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  padding: 0 0.5em;
+  font-size: 1rem;
+  line-height: 2;
+  background: var(--search-bg-color);
+  color: var(--main-fg-color);
+}
+
+.search-page-form input:focus {
+  border-color: var(--link-color);
+  box-shadow: 0 0 2px var(--link-color);
+}
+
+.search-page-form button {
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  padding: 0 1em;
+  font-size: 1rem;
+  background: var(--search-bg-color);
+  color: var(--main-fg-color);
+  cursor: pointer;
+}
+
+.search-summary {
+  color: var(--subtle-color);
+}
+
+.search-page-results {
+  list-style: none;
+  padding: 0;
+}
+
+.search-result + .search-result {
+  margin-top: 1.5em;
+}
+
+.search-snippet {
+  margin: 0.25em 0 0;
+}
+
+.search-snippet mark {
+  background: none;
+  color: inherit;
+  font-weight: bold;
 }
 
 aside.toc > h3 {

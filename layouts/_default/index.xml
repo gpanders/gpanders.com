@@ -6,7 +6,7 @@
     <link>{{ .Permalink }}</link>
     <description>{{ .Site.Params.description }}</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>{{ .Site.LanguageCode }}</language>
+    <language>{{ .Site.Language.Locale }}</language>
     <managingEditor>{{ .Site.Params.Author.email }} ({{ .Site.Params.Author.name }})</managingEditor>
     <webMaster>{{ .Site.Params.Author.email }} ({{ .Site.Params.Author.name }})</webMaster>
     <copyright>{{ .Site.Copyright}}</copyright>

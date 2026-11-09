@@ -23,6 +23,7 @@
  *   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+
 'use strict';
 
 {{- $KEY_RETURN := 13 -}}
@@ -30,10 +31,10 @@
 {{- $KEY_UP     := 38 -}}
 {{- $KEY_DOWN   := 40 -}}
 
-{{ $searchData := resources.Get "js/search-data.tpl.js" | resources.ExecuteAsTemplate "js/search-data.js" . | minify | fingerprint }}
-
+// Search-as-you-type dropdown backed by the search Worker (src/index.ts).
+// Submitting the form without a selected result goes to the full results
+// page at /search/, which is also what happens when JavaScript is disabled.
 (() => {
-  const icon = document.querySelector('.search-icon > input');
   const form = document.querySelector('.search-form');
   const input = document.querySelector('.search-input > input');
   const results = document.querySelector('.search-results');
@@ -42,40 +43,32 @@
     return
   }
 
-  // The search icon acts as the submit button when Javascript is not enabled.
-  // However, when Javascript *is* enabled form submission is disabled in favor
-  // of selecting one of the search items directly. In order to avoid
-  // confusion, set the cursor style to 'default'.
-  icon.style.cursor = 'default';
+  const endpoint = '{{ "api/search" | relURL }}';
+  const debounceMs = 150;
 
-  let timer = undefined;
+  let blurTimer = undefined;
+  let debounceTimer = undefined;
+  let pending = undefined; // AbortController for the in-flight request
+
   form.addEventListener('submit', submit);
   form.addEventListener('keydown', navigate);
   form.addEventListener('blur', () => {
-    timer = setTimeout(() => clearResults(), 20);
+    blurTimer = setTimeout(() => clearResults(), 20);
   }, true);
-  form.addEventListener('focus', () => { if (timer) clearTimeout(timer); }, true);
+  form.addEventListener('focus', () => { if (blurTimer) clearTimeout(blurTimer); }, true);
 
-  input.addEventListener('focus', init);
-  input.addEventListener('keyup', search);
+  input.addEventListener('input', search);
+  input.addEventListener('focus', search);
 
   // Close search results on escape
   document.addEventListener('keyup', e => { if (e.keyCode === {{ $KEY_ESC }}) clearResults(); });
 
-  function init() {
-    input.removeEventListener('focus', init); // init once
-    input.required = true;
-
-    loadScript('{{ "js/flexsearch.min.js" | relURL }}');
-    loadScript('{{ $searchData.RelPermalink }}', function() {
-      input.required = false;
-      search();
-    });
-
-    input.addEventListener('focus', search);
-  }
-
   function clearResults() {
+    clearTimeout(debounceTimer);
+    if (pending) {
+      pending.abort();
+      pending = undefined;
+    }
     while (results.firstChild) {
       results.removeChild(results.firstChild);
     }
@@ -83,18 +76,17 @@
   }
 
   function submit(event) {
-    event.preventDefault();
     let selected = results.querySelector('li.selected');
     if (!selected) {
+      // No result picked: let the form submit to the full results page.
       return;
     }
 
-    let href = selected.querySelector('a').href;
-    window.location.href = href;
+    event.preventDefault();
+    window.location.href = selected.querySelector('a').href;
   }
 
   function select(event) {
-    let items = results.querySelectorAll('li');
     let selected = results.querySelector('li.selected');
     if (selected) {
       selected.classList.remove('selected');
@@ -140,24 +132,52 @@
     current.focus();
   }
 
-  function search(event) {
-    if (event && [{{ $KEY_UP }}, {{ $KEY_DOWN }}].includes(event.keyCode)) {
+  function search() {
+    clearTimeout(debounceTimer);
+
+    const query = input.value.trim();
+    if (!query) {
+      if (pending) {
+        pending.abort();
+      }
+      clearResults();
       return;
     }
 
-    clearResults();
+    debounceTimer = setTimeout(() => fetchResults(query), debounceMs);
+  }
 
-    if (!input.value) {
-      return;
+  async function fetchResults(query) {
+    if (pending) {
+      pending.abort();
     }
+    const controller = new AbortController();
+    pending = controller;
 
-    window.searchIndex.search(input.value, 10, hits => {
-      hits.forEach(hit => {
-        let li = createResultItem(hit);
-        results.appendChild(li);
+    try {
+      const response = await fetch(endpoint + '?q=' + encodeURIComponent(query), {
+        signal: controller.signal,
       });
-      results.style.display = '';
-    });
+      if (!response.ok || controller !== pending) {
+        return;
+      }
+      const data = await response.json();
+      if (controller !== pending) {
+        return;
+      }
+
+      clearResults();
+      data.results.forEach(hit => results.appendChild(createResultItem(hit)));
+      if (data.results.length) {
+        results.style.display = '';
+      }
+    } catch (e) {
+      // Aborted by a newer query, or a network error: keep what's shown.
+    } finally {
+      if (pending === controller) {
+        pending = undefined;
+      }
+    }
   }
 
   function createResultItem(page) {
@@ -173,23 +193,9 @@
 
     a.tabIndex = -1;
     a.href = page.href;
-    a.title = page.title;
+    a.title = page.snippet || page.title;
     a.textContent = page.title;
 
     return li;
-  }
-
-  /**
-   * @param {String} src
-   * @param {Function} callback
-   */
-  function loadScript(src, callback) {
-    const script = document.createElement('script');
-    script.defer = true;
-    script.async = false;
-    script.src = src;
-    script.onload = callback;
-
-    document.head.appendChild(script);
   }
 })();
