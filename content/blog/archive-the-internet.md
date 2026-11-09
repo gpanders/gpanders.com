@@ -1,7 +1,10 @@
 ---
 title: Archive the Internet
 date: 2020-02-07
-tags: [archive, go, pinboard]
+tags:
+  - archive
+  - go
+  - pinboard
 ---
 
 As the Internet continues to grow and age, we are seeing more and more of a

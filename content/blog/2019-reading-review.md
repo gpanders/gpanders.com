@@ -1,7 +1,9 @@
 ---
 title: 2019 Reading Review
 date: 2019-12-28
-tags: [reading review, books]
+tags:
+  - reading review
+  - books
 ---
 
 In 2019, I read 27 books. This was less than last year's 40 and is not an

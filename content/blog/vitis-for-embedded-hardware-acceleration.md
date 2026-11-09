@@ -1,7 +1,12 @@
 ---
 title: Using Xilinx Vitis for Embedded Hardware Acceleration
 date: 2020-02-12
-tags: [xilinx, fpga, vitis, hardware acceleration, embedded]
+tags:
+  - xilinx
+  - fpga
+  - vitis
+  - hardware acceleration
+  - embedded
 featured: true
 ---
 

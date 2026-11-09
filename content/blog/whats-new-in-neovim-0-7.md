@@ -1,7 +1,8 @@
 ---
 title: "What's New in Neovim 0.7"
 date: 2022-04-15T07:14:00-06:00
-tags: [neovim]
+tags:
+  - neovim
 ---
 
 Neovim 0.7 was just released, bringing with it lots of new features (and of

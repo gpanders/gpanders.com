@@ -1,7 +1,8 @@
 ---
 title: The Birthday Problem
 date: 2015-12-07
-tags: [probability]
+tags:
+  - probability
 featured: true
 ---
 

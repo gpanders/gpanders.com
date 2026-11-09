@@ -1,7 +1,9 @@
 ---
 title: "Managing Dotfiles With Git"
 date: 2020-05-01
-tags: [git, dotfiles]
+tags:
+  - git
+  - dotfiles
 ---
 
 Managing so-called "dotfiles" (config files starting with a `.` in your home

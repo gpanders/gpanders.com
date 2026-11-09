@@ -1,7 +1,10 @@
 ---
 title: "Building Site Search With Hugo"
 date: 2020-04-17T13:08:49-06:00
-tags: ["hugo", "search", "howto"]
+tags:
+  - hugo
+  - search
+  - howto
 featured: true
 ---
 

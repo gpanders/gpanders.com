@@ -1,7 +1,10 @@
 ---
 title: The definitive guide to using tmux-256color on macOS
 date: 2021-04-14
-tags: [tmux, macos, terminal]
+tags:
+  - tmux
+  - macos
+  - terminal
 ---
 
 **UPDATE**: macOS 14 (Sonoma) updated its bundled ncurses version to

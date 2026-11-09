@@ -1,7 +1,9 @@
 ---
 title: "Tutorial: Booting Linux on the ZCU102"
 date: 2019-02-13
-tags: [linux, xilinx]
+tags:
+  - linux
+  - xilinx
 ---
 
 This post contains a step-by-step walk through on booting Linux on Xilinx's

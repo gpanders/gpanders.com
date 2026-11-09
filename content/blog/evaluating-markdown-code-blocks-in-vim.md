@@ -1,7 +1,10 @@
 ---
 title: Evaluating Markdown Code Blocks in Vim
 date: 2019-08-12
-tags: [markdown, vim, medieval]
+tags:
+  - markdown
+  - vim
+  - medieval
 featured: true
 ---
 

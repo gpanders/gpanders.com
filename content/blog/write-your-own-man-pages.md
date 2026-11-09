@@ -1,7 +1,9 @@
 ---
 title: Write Your Own Man Pages
 date: 2019-07-29
-tags: [shell, ual]
+tags:
+  - shell
+  - ual
 ---
 
 This post was inspired by the tool [um](https://github.com/sinclairtarget/um).

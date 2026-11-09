@@ -1,7 +1,9 @@
 ---
 title: You Don't Want a Tax Refund
 date: 2020-02-13
-tags: [finance, taxes]
+tags:
+  - finance
+  - taxes
 ---
 
 Tax time is approaching and this year, like every year, it is common to hear

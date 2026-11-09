@@ -1,7 +1,9 @@
 ---
 title: Make Your Mac Clean Itself
 date: 2015-11-11
-tags: [macOS, pushbroom]
+tags:
+  - macOS
+  - pushbroom
 ---
 
 **Update (6/18/2019):** Since writing this post I have released a tool called

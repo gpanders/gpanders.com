@@ -1,7 +1,8 @@
 ---
 title: "What's New in Neovim 0.10"
 date: 2024-05-16
-tags: [neovim]
+tags:
+  - neovim
 ---
 
 Neovim 0.10 was the longest release cycle since the heady days of the 0.5

@@ -1,7 +1,9 @@
 ---
 title: "Caching LDAP Queries in Mutt"
 date: 2020-03-11
-tags: [mutt, ldap]
+tags:
+  - mutt
+  - ldap
 ---
 
 You can use the [`lbdb`](https://www.spinnaker.de/lbdb/) tool to query an LDAP

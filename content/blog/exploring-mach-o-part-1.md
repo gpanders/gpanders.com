@@ -1,7 +1,10 @@
 ---
 title: "Exploring Mach-O, Part 1"
 date: 2022-01-16T19:13:49-07:00
-tags: [mach-o, macos, zig]
+tags:
+  - mach-o
+  - macos
+  - zig
 ---
 
 *This is part 1 of a 4 part series exploring the structure of the Mach-O file

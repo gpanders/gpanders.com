@@ -1,7 +1,13 @@
 ---
 title: "Creating Your Own Git Server"
 date: 2020-03-18
-tags: [git, sourcehut, gitolite, gitea, gitlab, gitweb]
+tags:
+  - git
+  - sourcehut
+  - gitolite
+  - gitea
+  - gitlab
+  - gitweb
 featured: true
 ---
 
