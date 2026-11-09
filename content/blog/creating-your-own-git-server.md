@@ -3,7 +3,6 @@ title: "Creating Your Own Git Server"
 date: 2020-03-18
 tags:
   - git
-  - sourcehut
   - gitolite
   - gitea
   - gitlab
@@ -19,7 +18,7 @@ through the trouble of setting up your own server?
 <!--more-->
 
 After all, there are a wide array of excellent and free to use choices out
-there, such as GitHub, GitLab, and the up-and-coming [sourcehut][].
+there, such as GitHub or GitLab.
 
 One reason is ownership: in today's world of corporate surveillance, rampant
 privacy violations, and data breaches, there is something to be said of truly
@@ -35,8 +34,6 @@ what exists on it.
 Setting up a git server is actually relatively straight-forward. Almost all of
 the heavy lifting is done by git itself, but I will also introduce a few
 supplementary tools to handle things like access control and HTTP access.
-
-[sourcehut]: https://sr.ht
 
 ### Evaluating the choices
 

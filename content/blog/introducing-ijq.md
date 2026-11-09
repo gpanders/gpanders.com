@@ -28,9 +28,6 @@ Here's a quick video:
 
 [![asciicast](/media/ijq-asciicast.svg)](https://asciinema.org/a/396956)
 
-You can get `ijq` over on [sourcehut][].
-
 [jq]: https://stedolan.github.io/jq/
 [vim-jqplay]: https://github.com/bfrg/vim-jqplay
 [jqplay]: https://jqplay.org
-[sourcehut]: https://codeberg.org/gpanders/ijq/
