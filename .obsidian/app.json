@@ -1,0 +1,17 @@
+{
+  "userIgnoreFilters": [
+    "node_modules/",
+    "public/",
+    "resources",
+    "layouts/",
+    "assets/",
+    "src/",
+    "archetypes/"
+  ],
+  "useMarkdownLinks": true,
+  "newLinkFormat": "absolute",
+  "attachmentFolderPath": "static/media",
+  "autoPairBrackets": false,
+  "autoPairMarkdown": false,
+  "newFileLocation": "current"
+}
