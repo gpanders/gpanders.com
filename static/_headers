@@ -8,8 +8,3 @@
   Content-Type: application/xml; charset=utf-8
   X-Content-Type-Options: nosniff
   Cache-Control: max-age=3600
-
-/_admin/*
-  ! Content-Security-Policy
-  Content-Security-Policy: style-src 'self' 'unsafe-inline'; font-src 'self' https://cdn.jsdelivr.net; img-src 'self' blob: data: https://*.githubusercontent.com; media-src blob:; frame-src blob:; script-src 'self' https://unpkg.com; connect-src 'self' blob: data: https://unpkg.com https://api.github.com https://www.githubstatus.com https://api.cloudflare.com; manifest-src blob:;
-  X-Robots-Tag: noindex

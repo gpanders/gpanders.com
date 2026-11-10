@@ -9,10 +9,8 @@ timeZone = "UTC"
 
 [taxonomies]
 
-# Content is plain Markdown so it round-trips through the CMS. Render hooks in
-# layouts/_default/_markup handle figures, videos, links, and math.
 [markup.goldmark.renderer]
-unsafe = true # allow inline HTML, e.g. colored <span>s in state-of-the-terminal
+unsafe = true # allow inline HTML
 
 [markup.goldmark.parser]
 wrapStandAloneImageWithinParagraph = false
@@ -53,12 +51,3 @@ weight = 2
 name = "About"
 url = "/about"
 weight = 3
-
-[module]
-[[module.mounts]]
-source = "static"
-target = "static"
-[[module.mounts]]
-source = "node_modules/@sveltia/cms/dist"
-target = "static/_admin"
-files = ["sveltia-cms.js"]
